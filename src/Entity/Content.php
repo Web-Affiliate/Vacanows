@@ -119,9 +119,6 @@ class Content
     #[ORM\Column(length: 255)]
     private ?string $titre_new_recommandation = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $paragraph_11 = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $instagram_link = null;
 
@@ -556,18 +553,6 @@ class Content
         return $this;
     }
 
-    public function getParagraph11(): ?string
-    {
-        return $this->paragraph_11;
-    }
-
-    public function setParagraph11(string $paragraph_11): static
-    {
-        $this->paragraph_11 = $paragraph_11;
-
-        return $this;
-    }
-
     public function getInstagramLink(): ?string
     {
         return $this->instagram_link;
@@ -603,4 +588,5 @@ class Content
 
         return $this;
     }
+
 }

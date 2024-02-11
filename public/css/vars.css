@@ -1,8 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
 
+/* font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+/* vars.css */
 :root {
-    primary: #E76F51;
-    white: #FFFFFF;
-    black: #000000;
-    secondary: #B04F08;
+    --primary: #E76F51;
+    --white: #FFFFFF;
+    --black: #000000;
+    --secondary: #B04F08;
+    --text: #8A8A8A;
 }
+

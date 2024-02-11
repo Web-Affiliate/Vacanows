@@ -1,9 +1,28 @@
 {% extends 'site/base.html.twig' %}
 
 {% block main %}
-    <div class="container">
-        <h1 class="display-4">Bienvenue sur la page d'accueil !</h1>
-        <p class="lead">Ceci est une page de test avec Bootstrap.</p>
-        <button type="button" class="btn btn-primary">Bouton Bootstrap</button>
+
+
+{% if content is not null and image_header is not null %}
+    <div class="banner-container banner">
+        <img src="{{ asset('uploads/images/' ~ image_header) }}" alt="Bannière" class="w-100">
+        <div class="text-container">
+            <h1 class="titre-header">{{ titre_header|striptags|raw }}</h1>
+            <p class="paragraph-header">{{ paragraph_header|striptags|raw }}</p>
+        </div>
+        <div class="searchbar-container">
+            <form action="#" method="get">
+                <input type="text" name="search" id="search" placeholder="{{ placeholder_search }}" class="form-control">
+            </form>
+        </div>
+    </div>
+{% endif %}
+    <div class="container section-1">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="titre-section">{{ titre_1|striptags|raw }}</h2>
+                <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>
+            </div>
+        </div>
     </div>
 {% endblock %}

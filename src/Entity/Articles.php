@@ -94,6 +94,10 @@ class Articles
     #[ORM\JoinColumn(nullable: false)]
     private ?Sites $sites = null;
 
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Guides $guides = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -407,6 +411,18 @@ class Articles
     public function setTabColUrl3(string $tab_col_url_3): static
     {
         $this->tab_col_url_3 = $tab_col_url_3;
+
+        return $this;
+    }
+
+    public function getGuides(): ?Guides
+    {
+        return $this->guides;
+    }
+
+    public function setGuides(?Guides $guides): static
+    {
+        $this->guides = $guides;
 
         return $this;
     }
