@@ -6,14 +6,19 @@
     <title>{% block title %}Vacanows{% endblock %}</title>
 
     {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('build/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/articles.css') }}">
     {% endblock %}
 </head>
 <body>
-    {% include '/site/partials/_header.html.twig' %}
+    {% include 'site/partials/_header.html.twig' %}
     {% block main %}
     {% endblock %}
 
     {% block javascripts %}
+        <script src="{{ asset('build/bootstrap.js') }}"></script>
+        <script src="{{ asset('build/app.js') }}"></script>
     {% endblock %}
 </body>
 </html>
