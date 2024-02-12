@@ -21,16 +21,16 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
+        $navbar = [];
+        for($i=1; $i<=5; $i++){
+            $navbar[] = $content->{"getNavbar$i"}();
+        }
 
         $data = [
             'content' => $content,
+            'navbar' => $navbar,
             'image_header' => $content->getImageHeader(),
             'logo' => $content->getLogo(),
-            'navbar_1' => $content->getNavbar1(),
-            'navbar_2' => $content->getNavbar2(),
-            'navbar_3' => $content->getNavbar3(),
-            'navbar_4' => $content->getNavbar4(),
-            'navbar_5' => $content->getNavbar5(),
             'titre_header' => $content->getTitreHeader(),
             'paragraph_header' => $content->getParagraphHeader(),
             'placeholder_search' => $content->getPlaceholderSearch(),
