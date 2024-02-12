@@ -25,4 +25,58 @@
             </div>
         </div>
     </div>
+    <div class="container section-2">
+        <div class="row">
+            <div class="col-12">
+                <img src="{{ asset('uploads/images/' ~ image_1) }}" alt="Image 1" class="w-100">
+                <h2 class="titre-section">{{ titre_2|striptags|raw }}</h2>
+                <p class="paragraph-section">{{ paragraph_2|striptags|raw }}</p>
+                <a href="#" class="btn btn-primary">{{ bouton_1 }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="container section-3">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="titre-section">{{ titre_3|striptags|raw }}</h2>
+                <p class="paragraph-section">{{ paragraph_3|striptags|raw }}</p>
+                <h3 class="sous-titre">{{ sous_titre_1|striptags|raw }}</h3>
+                <p class="paragraph-section">{{ paragraph_4|striptags|raw }}</p>
+                <h3 class="sous-titre">{{ sous_titre_2|striptags|raw }}</h3>
+                <p class="paragraph-section">{{ paragraph_5|striptags|raw }}</p>
+                <h3 class="sous-titre">{{ sous_titre_3|striptags|raw }}</h3>
+                <p class="paragraph-section">{{ paragraph_6|striptags|raw }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container section-4 articles">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="titre-reco">{{ titre_recommandation|striptags|raw }}</h2>
+
+            </div>
+        </div>
+    </div>
+    <div class="container section-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="titre-section">{{ titre_4|striptags|raw }}</h2>
+                <p class="paragraph-section">{{ paragraph_7|striptags|raw }}</p>
+                <h3 class="sous-titre">{{ sous_titre_4|striptags|raw }}</h3>
+                <p class="paragraph-section">{{ paragraph_8|striptags|raw }}</p>
+                <h3 class="sous-titre">{{ sous_titre_5|striptags|raw }}</h3>
+                <p class="paragraph-section">{{ paragraph_9|striptags|raw }}</p>
+                <h3 class="sous-titre">{{ sous_titre_6|striptags|raw }}</h3>
+                <p class="paragraph-section">{{ paragraph_10|striptags|raw }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container section-6">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
