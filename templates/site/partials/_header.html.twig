@@ -3,14 +3,14 @@
         {% if content is not null %}
             <a class="navbar-brand mx-5" href="{{ path('home') }}">
                 {% if content.getLogo() is not null %}
-                    <img src="{{ asset('uploads/images/' ~ content.getLogo()) }}" alt="logo" width="70" height="70">
+                    <img src="{{ asset('uploads/images/' ~ content.getLogo()) }}" alt="logo" width="80" height="80">
                 {% endif %}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <div class="collapse navbar-collapse  navbar-container" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
                     {% for navbar in navbar %}
                         <li class="nav-item">
                             <a class="nav-link" href="#">{{ navbar }}</a>
@@ -22,3 +22,14 @@
         {% endif %}
     </div>
 </nav>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.navbar-nav .nav-link').on('click', function() {
+            $('.navbar-nav .nav-link').removeClass('activenav');
+            $(this).addClass('activenav');
+        });
+    });
+</script>
+

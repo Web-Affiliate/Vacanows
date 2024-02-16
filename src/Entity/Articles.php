@@ -98,6 +98,9 @@ class Articles
     #[ORM\JoinColumn(nullable: false)]
     private ?Guides $guides = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $meta = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -423,6 +426,18 @@ class Articles
     public function setGuides(?Guides $guides): static
     {
         $this->guides = $guides;
+
+        return $this;
+    }
+
+    public function getMeta(): ?string
+    {
+        return $this->meta;
+    }
+
+    public function setMeta(string $meta): static
+    {
+        $this->meta = $meta;
 
         return $this;
     }

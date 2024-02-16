@@ -10,5 +10,11 @@
     --black: #000000;
     --secondary: #B04F08;
     --text: #8A8A8A;
+    --background-articles: #f9f9f9;
+
+    /* HOVER */
+
+    --secondaryHover: #b95d1c;
+
 }
 

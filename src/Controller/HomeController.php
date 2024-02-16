@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Content;
+use App\ENtity\Articles;
+use App\Entity\SousCategories1;
+use App\Entity\Categories;
 
 class HomeController extends AbstractController
 {
@@ -21,6 +24,13 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
+
+           $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
+
+        $lastSousCategories = $this->entityManager->getRepository(SousCategories1::class)->findBy([], ['id' => 'DESC'], 3);
+
+        $lastCategories = $this->entityManager->getRepository(Categories::class)->findBy([], ['id' => 'DESC'], 4);
+
         $navbar = [];
         for($i=1; $i<=5; $i++){
             $navbar[] = $content->{"getNavbar$i"}();
@@ -29,7 +39,11 @@ class HomeController extends AbstractController
         $data = [
             'content' => $content,
             'navbar' => $navbar,
+            'lastSousCategories' => $lastSousCategories,
+            'lastCategories' => $lastCategories,
+            'lastArticles' => $lastArticles,
             'image_header' => $content->getImageHeader(),
+            'meta' => $content->getMeta(),
             'logo' => $content->getLogo(),
             'titre_header' => $content->getTitreHeader(),
             'paragraph_header' => $content->getParagraphHeader(),

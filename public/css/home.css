@@ -1,4 +1,5 @@
 @import "./vars.css";
+@import "./mixin.css";
 
 * {
     margin: 0;
@@ -11,19 +12,23 @@
 
 .container-nav{
     align-items: center;
-    padding: 20px;
+    padding: 30px;
+}
+
+.container-global{
+    width: 100%;
 
 }
 .navbar-nav {
     display: flex;
     list-style: none;
-    margin: 0;
+    margin: 0 80px;
     padding: 0;
     flex-direction: row;
 }
 
 .nav-item {
-    margin-right: 40px;
+    padding-right: 40px;
 }
 
 .titre-navbar {
@@ -33,26 +38,48 @@
 
 .navbar-nav a {
     color: var(--primary);
+    font-size: 16px;
+    background: linear-gradient(to top, var(--primary) 0%, var(--primary) 1px, transparent 2px) no-repeat;
+    background-size: 0% 100%;
+    transition: background-size .3s;
+    padding-bottom: 3px;
+    padding-top: 3px;
 }
 
 .navbar-nav a:hover {
     color: var(--secondary);
+    background-size: 100% 100%;
 }
 
 .contact-button{
     background-color: var(--secondary);
     color: var(--white) !important;
     border: none;
-    padding: 10px 20px;
+    padding: 13px 23px;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
-    padding: 10px 30px;
+    padding: 11px 21px;
 }
 
 .contact-button:hover{
-    background-color: var(--secondary);
+    background-color: var(--secondaryHover);
     color: var(--white);
+}
+
+.contact-button:active{
+    background-color: var(--secondary) !important;
+}
+
+.navbar-container{
+    align-items: center;
+    /* margin-left: 60vh; */
+    justify-content: center;
+}
+
+.activenav{
+    border-bottom: 1px solid var(--primary);
+    background-size: 100% 100% !important;
 }
 
 /* HEADER */
@@ -73,38 +100,59 @@
 .text-container{
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 38%;
     transform: translate(-50%, -50%);
 }
 
 .titre-header{
-    font-size: 50px;
+    font-size: 84px;
     font-weight: 700;
     color: var(--white);
 }
 
 .paragraph-header{
-    font-size: 20px;
+    font-size: 16px;
     color: var(--white);
-    margin-top: 20px;
-
+    margin:50px 0 180px 0;
 }
 
 .searchbar-container{
     position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -230px);
     width: 500px;
 }
 
 .searchbar-container input{
     width: 100%;
-    padding: 15px 20px;
     border: none;
-    border-radius: 30px;
-    font-size: 15px;
+    border-radius: 25px;
+    font-size: 20px;
     margin-right: 20px;
+    padding: 20px;
+}
+
+.searchbar-container input::placeholder{
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 400;
+    /* centre le verticalement*/
+    vertical-align: middle;
+}
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 /* SECTION 1 */
@@ -113,9 +161,10 @@
 }
 
 .titre-section{
-    font-size: 30px;
+    font-size: 38px;
     font-weight: 700;
     color: var(--primary);
+    margin-bottom: 35px;
 }
 
 .titre-reco{
@@ -125,7 +174,328 @@
 }
 
 .paragraph-section{
-    font-size: 20px;
+    font-size: 16px;
     color: var(--text);
     margin-top: 20px;
+}
+
+/* SECTION 2 */
+
+.section-2{
+    padding: 100px 0 150px 0;
+}
+
+.section2Flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image1{
+    width: 90vh;
+    flex-shrink: 0;
+}
+
+.text-container-section2{
+    width: 600px;
+    margin: 0 auto 0 200px;
+}
+
+.titre-section2{
+    color: var(--black);
+}
+
+.paragraph-section2{
+    margin-bottom: 50px;
+}
+
+.container-section2Text{
+    max-width: 600px;
+}
+
+.bouton1{
+    background-color: var(--secondary);
+    color: var(--white);
+    padding: 15px 25px;
+    font-weight: 600;
+}
+
+.bouton1:hover{
+    background-color: var(--secondaryHover);
+    color: var(--white);
+}
+
+.bouton1:active{
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
+}
+
+/* SECTION 3 */
+
+.section-3{
+    padding: 50px 0 100px 0;
+}
+
+.titre-section3{
+    margin-bottom: 35px;
+}
+
+.paragraph-section3{
+    margin-bottom: 40px;
+
+}
+
+.sous-titre{
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 25px;
+}
+
+/* SECTION 4 */
+.reco {
+    background-color: var(--background-articles);
+    border-radius: 25px;
+    padding: 25px 65px 25px 65px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 150px;
+}
+
+
+.card {
+    border-radius: 25px;
+    margin-bottom: 20px;
+    border:none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card:hover{
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.titre-reco {
+    color: var(--black);
+    text-align: center;
+    margin-top: 0;
+    padding: 50px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 25px 25px 0 0;
+}
+
+
+.card-title {
+    color: var(--black);
+    font-weight: bold;
+    padding: 20px 20px 0 20px;
+    font-weight: 600;
+}
+
+.card-text {
+    color: var(--text);
+    padding: 0 20px 20px 20px;
+}
+
+.bouton2{
+    display: block;
+    background-color: var(--secondary);
+    color: var(--white);
+    padding: 15px 25px;
+    font-weight: 600;
+    margin: 50px auto 50px auto;
+    max-width: 200px;
+}
+
+.bouton2:hover{
+    background-color: var(--secondaryHover);
+    color: var(--white);
+}
+
+.bouton2:active{
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
+}
+
+/* SECTION 5 */
+
+.section-5{
+    padding: 50px 0 100px 0;
+}
+
+.titre-section5{
+    margin-bottom: 35px;
+}
+
+.paragraph-section-5{
+    margin-bottom: 40px;
+}
+
+.sous-titre2{
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 25px;
+}
+
+/* SECTION 6 */
+
+.card2 {
+    border-radius: 25px;
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card2:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.bouton2 {
+    display: block;
+    background-color: var(--secondary);
+    color: var(--white);
+    padding: 15px 25px;
+    font-weight: 600;
+    margin: 50px auto 50px auto;
+    max-width: 200px;
+}
+
+.card-title2 {
+    color: var(--black);
+    font-weight: bold;
+    padding: 20px 20px 35px 20px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.bouton2:hover {
+    background-color: var(--secondaryHover);
+    color: var(--white);
+}
+
+.bouton2:active {
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
+}
+
+/* SECTION 7 */
+
+.titre-dernier-articles{
+color: var(--black);
+padding: 40px 40px 40px 0;
+font-size: 26px;
+margin-bottom: 50px;
+
+}
+
+.card3{
+    background-color: var(--background-articles);
+    text-decoration: none;
+}
+
+.titre-voyage {
+    color: var(--primary);
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.titre-article {
+    color: var(--black);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.date-article {
+    color: var(--text);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.card-img {
+    border-radius: 40px;
+    padding: 20px;
+}
+
+.container-title-section7{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 50px;
+}
+
+.titre-sec7{
+    margin-bottom: 15px;
+    max-width: 500px;
+    /* pas de decoration de soulignement*/
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+
+    .paragraph-header{
+        margin: 50px 0 100px 0;
+    }
+
+    .paragraph-section{
+        text-align: center;
+    }
+
+    .titre-section{
+        text-align: center;
+    }
+
+    .sous-titre{
+        text-align: center;
+    }
+
+    .bouton1{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 200px;
+    }
+
+    .titre-reco{
+        padding: 0;
+        margin: 40px 0;
+    }
+
+    .card-title2{
+        text-align: center;
+    }
+
+    .reco{
+        margin-bottom: 50px;
+        padding: 25px;
+    }
+
+    .titre-dernier-articles{
+        padding: 40px 20px 0px 0;
+        text-align: center;
+    }
+
+    .section-1{
+        padding: 0
+    }
+
+    .section-2{
+        padding: 100px 0 70px 0;
+    }
+
+    .container-bouton1{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    }
 }

@@ -2,10 +2,10 @@
 
 {% block main %}
 
-
+<div class="container-global">
 {% if content is not null and image_header is not null %}
     <div class="banner-container banner">
-        <img src="{{ asset('uploads/images/' ~ image_header) }}" alt="Bannière" class="w-100">
+        <img src="{{ asset('uploads/images/' ~ image_header) }}" alt="Bannière" class="img-fluid w-100">
         <div class="text-container">
             <h1 class="titre-header">{{ titre_header|striptags|raw }}</h1>
             <p class="paragraph-header">{{ paragraph_header|striptags|raw }}</p>
@@ -13,69 +13,143 @@
         <div class="searchbar-container">
             <form action="#" method="get">
                 <input type="text" name="search" id="search" placeholder="{{ placeholder_search }}" class="form-control">
+                <div class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 17 17" fill="none">
+                        <path d="M16.8207 15.96L12.3292 11.4745C13.4868 10.0967 14.0677 8.32507 13.9508 6.52929C13.834 4.7335 13.0283 3.05217 11.7019 1.83598C10.3754 0.619792 8.63069 -0.0373426 6.83153 0.00164032C5.03236 0.0406232 3.31771 0.772713 2.04521 2.04521C0.772713 3.31771 0.0406232 5.03236 0.00164032 6.83153C-0.0373426 8.63069 0.619792 10.3754 1.83598 11.7019C3.05217 13.0283 4.7335 13.834 6.52929 13.9508C8.32507 14.0677 10.0967 13.4868 11.4745 12.3292L15.96 16.8207C16.0163 16.8775 16.0834 16.9226 16.1572 16.9534C16.2311 16.9842 16.3103 17 16.3903 17C16.4704 17 16.5496 16.9842 16.6234 16.9534C16.6973 16.9226 16.7644 16.8775 16.8207 16.8207C16.8775 16.7644 16.9226 16.6973 16.9534 16.6234C16.9842 16.5496 17 16.4704 17 16.3903C17 16.3103 16.9842 16.2311 16.9534 16.1572C16.9226 16.0834 16.8775 16.0163 16.8207 15.96ZM1.23672 6.9951C1.23672 5.8562 1.57444 4.74288 2.20718 3.79592C2.83992 2.84896 3.73926 2.11089 4.79146 1.67505C5.84367 1.23921 7.00148 1.12518 8.1185 1.34737C9.23552 1.56956 10.2616 2.11799 11.0669 2.92331C11.8722 3.72863 12.4206 4.75468 12.6428 5.87169C12.865 6.98871 12.751 8.14653 12.3151 9.19873C11.8793 10.2509 11.1412 11.1503 10.1943 11.783C9.24732 12.4157 8.134 12.7535 6.9951 12.7535C5.46837 12.7519 4.00464 12.1447 2.92508 11.0651C1.84553 9.98555 1.23833 8.52182 1.23672 6.9951Z" fill="white"/>
+                    </svg>
+                </div>
             </form>
         </div>
     </div>
 {% endif %}
-    <div class="container section-1">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="titre-section">{{ titre_1|striptags|raw }}</h2>
-                <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>
-            </div>
+<div class="container section-1">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="titre-section">{{ titre_1|striptags|raw }}</h2>
+            <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>
         </div>
     </div>
-    <div class="container section-2">
-        <div class="row">
-            <div class="col-12">
-                <img src="{{ asset('uploads/images/' ~ image_1) }}" alt="Image 1" class="w-100">
-                <h2 class="titre-section">{{ titre_2|striptags|raw }}</h2>
-                <p class="paragraph-section">{{ paragraph_2|striptags|raw }}</p>
-                <a href="#" class="btn btn-primary">{{ bouton_1 }}</a>
-            </div>
-        </div>
-    </div>
-    <div class="container section-3">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="titre-section">{{ titre_3|striptags|raw }}</h2>
-                <p class="paragraph-section">{{ paragraph_3|striptags|raw }}</p>
-                <h3 class="sous-titre">{{ sous_titre_1|striptags|raw }}</h3>
-                <p class="paragraph-section">{{ paragraph_4|striptags|raw }}</p>
-                <h3 class="sous-titre">{{ sous_titre_2|striptags|raw }}</h3>
-                <p class="paragraph-section">{{ paragraph_5|striptags|raw }}</p>
-                <h3 class="sous-titre">{{ sous_titre_3|striptags|raw }}</h3>
-                <p class="paragraph-section">{{ paragraph_6|striptags|raw }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="container section-4 articles">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="titre-reco">{{ titre_recommandation|striptags|raw }}</h2>
-            </div>
-        </div>
-    </div>
-    <div class="container section-5">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="titre-section">{{ titre_4|striptags|raw }}</h2>
-                <p class="paragraph-section">{{ paragraph_7|striptags|raw }}</p>
-                <h3 class="sous-titre">{{ sous_titre_4|striptags|raw }}</h3>
-                <p class="paragraph-section">{{ paragraph_8|striptags|raw }}</p>
-                <h3 class="sous-titre">{{ sous_titre_5|striptags|raw }}</h3>
-                <p class="paragraph-section">{{ paragraph_9|striptags|raw }}</p>
-                <h3 class="sous-titre">{{ sous_titre_6|striptags|raw }}</h3>
-                <p class="paragraph-section">{{ paragraph_10|striptags|raw }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="container section-6">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
-            </div>
-        </div>
-    </div>
+</div>
 
+<div class="section-2">
+    <div>
+        <div class="row">
+            <div class="col-12 col-md-6 ">
+                <img src="{{ asset('uploads/images/' ~ image_1) }}" alt="image1" class="img-fluid">
+            </div>
+            <div class="col-12 col-md-6 align-self-center container-section2Text">
+                <h2 class="titre-section titre-section2">{{ titre_2|striptags|raw }}</h2>
+                <p class="paragraph-section paragraph-section2">{{ paragraph_2|striptags|raw }}</p>
+                    <div class="col-12 container-bouton1">
+                    <a href="#" class="btn bouton1">{{ bouton_1 }}</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container section-3">
+    <div class="row">
+        <div class="col-12 ">
+            <h2 class="titre-section titre-section3">{{ titre_3|striptags|raw }}</h2>
+            <p class="paragraph-section paragraph-section3">{{ paragraph_3|striptags|raw }}</p>
+            <h3 class="sous-titre">{{ sous_titre_1|striptags|raw }}</h3>
+            <p class="paragraph-section paragraph-section3">{{ paragraph_4|striptags|raw }}</p>
+            <h3 class="sous-titre">{{ sous_titre_2|striptags|raw }}</h3>
+            <p class="paragraph-section paragraph-section3">{{ paragraph_5|striptags|raw }}</p>
+            <h3 class="sous-titre">{{ sous_titre_3|striptags|raw }}</h3>
+            <p class="paragraph-section paragraph-section3">{{ paragraph_6|striptags|raw }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="container section-4 reco">
+    <div class="row">
+        <div class="col-12 ">
+            <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
+        </div>
+        {% for sousCategorie in lastSousCategories %}
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <img src="{{ asset('uploads/images/' ~ sousCategorie.image) }}" class="card-img-top" alt="Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sousCategorie.getNom() }}</h5>
+                        <p class="card-text">2 articles</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-12 ">
+            <a href="#" class="btn bouton1 bouton2">{{ bouton_1 }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="container section-5">
+    <div class="row">
+        <div class="col-12 ">
+            <h2 class="titre-section titre-section5">{{ titre_4|striptags|raw }}</h2>
+            <p class="paragraph-section paragraph-section-5">{{ paragraph_7|striptags|raw }}</p>
+            <h3 class="sous-titre sous-titre2">{{ sous_titre_4|striptags|raw }}</h3>
+            <p class="paragraph-section paragraph-section-5">{{ paragraph_8|striptags|raw }}</p>
+            <h3 class="sous-titre sous-titre2">{{ sous_titre_5|striptags|raw }}</h3>
+            <p class="paragraph-section paragraph-section-5">{{ paragraph_9|striptags|raw }}</p>
+            <h3 class="sous-titre sous-titre2">{{ sous_titre_6|striptags|raw }}</h3>
+            <p class="paragraph-section paragraph-section-5">{{ paragraph_10|striptags|raw }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="container section-6 reco">
+    <div class="row">
+        <div class="col-12 ">
+            <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
+        </div>
+        {% for categorie in lastCategories %}
+            <div class="col-12 col-md-3">
+                <div class="card2">
+                    <img src="{{ asset('uploads/images/' ~ categorie.image) }}" class="card-img-top" alt="Image">
+                    <div class="card-body">
+                        <h5 class="card-title2">{{ categorie.getNom() }}</h5>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-12 ">
+            <a href="#" class="btn bouton1 bouton2">{{ bouton_1 }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="container section-7">
+    <div class="row">
+        <div class="col-12r">
+            <h2 class="titre-dernier-articles"><strong>Derniers articles</strong></h2>
+        </div>
+
+{% for article in lastArticles %}
+    <div class="col-12">
+        <a href="{{ path('article_show', {'slug': article.getSlug()}) }}" class="card card3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img fixed-image" alt="Image">
+                </div>
+                <div class="col-md-8 container-title-section7">
+                    <h3 class="titre-voyage titre-sec7">Voyage à {{ article.getSousCategories2() }}</h3>
+                    <h4 class="titre-article titre-sec7">{{ article.getTitre1() }}</h4>
+                    <p class="date-article titre-sec7">{{ article.getCreatedDate()|date('d/m/Y') }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+
+
+        <div class="col-12 ">
+            <a href="#" class="btn bouton1 bouton2">Découvrir plus</a>
+        </div>
+
+    </div>
+</div>
+</div>
 {% endblock %}

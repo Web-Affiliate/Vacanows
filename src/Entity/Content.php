@@ -128,6 +128,9 @@ class Content
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $facebook_link = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $meta = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -585,6 +588,18 @@ class Content
     public function setFacebookLink(?string $facebook_link): static
     {
         $this->facebook_link = $facebook_link;
+
+        return $this;
+    }
+
+    public function getMeta(): ?string
+    {
+        return $this->meta;
+    }
+
+    public function setMeta(string $meta): static
+    {
+        $this->meta = $meta;
 
         return $this;
     }
