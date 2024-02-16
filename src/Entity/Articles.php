@@ -30,7 +30,7 @@ class Articles
     #[ORM\Column(type: Types::TEXT)]
     private ?int $temps_lecture = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_1 = null;
 
     #[ORM\Column(length: 255)]
@@ -39,19 +39,19 @@ class Articles
     #[ORM\Column(length: 255)]
     private ?string $titre_2 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_2 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $titre_3 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_3 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $titre_4 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_4 = null;
 
     #[ORM\Column(length: 255, nullable: true)]

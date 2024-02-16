@@ -41,7 +41,7 @@ class Content
     #[ORM\Column(length: 255)]
     private ?string $titre_header = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_header = null;
 
     #[ORM\Column(length: 255)]
@@ -50,7 +50,7 @@ class Content
     #[ORM\Column(length: 255)]
     private ?string $titre_1 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_1 = null;
 
     #[ORM\Column(length: 255)]
@@ -59,7 +59,7 @@ class Content
     #[ORM\Column(length: 255)]
     private ?string $titre_2 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_2 = null;
 
     #[ORM\Column(length: 255)]
@@ -68,25 +68,25 @@ class Content
     #[ORM\Column(length: 255)]
     private ?string $titre_3 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_3 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $sous_titre_1 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_4 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $sous_titre_2 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_5 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $sous_titre_3 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_6 = null;
 
     #[ORM\Column(length: 255)]
@@ -95,25 +95,25 @@ class Content
     #[ORM\Column(length: 255)]
     private ?string $titre_4 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_7 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $sous_titre_4 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_8 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $sous_titre_5 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_9 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $sous_titre_6 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $paragraph_10 = null;
 
     #[ORM\Column(length: 255)]
@@ -128,8 +128,20 @@ class Content
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $facebook_link = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $meta = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image_header2 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image_header3 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image_header4 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image_1_no_border = null;
 
     public function getId(): ?int
     {
@@ -600,6 +612,54 @@ class Content
     public function setMeta(string $meta): static
     {
         $this->meta = $meta;
+
+        return $this;
+    }
+
+    public function getImageHeader2(): ?string
+    {
+        return $this->image_header2;
+    }
+
+    public function setImageHeader2(string $image_header2): static
+    {
+        $this->image_header2 = $image_header2;
+
+        return $this;
+    }
+
+    public function getImageHeader3(): ?string
+    {
+        return $this->image_header3;
+    }
+
+    public function setImageHeader3(string $image_header3): static
+    {
+        $this->image_header3 = $image_header3;
+
+        return $this;
+    }
+
+    public function getImageHeader4(): ?string
+    {
+        return $this->image_header4;
+    }
+
+    public function setImageHeader4(string $image_header4): static
+    {
+        $this->image_header4 = $image_header4;
+
+        return $this;
+    }
+
+    public function getImage1NoBorder(): ?string
+    {
+        return $this->image_1_no_border;
+    }
+
+    public function setImage1NoBorder(string $image_1_no_border): static
+    {
+        $this->image_1_no_border = $image_1_no_border;
 
         return $this;
     }
