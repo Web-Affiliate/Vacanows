@@ -43,7 +43,7 @@ class ArticleController extends AbstractController
             'created_date' => $article->getCreatedDate(),
             'temps_lecture' => $article->getTempsLecture(),
             'paragraph_1' => $article->getParagraph1(),
-            'image_1' => $article->getImage1(),
+            'image' => $article->getImage1(),
             'titre_2' => $article->getTitre2(),
             'paragraph_2' => $article->getParagraph2(),
             'titre_3' => $article->getTitre3(),

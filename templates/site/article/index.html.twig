@@ -4,4 +4,37 @@
 
 {% block main %}
 
+<div class="container-global">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="titre-section">{{ titre_1 }}</h1>
+            <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>
+            <div class="temps-lecture">
+                <p>Lecture : {{ temps_lecture }} minutes</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <img src="{{ asset('uploads/images/' ~ image) }}" alt="{{ slug|capitalize }}" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="titre-section">{{ titre_2 }}</h2>
+            <p class="paragraph-section">{{ paragraph_2|striptags|raw }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="titre-section">{{ titre_3 }}</h3>
+            <p class="paragraph-section">{{ paragraph_3|striptags|raw }}</p>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}

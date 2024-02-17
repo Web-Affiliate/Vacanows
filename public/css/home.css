@@ -441,6 +441,10 @@ margin-bottom: 50px;
     text-decoration: none;
 }
 
+.image-no-border{
+    display: none;
+}
+
 @media (max-width: 768px) {
 
     .paragraph-header{
@@ -449,6 +453,9 @@ margin-bottom: 50px;
 
     .paragraph-section{
         text-align: center;
+        max-width: 500px;
+        margin: auto;
+        line-height: 2;
     }
 
     .titre-section{
@@ -457,6 +464,7 @@ margin-bottom: 50px;
 
     .sous-titre{
         text-align: center;
+        margin-top: 90px;
     }
 
     .bouton1{
@@ -497,5 +505,13 @@ margin-bottom: 50px;
     align-items: center;
     display: flex;
     justify-content: center;
+    }
+
+    .image-no-border{
+        display: block;
+    }
+
+    .image-1{
+        display: none;
     }
 }

@@ -27,9 +27,25 @@ class HomeController extends AbstractController
 
            $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
 
-        $lastSousCategories = $this->entityManager->getRepository(SousCategories1::class)->findBy([], ['id' => 'DESC'], 3);
+           $lastCategories = $this->entityManager->getRepository(Categories::class)->findCategoriesWithSubcategories(3);
 
-        $lastCategories = $this->entityManager->getRepository(Categories::class)->findBy([], ['id' => 'DESC'], 4);
+        $lastSousCategories = [];
+
+        foreach ($lastCategories as $category) {
+            $lastSousCategory = $this->entityManager->getRepository(SousCategories1::class)->findOneBy(['categories' => $category], ['id' => 'DESC']);
+
+            if ($lastSousCategory) {
+                $lastSousCategories[] = $lastSousCategory;
+            }
+        }
+
+
+           $allCategories = $this->entityManager->getRepository(Categories::class)->findAll();
+
+           shuffle($allCategories);
+
+           $randomCategories = array_slice($allCategories, 0, 4);
+
 
         $navbar = [];
         for($i=1; $i<=5; $i++){
@@ -40,9 +56,12 @@ class HomeController extends AbstractController
             'content' => $content,
             'navbar' => $navbar,
             'lastSousCategories' => $lastSousCategories,
-            'lastCategories' => $lastCategories,
+            'randomCategories' => $randomCategories,
             'lastArticles' => $lastArticles,
             'image_header' => $content->getImageHeader(),
+            'image_header2' => $content->getImageHeader2(),
+            'image_header3' => $content->getImageHeader3(),
+            'image_header4' => $content->getImageHeader4(),
             'meta' => $content->getMeta(),
             'logo' => $content->getLogo(),
             'titre_header' => $content->getTitreHeader(),
@@ -51,6 +70,7 @@ class HomeController extends AbstractController
             'titre_1' => $content->getTitre1(),
             'paragraph_1' => $content->getParagraph1(),
             'image_1' => $content->getImage1(),
+            'image_1_no_border' => $content->getImage1NoBorder(),
             'titre_2' => $content->getTitre2(),
             'paragraph_2' => $content->getParagraph2(),
             'bouton_1' => $content->getBouton1(),
@@ -65,12 +85,6 @@ class HomeController extends AbstractController
             'titre_recommandation' => $content->getTitreRecommandation(),
             'titre_4' => $content->getTitre4(),
             'paragraph_7' => $content->getParagraph7(),
-            'sous_titre_4' => $content->getSousTitre4(),
-            'paragraph_8' => $content->getParagraph8(),
-            'sous_titre_5' => $content->getSousTitre5(),
-            'paragraph_9' => $content->getParagraph9(),
-            'sous_titre_6' => $content->getSousTitre6(),
-            'paragraph_10' => $content->getParagraph10(),
             'titre_new_recommandation' => $content->getTitreNewRecommandation(),
             'instagram_link' => $content->getInstagramLink(),
             'tiktok_link' => $content->getTiktokLink(),

@@ -17,10 +17,10 @@ class Content
     #[ORM\JoinColumn(nullable: false)]
     private ?Sites $sites = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_header = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
 
     #[ORM\Column(length: 255)]
@@ -53,7 +53,7 @@ class Content
     #[ORM\Column(type: "text")]
     private ?string $paragraph_1 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_1 = null;
 
     #[ORM\Column(length: 255)]
@@ -99,24 +99,6 @@ class Content
     private ?string $paragraph_7 = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $sous_titre_4 = null;
-
-    #[ORM\Column(type: "text")]
-    private ?string $paragraph_8 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $sous_titre_5 = null;
-
-    #[ORM\Column(type: "text")]
-    private ?string $paragraph_9 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $sous_titre_6 = null;
-
-    #[ORM\Column(type: "text")]
-    private ?string $paragraph_10 = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $titre_new_recommandation = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -131,16 +113,16 @@ class Content
     #[ORM\Column(type: "text")]
     private ?string $meta = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_header2 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_header3 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_header4 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_1_no_border = null;
 
     public function getId(): ?int
@@ -480,78 +462,6 @@ class Content
     public function setParagraph7(string $paragraph_7): static
     {
         $this->paragraph_7 = $paragraph_7;
-
-        return $this;
-    }
-
-    public function getSousTitre4(): ?string
-    {
-        return $this->sous_titre_4;
-    }
-
-    public function setSousTitre4(string $sous_titre_4): static
-    {
-        $this->sous_titre_4 = $sous_titre_4;
-
-        return $this;
-    }
-
-    public function getParagraph8(): ?string
-    {
-        return $this->paragraph_8;
-    }
-
-    public function setParagraph8(string $paragraph_8): static
-    {
-        $this->paragraph_8 = $paragraph_8;
-
-        return $this;
-    }
-
-    public function getSousTitre5(): ?string
-    {
-        return $this->sous_titre_5;
-    }
-
-    public function setSousTitre5(string $sous_titre_5): static
-    {
-        $this->sous_titre_5 = $sous_titre_5;
-
-        return $this;
-    }
-
-    public function getParagraph9(): ?string
-    {
-        return $this->paragraph_9;
-    }
-
-    public function setParagraph9(string $paragraph_9): static
-    {
-        $this->paragraph_9 = $paragraph_9;
-
-        return $this;
-    }
-
-    public function getSousTitre6(): ?string
-    {
-        return $this->sous_titre_6;
-    }
-
-    public function setSousTitre6(string $sous_titre_6): static
-    {
-        $this->sous_titre_6 = $sous_titre_6;
-
-        return $this;
-    }
-
-    public function getParagraph10(): ?string
-    {
-        return $this->paragraph_10;
-    }
-
-    public function setParagraph10(string $paragraph_10): static
-    {
-        $this->paragraph_10 = $paragraph_10;
 
         return $this;
     }

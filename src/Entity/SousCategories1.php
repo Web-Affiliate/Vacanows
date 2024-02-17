@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SousCategories1Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SousCategories1Repository::class)]
@@ -30,6 +31,9 @@ class SousCategories1
 
     #[ORM\OneToMany(mappedBy: 'sous_categorie_1', targetEntity: SousCategories2::class)]
     private Collection $sousCategories2s;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -122,5 +126,17 @@ class SousCategories1
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }

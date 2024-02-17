@@ -36,6 +36,16 @@ class CategoriesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+public function findCategoriesWithSubcategories($limit)
+{
+    return $this->createQueryBuilder('c')
+        ->leftJoin('c.sousCategories1s', 'sousCategory')
+        ->groupBy('c.id')
+        ->having('COUNT(sousCategory) > 0')
+        ->setMaxResults($limit)
+        ->getQuery()
+        ->getResult();
+}
 //    public function findOneBySomeField($value): ?Categories
 //    {
 //        return $this->createQueryBuilder('c')

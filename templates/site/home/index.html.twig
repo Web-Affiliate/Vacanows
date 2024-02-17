@@ -35,7 +35,8 @@
     <div>
         <div class="row">
             <div class="col-12 col-md-6 ">
-                <img src="{{ asset('uploads/images/' ~ image_1) }}" alt="image1" class="img-fluid">
+                <img src="{{ asset('uploads/images/' ~ image_1) }}" alt="image1" class="img-fluid image-1">
+                <img src="{{ asset('uploads/images/' ~ image_1_no_border) }}" alt="image2" class="img-fluid image-no-border">
             </div>
             <div class="col-12 col-md-6 align-self-center container-section2Text">
                 <h2 class="titre-section titre-section2">{{ titre_2|striptags|raw }}</h2>
@@ -87,25 +88,24 @@
 
 <div class="container section-5">
     <div class="row">
-        <div class="col-12 ">
-            <h2 class="titre-section titre-section5">{{ titre_4|striptags|raw }}</h2>
+    <h2 class="titre-section titre-section5">{{ titre_4|striptags|raw }}</h2>
             <p class="paragraph-section paragraph-section-5">{{ paragraph_7|striptags|raw }}</p>
-            <h3 class="sous-titre sous-titre2">{{ sous_titre_4|striptags|raw }}</h3>
-            <p class="paragraph-section paragraph-section-5">{{ paragraph_8|striptags|raw }}</p>
-            <h3 class="sous-titre sous-titre2">{{ sous_titre_5|striptags|raw }}</h3>
-            <p class="paragraph-section paragraph-section-5">{{ paragraph_9|striptags|raw }}</p>
-            <h3 class="sous-titre sous-titre2">{{ sous_titre_6|striptags|raw }}</h3>
-            <p class="paragraph-section paragraph-section-5">{{ paragraph_10|striptags|raw }}</p>
-        </div>
+            {% for sousCategory in lastSousCategories %}
+                <div class="col-12">
+                    <h3 class="sous-titre sous-titre2">{{ sousCategory.getNom() }} : </h3>
+                    <p class="paragraph-section paragraph-section-5">{{ sousCategory.getDescription|striptags|raw }}</p>
+                </div>
+            {% endfor %}
     </div>
 </div>
+
 
 <div class="container section-6 reco">
     <div class="row">
         <div class="col-12 ">
             <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
         </div>
-        {% for categorie in lastCategories %}
+        {% for categorie in randomCategories %}
             <div class="col-12 col-md-3">
                 <div class="card2">
                     <img src="{{ asset('uploads/images/' ~ categorie.image) }}" class="card-img-top" alt="Image">
