@@ -27,24 +27,23 @@ class HomeController extends AbstractController
 
            $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
 
-           $lastCategories = $this->entityManager->getRepository(Categories::class)->findCategoriesWithSubcategories(3);
+           $currentDate = new \DateTime();
+           $categoriesToShow = $this->entityManager->getRepository(
+            Categories::class)->findNextCategoriesByDate($currentDate, 4);
 
-        $lastSousCategories = [];
+           $categoriesToShowBySousCategory = array_slice($categoriesToShow, 0, 3);
+           $sousCategoriesToShow = [];
 
-        foreach ($lastCategories as $category) {
-            $lastSousCategory = $this->entityManager->getRepository(SousCategories1::class)->findOneBy(['categories' => $category], ['id' => 'DESC']);
+           foreach ($categoriesToShowBySousCategory as $category) {
+               $sousCategories = $this->entityManager->getRepository(
+                SousCategories1::class)->findBy(['categories' => $category]);
 
-            if ($lastSousCategory) {
-                $lastSousCategories[] = $lastSousCategory;
-            }
-        }
-
-
-           $allCategories = $this->entityManager->getRepository(Categories::class)->findAll();
-
-           shuffle($allCategories);
-
-           $randomCategories = array_slice($allCategories, 0, 4);
+               if (!empty($sousCategories)) {
+                   shuffle($sousCategories);
+                   $selectedSousCategory = reset($sousCategories);
+                   $sousCategoriesToShow[] = $selectedSousCategory;
+               }
+           }
 
 
         $navbar = [];
@@ -55,8 +54,8 @@ class HomeController extends AbstractController
         $data = [
             'content' => $content,
             'navbar' => $navbar,
-            'lastSousCategories' => $lastSousCategories,
-            'randomCategories' => $randomCategories,
+            'categoriesToShow' => $categoriesToShow,
+            'sousCategoriesToShow' => $sousCategoriesToShow,
             'lastArticles' => $lastArticles,
             'image_header' => $content->getImageHeader(),
             'image_header2' => $content->getImageHeader2(),

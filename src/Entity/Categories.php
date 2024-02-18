@@ -27,6 +27,9 @@ class Categories
     #[ORM\OneToMany(mappedBy: 'categories', targetEntity: SousCategories1::class)]
     private Collection $sousCategories1s;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __construct()
     {
         $this->sousCategories1s = new ArrayCollection();
@@ -106,5 +109,17 @@ class Categories
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

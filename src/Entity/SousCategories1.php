@@ -35,9 +35,16 @@ class SousCategories1
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __construct()
     {
         $this->sousCategories2s = new ArrayCollection();
+
+        if (!$this->createdAt) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 
     public function getId(): ?int
@@ -93,6 +100,18 @@ class SousCategories1
         return $this;
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, SousCategories2>
      */
@@ -128,15 +147,16 @@ class SousCategories1
         return $this->nom;
     }
 
-    public function getDescription(): ?string
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->description;
+        return $this->createdAt;
     }
 
-    public function setDescription(string $description): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
-        $this->description = $description;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
+
 }

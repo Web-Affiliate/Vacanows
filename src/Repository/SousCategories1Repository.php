@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\SousCategories1;
+use App\Entity\Categories;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,6 +21,19 @@ class SousCategories1Repository extends ServiceEntityRepository
     {
         parent::__construct($registry, SousCategories1::class);
     }
+
+//     public function findSousCategories1ByDateAndByCategory(\DateTime $date, Categories $category, $limit)
+// {
+//     return $this->createQueryBuilder('s')
+//         ->where('s.categories = :category')
+//         ->andWhere('s.createdAt < :date')
+//         ->setParameter('category', $category)
+//         ->setParameter('date', $date)
+//         ->orderBy('s.createdAt', 'ASC')
+//         ->setMaxResults($limit)
+//         ->getQuery()
+//         ->getResult();
+// }
 
 //    /**
 //     * @return SousCategories1[] Returns an array of SousCategories1 objects

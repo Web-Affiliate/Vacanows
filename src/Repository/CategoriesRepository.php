@@ -46,6 +46,19 @@ public function findCategoriesWithSubcategories($limit)
         ->getQuery()
         ->getResult();
 }
+
+
+public function findNextCategoriesByDate(\DateTime $date, $limit)
+{
+    return $this->createQueryBuilder('c')
+        ->where('c.createdAt < :date')
+        ->setParameter('date', $date)
+        ->orderBy('c.createdAt', 'ASC')
+        ->setMaxResults($limit)
+        ->getQuery()
+        ->getResult();
+}
+
 //    public function findOneBySomeField($value): ?Categories
 //    {
 //        return $this->createQueryBuilder('c')

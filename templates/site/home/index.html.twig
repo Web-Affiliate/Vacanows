@@ -3,9 +3,19 @@
 {% block main %}
 
 <div class="container-global">
-{% if content is not null and image_header is not null %}
-    <div class="banner-container banner">
-        <img src="{{ asset('uploads/images/' ~ image_header) }}" alt="Bannière" class="img-fluid w-100">
+{% if content is not null %}
+    <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ asset('uploads/images/' ~ content.imageHeader) }}" alt="Bannière" class="img-fluid w-100 image_banner">
+            </div>
+            {% for i in 2..4 %}
+                <div class="carousel-item">
+                    <img src="{{ asset('uploads/images/' ~ attribute(content, 'imageHeader' ~ i)) }}" alt="Bannière" class="img-fluid image_banner">
+                </div>
+            {% endfor %}
+        </div>
+
         <div class="text-container">
             <h1 class="titre-header">{{ titre_header|striptags|raw }}</h1>
             <p class="paragraph-header">{{ paragraph_header|striptags|raw }}</p>
@@ -14,14 +24,14 @@
             <form action="#" method="get">
                 <input type="text" name="search" id="search" placeholder="{{ placeholder_search }}" class="form-control">
                 <div class="search-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 17 17" fill="none">
-                        <path d="M16.8207 15.96L12.3292 11.4745C13.4868 10.0967 14.0677 8.32507 13.9508 6.52929C13.834 4.7335 13.0283 3.05217 11.7019 1.83598C10.3754 0.619792 8.63069 -0.0373426 6.83153 0.00164032C5.03236 0.0406232 3.31771 0.772713 2.04521 2.04521C0.772713 3.31771 0.0406232 5.03236 0.00164032 6.83153C-0.0373426 8.63069 0.619792 10.3754 1.83598 11.7019C3.05217 13.0283 4.7335 13.834 6.52929 13.9508C8.32507 14.0677 10.0967 13.4868 11.4745 12.3292L15.96 16.8207C16.0163 16.8775 16.0834 16.9226 16.1572 16.9534C16.2311 16.9842 16.3103 17 16.3903 17C16.4704 17 16.5496 16.9842 16.6234 16.9534C16.6973 16.9226 16.7644 16.8775 16.8207 16.8207C16.8775 16.7644 16.9226 16.6973 16.9534 16.6234C16.9842 16.5496 17 16.4704 17 16.3903C17 16.3103 16.9842 16.2311 16.9534 16.1572C16.9226 16.0834 16.8775 16.0163 16.8207 15.96ZM1.23672 6.9951C1.23672 5.8562 1.57444 4.74288 2.20718 3.79592C2.83992 2.84896 3.73926 2.11089 4.79146 1.67505C5.84367 1.23921 7.00148 1.12518 8.1185 1.34737C9.23552 1.56956 10.2616 2.11799 11.0669 2.92331C11.8722 3.72863 12.4206 4.75468 12.6428 5.87169C12.865 6.98871 12.751 8.14653 12.3151 9.19873C11.8793 10.2509 11.1412 11.1503 10.1943 11.783C9.24732 12.4157 8.134 12.7535 6.9951 12.7535C5.46837 12.7519 4.00464 12.1447 2.92508 11.0651C1.84553 9.98555 1.23833 8.52182 1.23672 6.9951Z" fill="white"/>
-                    </svg>
+                    <img src="{{ asset('uploads/images/loupe.svg') }}" alt="Rechercher">
                 </div>
             </form>
         </div>
     </div>
 {% endif %}
+
+
 <div class="container section-1">
     <div class="row">
         <div class="col-12">
@@ -69,7 +79,7 @@
         <div class="col-12 ">
             <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
         </div>
-        {% for sousCategorie in lastSousCategories %}
+        {% for sousCategorie in sousCategoriesToShow %}
             <div class="col-12 col-md-4">
                 <div class="card">
                     <img src="{{ asset('uploads/images/' ~ sousCategorie.image) }}" class="card-img-top" alt="Image">
@@ -90,7 +100,7 @@
     <div class="row">
     <h2 class="titre-section titre-section5">{{ titre_4|striptags|raw }}</h2>
             <p class="paragraph-section paragraph-section-5">{{ paragraph_7|striptags|raw }}</p>
-            {% for sousCategory in lastSousCategories %}
+            {% for sousCategory in sousCategoriesToShow %}
                 <div class="col-12">
                     <h3 class="sous-titre sous-titre2">{{ sousCategory.getNom() }} : </h3>
                     <p class="paragraph-section paragraph-section-5">{{ sousCategory.getDescription|striptags|raw }}</p>
@@ -105,7 +115,7 @@
         <div class="col-12 ">
             <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
         </div>
-        {% for categorie in randomCategories %}
+        {% for categorie in categoriesToShow %}
             <div class="col-12 col-md-3">
                 <div class="card2">
                     <img src="{{ asset('uploads/images/' ~ categorie.image) }}" class="card-img-top" alt="Image">
@@ -144,7 +154,6 @@
     </div>
 {% endfor %}
 
-
         <div class="col-12 ">
             <a href="#" class="btn bouton1 bouton2">Découvrir plus</a>
         </div>
@@ -153,3 +162,5 @@
 </div>
 </div>
 {% endblock %}
+
+

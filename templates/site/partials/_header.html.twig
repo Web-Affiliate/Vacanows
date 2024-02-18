@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-general">
     <div class="container-fluid">
         {% if content is not null %}
             <a class="navbar-brand mx-5" href="{{ path('home') }}">
                 {% if content.getLogo() is not null %}
-                    <img src="{{ asset('uploads/images/' ~ content.getLogo()) }}" alt="logo" width="80" height="80">
+                    <img src="{{ asset('uploads/images/' ~ content.getLogo()) }}" alt="logo" width="80" height="80" class="img-navbar">
                 {% endif %}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,10 +25,21 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function() {
+  $(document).ready(function() {
         $('.navbar-nav .nav-link').on('click', function() {
             $('.navbar-nav .nav-link').removeClass('activenav');
             $(this).addClass('activenav');
+        });
+    });
+
+
+    $(document).ready(function(){
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                $('.navbar-general').addClass('navbar-container-scrolled');
+            } else {
+                $('.navbar-general').removeClass('navbar-container-scrolled');
+            }
         });
     });
 </script>
