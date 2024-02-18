@@ -7,13 +7,13 @@
     <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ asset('uploads/images/' ~ content.imageHeader) }}" alt="Bannière" class="img-fluid w-100 image_banner">
+                <img src="{{ asset('uploads/images/' ~ content.imageHeader) }}" alt="Bannière" class="img-fluid carousel-global w-100">
             </div>
-            {% for i in 2..4 %}
-                <div class="carousel-item">
-                    <img src="{{ asset('uploads/images/' ~ attribute(content, 'imageHeader' ~ i)) }}" alt="Bannière" class="img-fluid image_banner">
-                </div>
-            {% endfor %}
+                {% for i in 2..4 %}
+                    <div class="carousel-item carousel-global {% if i == 2 %}image_banner{% elseif i == 3 %}image_banner2{% elseif i == 4 %}image_banner3{% endif %}">
+                        <img src="{{ asset('uploads/images/' ~ attribute(content, 'imageHeader' ~ i)) }}" alt="Bannière" class="img-fluid {% if i == 2 %}image_header{% elseif i == 3 %}image_banner2{% elseif i == 4 %}image_banner3{% endif %}">
+                    </div>
+                {% endfor %}
         </div>
 
         <div class="text-container">
@@ -30,7 +30,6 @@
         </div>
     </div>
 {% endif %}
-
 
 <div class="container section-1">
     <div class="row">

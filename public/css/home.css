@@ -134,14 +134,14 @@
 .paragraph-header{
     font-size: 16px;
     color: var(--white);
-    margin:50px 0 180px 0;
+    margin:50px 0 250px 0;
 }
 
 .searchbar-container{
     position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -230px);
+    transform: translate(-50%, -290px);
     width: 500px;
 }
 
@@ -179,6 +179,30 @@
 .activenav{
     border-bottom: 1px solid var(--primary);
     background-size: 100% 100% !important;
+}
+
+.image_banner{
+    filter: brightness(50%) sepia(100%) hue-rotate(180deg);
+    max-height: 1000px;
+    width: 100%;
+}
+
+.image_banner2{
+    max-height: 1000px;
+    width: 100%;
+    filter: brightness(70%) sepia(100%) hue-rotate(0deg);
+}
+
+.image_banner3{
+    max-height: 1000px;
+    width: 100%;
+    filter: brightness(80%);
+
+}
+
+.carousel-global{
+    width: 100%;
+    max-height: 1000px;
 }
 
 
@@ -470,18 +494,6 @@ margin-bottom: 50px;
 
 .image-no-border{
     display: none;
-}
-
-.image_banner{
-    width: 100%;
-    max-height: 1000px;
-    object-fit: cover;
-    filter: brightness(50%) sepia(100%) hue-rotate(180deg);
-}
-
-.carousel-inner {
-    background-color: transparent; /* Assurez-vous que le fond du carousel est transparent */
-    padding: 0; /* Désactivez le remplissage pour éviter le fond blanc autour des images */
 }
 
 /* FOOTER */
