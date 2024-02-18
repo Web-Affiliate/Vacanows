@@ -497,6 +497,53 @@ margin-bottom: 50px;
 }
 
 /* FOOTER */
+footer{
+    display: flex;
+    background-color: var(--background-articles);
+    padding: 50px 0;
+    text-align: center;
+    justify-content: space-around;
+}
+
+footer ul:nth-child(2){
+    list-style: none;
+}
+
+.footer_nav{
+    list-style: none;
+    color : var(--black);
+}
+
+.newsletter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsletter input{
+    width: 250px;
+    border: none;
+    font-size: 15px;
+    margin-right: 20px;
+    padding: 5px;
+}
+
+.newsletter p:first-of-type{
+   color: var(  --primary);
+}
+
+.resseau_footer ul li{
+    list-style: none;
+}
+
+.resseau_footer ul li a{
+    color : var(--secondary);
+}
+
+i[type='submit']{
+    color: var(--primary);
+}
 
 
 /* MEDIA QUERIES */

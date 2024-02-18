@@ -1,0 +1,32 @@
+<footer>
+    <ul class="footer_nav">
+        {% for navbar in navbar %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">{{ navbar }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul>
+        <li class="mention">mention</li>
+        <li class="cookies">cookies</li>
+    </ul>
+    <a class="navbar-brand mx-5" href="{{ path('home') }}">
+        {% if content.getLogo() is not null %}
+            <img src="{{ asset('uploads/images/' ~ content.getLogo()) }}" alt="logo" width="80" height="80" class="img-navbar">
+        {% endif %}
+    </a>
+    <div class="newsletter">
+        <p>Rejoignez notre newsletter</p>
+        <p>pour recevoir nos nouvelles offres</p>
+        <form action="">
+            <input type="email" placeholder="Votre adresse mail"><i type="submit" class="fa-solid fa-arrow-right"></i>
+        </form>
+    </div>
+    <div class="resseau_footer">
+        <ul>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fab fa-tiktok"></i></a></li>
+        </ul>
+    </div>
+</footer>

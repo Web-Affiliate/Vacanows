@@ -11,7 +11,7 @@
             </div>
                 {% for i in 2..4 %}
                     <div class="carousel-item carousel-global {% if i == 2 %}image_banner{% elseif i == 3 %}image_banner2{% elseif i == 4 %}image_banner3{% endif %}">
-                        <img src="{{ asset('uploads/images/' ~ attribute(content, 'imageHeader' ~ i)) }}" alt="Bannière" class="img-fluid {% if i == 2 %}image_header{% elseif i == 3 %}image_banner2{% elseif i == 4 %}image_banner3{% endif %}">
+                        <img src="{{ asset('uploads/images/' ~ attribute(content, 'imageHeader' ~ i)) }}" alt="Bannière" class="img-fluid {% if i == 2 %}image_banner{% elseif i == 3 %}image_banner2{% elseif i == 4 %}image_banner3{% endif %}">
                     </div>
                 {% endfor %}
         </div>
