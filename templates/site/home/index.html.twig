@@ -131,7 +131,7 @@
 </div>
 
 <div class="container section-7">
-    <div class="row">
+    <div class="row" id="nouveaux-articles-container">
         <div class="col-12r">
             <h2 class="titre-dernier-articles"><strong>Derniers articles</strong></h2>
         </div>
@@ -152,14 +152,43 @@
         </a>
     </div>
 {% endfor %}
+</div>
 
-        <div class="col-12 ">
-            <a href="#" class="btn bouton1 bouton2">Découvrir plus</a>
-        </div>
+{% if total > 0 %}
+    <div class="col-12">
+        <a class="btn bouton1 bouton2" id="charger-plus" data-offset="{{ offset }}" data-total="{{ total }}">
+            Découvrir plus
+        </a>
+    </div>
+{% endif %}
 
     </div>
 </div>
-</div>
+
+<script>
+$(document).ready(function () {
+    $(document).on('click', '#charger-plus', function () {
+        var offset = $(this).data('offset');
+        var total = $(this).data('total');
+        $.ajax({
+            url: "{{ path('load_more_articles', {'offset': 0}) }}".replace('0', offset),
+            type: "GET",
+            data: {
+                offset: offset
+            },
+            success: function (response) {
+                $('#nouveaux-articles-container').append(response);
+                if (offset + 3 >= total) {
+                    $('#charger-plus').remove();
+                } else {
+                    $('#charger-plus').data('offset', offset + 3);
+                }
+            }
+        });
+    });
+});
+
+</script>
 {% endblock %}
 
 

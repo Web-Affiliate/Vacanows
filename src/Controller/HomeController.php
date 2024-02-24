@@ -26,6 +26,7 @@ class HomeController extends AbstractController
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
            $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
+           $offset = count($lastArticles);
 
            $currentDate = new \DateTime();
            $categoriesToShow = $this->entityManager->getRepository(
@@ -44,6 +45,7 @@ class HomeController extends AbstractController
                    $sousCategoriesToShow[] = $selectedSousCategory;
                }
            }
+           $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
 
 
         $navbar = [];
@@ -88,6 +90,9 @@ class HomeController extends AbstractController
             'instagram_link' => $content->getInstagramLink(),
             'tiktok_link' => $content->getTiktokLink(),
             'facebook_link' => $content->getFacebookLink(),
+            'total' => $totalArticles,
+            'offset' => $offset,
+
         ];
 
         return $this->render('site/home/index.html.twig', $data);

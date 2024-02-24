@@ -10,6 +10,9 @@
 
 /* NAVBAR */
 
+.navbar-container{
+    background-color: var(--white);
+}
 .container-nav{
     align-items: center;
     padding: 30px;
@@ -89,7 +92,7 @@
     animation: stickyHeader 0.5s ease forwards;
     z-index: 999;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 100%;
 }
 

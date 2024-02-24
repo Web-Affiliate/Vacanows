@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Articles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @extends ServiceEntityRepository<Articles>
@@ -20,6 +21,30 @@ class ArticlesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Articles::class);
     }
+
+    public function findNextArticles($offset, $limit)
+    {
+       $results = $this->getEntityManager()
+            ->createQuery(
+                'SELECT a
+                FROM App\Entity\Articles a
+                ORDER BY a.id DESC'
+
+            )
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getResult();
+        return $results;
+}
+
+public function countTotalArticles(): int
+{
+    return $this->createQueryBuilder('a')
+        ->select('COUNT(a.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+}
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
@@ -45,4 +70,4 @@ class ArticlesRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}
+

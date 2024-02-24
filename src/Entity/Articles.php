@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticlesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -54,30 +56,6 @@ class Articles
     #[ORM\Column(type: "text")]
     private ?string $paragraph_4 = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tab_item_1 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tab_item_2 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tab_item_3 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tab_item_4 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tab_item_5 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tab_item_6 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tab_item_7 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tab_item_8 = null;
-
     #[ORM\Column(length: 255)]
     private ?string $libelle_bouton_tab = null;
 
@@ -100,6 +78,47 @@ class Articles
 
     #[ORM\Column(length: 255)]
     private ?string $meta = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_1 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_2 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_3 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_4 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_5 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_6 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_7 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_8 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_9 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_10 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_11 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $tab_libelle_12 = null;
+
+    public function __construct()
+    {
+        $this->libelles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -274,102 +293,6 @@ class Articles
         return $this;
     }
 
-    public function getTabItem1(): ?string
-    {
-        return $this->tab_item_1;
-    }
-
-    public function setTabItem1(?string $tab_item_1): static
-    {
-        $this->tab_item_1 = $tab_item_1;
-
-        return $this;
-    }
-
-    public function getTabItem2(): ?string
-    {
-        return $this->tab_item_2;
-    }
-
-    public function setTabItem2(?string $tab_item_2): static
-    {
-        $this->tab_item_2 = $tab_item_2;
-
-        return $this;
-    }
-
-    public function getTabItem3(): ?string
-    {
-        return $this->tab_item_3;
-    }
-
-    public function setTabItem3(?string $tab_item_3): static
-    {
-        $this->tab_item_3 = $tab_item_3;
-
-        return $this;
-    }
-
-    public function getTabItem4(): ?string
-    {
-        return $this->tab_item_4;
-    }
-
-    public function setTabItem4(?string $tab_item_4): static
-    {
-        $this->tab_item_4 = $tab_item_4;
-
-        return $this;
-    }
-
-    public function getTabItem5(): ?string
-    {
-        return $this->tab_item_5;
-    }
-
-    public function setTabItem5(?string $tab_item_5): static
-    {
-        $this->tab_item_5 = $tab_item_5;
-
-        return $this;
-    }
-
-    public function getTabItem6(): ?string
-    {
-        return $this->tab_item_6;
-    }
-
-    public function setTabItem6(?string $tab_item_6): static
-    {
-        $this->tab_item_6 = $tab_item_6;
-
-        return $this;
-    }
-
-    public function getTabItem7(): ?string
-    {
-        return $this->tab_item_7;
-    }
-
-    public function setTabItem7(?string $tab_item_7): static
-    {
-        $this->tab_item_7 = $tab_item_7;
-
-        return $this;
-    }
-
-    public function getTabItem8(): ?string
-    {
-        return $this->tab_item_8;
-    }
-
-    public function setTabItem8(?string $tab_item_8): static
-    {
-        $this->tab_item_8 = $tab_item_8;
-
-        return $this;
-    }
-
     public function getLibelleBoutonTab(): ?string
     {
         return $this->libelle_bouton_tab;
@@ -438,6 +361,150 @@ class Articles
     public function setMeta(string $meta): static
     {
         $this->meta = $meta;
+
+        return $this;
+    }
+
+    public function isTabLibelle1(): ?bool
+    {
+        return $this->tab_libelle_1;
+    }
+
+    public function setTabLibelle1(?bool $tab_libelle_1): static
+    {
+        $this->tab_libelle_1 = $tab_libelle_1;
+
+        return $this;
+    }
+
+    public function isTabLibelle2(): ?bool
+    {
+        return $this->tab_libelle_2;
+    }
+
+    public function setTabLibelle2(?bool $tab_libelle_2): static
+    {
+        $this->tab_libelle_2 = $tab_libelle_2;
+
+        return $this;
+    }
+
+    public function isTabLibelle3(): ?bool
+    {
+        return $this->tab_libelle_3;
+    }
+
+    public function setTabLibelle3(?bool $tab_libelle_3): static
+    {
+        $this->tab_libelle_3 = $tab_libelle_3;
+
+        return $this;
+    }
+
+    public function isTabLibelle4(): ?bool
+    {
+        return $this->tab_libelle_4;
+    }
+
+    public function setTabLibelle4(?bool $tab_libelle_4): static
+    {
+        $this->tab_libelle_4 = $tab_libelle_4;
+
+        return $this;
+    }
+
+    public function isTabLibelle5(): ?bool
+    {
+        return $this->tab_libelle_5;
+    }
+
+    public function setTabLibelle5(?bool $tab_libelle_5): static
+    {
+        $this->tab_libelle_5 = $tab_libelle_5;
+
+        return $this;
+    }
+
+    public function isTabLibelle6(): ?bool
+    {
+        return $this->tab_libelle_6;
+    }
+
+    public function setTabLibelle6(?bool $tab_libelle_6): static
+    {
+        $this->tab_libelle_6 = $tab_libelle_6;
+
+        return $this;
+    }
+
+    public function isTabLibelle7(): ?bool
+    {
+        return $this->tab_libelle_7;
+    }
+
+    public function setTabLibelle7(?bool $tab_libelle_7): static
+    {
+        $this->tab_libelle_7 = $tab_libelle_7;
+
+        return $this;
+    }
+
+    public function isTabLibelle8(): ?bool
+    {
+        return $this->tab_libelle_8;
+    }
+
+    public function setTabLibelle8(?bool $tab_libelle_8): static
+    {
+        $this->tab_libelle_8 = $tab_libelle_8;
+
+        return $this;
+    }
+
+    public function isTabLibelle9(): ?bool
+    {
+        return $this->tab_libelle_9;
+    }
+
+    public function setTabLibelle9(?bool $tab_libelle_9): static
+    {
+        $this->tab_libelle_9 = $tab_libelle_9;
+
+        return $this;
+    }
+
+    public function isTabLibelle10(): ?bool
+    {
+        return $this->tab_libelle_10;
+    }
+
+    public function setTabLibelle10(?bool $tab_libelle_10): static
+    {
+        $this->tab_libelle_10 = $tab_libelle_10;
+
+        return $this;
+    }
+
+    public function isTabLibelle11(): ?bool
+    {
+        return $this->tab_libelle_11;
+    }
+
+    public function setTabLibelle11(?bool $tab_libelle_11): static
+    {
+        $this->tab_libelle_11 = $tab_libelle_11;
+
+        return $this;
+    }
+
+    public function isTabLibelle12(): ?bool
+    {
+        return $this->tab_libelle_12;
+    }
+
+    public function setTabLibelle12(?bool $tab_libelle_12): static
+    {
+        $this->tab_libelle_12 = $tab_libelle_12;
 
         return $this;
     }

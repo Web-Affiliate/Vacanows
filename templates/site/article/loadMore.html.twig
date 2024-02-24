@@ -1,0 +1,17 @@
+ {% for article in articles %}
+    <div class="col-12">
+        <a href="{{ path('article_show', {'slug': article.getSlug()}) }}" class="card card3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img fixed-image" alt="Image">
+                </div>
+                <div class="col-md-8 container-title-section7">
+                    <h3 class="titre-voyage titre-sec7">Voyage à {{ article.getSousCategories2() }}</h3>
+                    <h4 class="titre-article titre-sec7">{{ article.getTitre1() }}</h4>
+                    <p class="date-article titre-sec7">{{ article.getCreatedDate()|date('d/m/Y') }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+        <script src="{{ asset('js/voirPlus.js') }}"></script>

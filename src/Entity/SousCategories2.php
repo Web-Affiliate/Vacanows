@@ -18,9 +18,6 @@ class SousCategories2
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $slug = null;
-
     #[ORM\ManyToOne(inversedBy: 'sousCategories2s')]
     #[ORM\JoinColumn(nullable: false)]
     private ?SousCategories1 $sous_categorie_1 = null;
@@ -55,6 +52,18 @@ class SousCategories2
     #[ORM\OneToMany(mappedBy: 'sous_categories_2', targetEntity: Articles::class)]
     private Collection $articles;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $note_tab_item_9 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $note_tab_item_10 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $note_tab_item_11 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $note_tab_item_12 = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -73,18 +82,6 @@ class SousCategories2
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
 
         return $this;
     }
@@ -243,5 +240,53 @@ class SousCategories2
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    public function getNoteTabItem9(): ?float
+    {
+        return $this->note_tab_item_9;
+    }
+
+    public function setNoteTabItem9(?float $note_tab_item_9): static
+    {
+        $this->note_tab_item_9 = $note_tab_item_9;
+
+        return $this;
+    }
+
+    public function getNoteTabItem10(): ?float
+    {
+        return $this->note_tab_item_10;
+    }
+
+    public function setNoteTabItem10(?float $note_tab_item_10): static
+    {
+        $this->note_tab_item_10 = $note_tab_item_10;
+
+        return $this;
+    }
+
+    public function getNoteTabItem11(): ?float
+    {
+        return $this->note_tab_item_11;
+    }
+
+    public function setNoteTabItem11(?float $note_tab_item_11): static
+    {
+        $this->note_tab_item_11 = $note_tab_item_11;
+
+        return $this;
+    }
+
+    public function getNoteTabItem12(): ?float
+    {
+        return $this->note_tab_item_12;
+    }
+
+    public function setNoteTabItem12(?float $note_tab_item_12): static
+    {
+        $this->note_tab_item_12 = $note_tab_item_12;
+
+        return $this;
     }
 }

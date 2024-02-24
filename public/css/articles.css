@@ -1,2 +1,61 @@
 @import "./vars.css";
 @import "./mixin.css";
+
+
+.section-1-articles
+{
+    padding: 50px 0;
+}
+
+.temps-lecture{
+    padding: 20px 0;
+}
+
+.temps-lecture p{
+    background-color: var(--secondary);
+    color: var(--white);
+    padding: 10px;
+    text-align: center;
+    border-radius: 35px;
+    max-width: 200px;
+    font-weight: 600;
+}
+
+.image-article{
+    width: 100%;
+    max-height: 511px;
+    object-fit: cover;
+    border-radius: 25px;
+
+}
+
+.ligne-paire {
+    background-color: #F7F7F7;
+}
+
+.ligne-impaire {
+    background-color: #EFEFEF;
+}
+
+.table {
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    border: none;
+    padding: 25px;
+}
+
+.ligne-paire td {
+    background-color: #F7F7F7;
+}
+
+.ligne-impaire td {
+    background-color: #EFEFEF;
+}
+
+.sujets{
+    padding: 50px 0 20px 0;
+    font-size: 36px;
+}
