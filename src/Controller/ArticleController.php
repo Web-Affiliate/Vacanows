@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Articles;
 use App\Entity\SousCategories1;
 use App\Entity\SousCategories2;
+use App\Entity\Categories;
 use App\Entity\Content;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class ArticleController extends AbstractController
             $navbar[] = $content->{"getNavbar$i"}();
         }
 
-
+        $category = $article->getSousCategories2()->getSousCategorie1()->getCategories();
 
         $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
         $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
@@ -79,6 +80,8 @@ class ArticleController extends AbstractController
             'titre_1' => $article->getTitre1(),
             'sites' => $article->getSites(),
             'sous_categories_2' => $article->getSousCategories2(),
+            'sous_categories_1' => $sousCategories1,
+            'categories' => $category,
             'created_date' => $article->getCreatedDate(),
             'temps_lecture' => $article->getTempsLecture(),
             'paragraph_1' => $article->getParagraph1(),

@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\SousCategories1;
+use App\Entity\SousCategories2;
 use App\Entity\Categories;
+use App\Entity\Articles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,6 +23,29 @@ class SousCategories1Repository extends ServiceEntityRepository
     {
         parent::__construct($registry, SousCategories1::class);
     }
+
+    public function countArticlesBySousCategorie1(): array
+    {
+        $qb = $this->createQueryBuilder('s1');
+
+        $results = $qb
+            ->select('s1.id, COUNT(DISTINCT a.id) AS articleCount')
+            ->leftJoin('s1.sousCategories2s', 's2')
+            ->leftJoin('s2.articles', 'a')
+            ->groupBy('s1.id')
+            ->getQuery()
+            ->getResult();
+
+        $articleCounts = [];
+        foreach ($results as $result) {
+            $articleCounts[$result['id']] = $result['articleCount'];
+        }
+
+        return $articleCounts;
+    }
+
+
+
 
 //     public function findSousCategories1ByDateAndByCategory(\DateTime $date, Categories $category, $limit)
 // {

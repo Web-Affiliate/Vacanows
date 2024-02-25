@@ -64,6 +64,9 @@ class SousCategories2
     #[ORM\Column(nullable: true)]
     private ?float $note_tab_item_12 = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -286,6 +289,18 @@ class SousCategories2
     public function setNoteTabItem12(?float $note_tab_item_12): static
     {
         $this->note_tab_item_12 = $note_tab_item_12;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

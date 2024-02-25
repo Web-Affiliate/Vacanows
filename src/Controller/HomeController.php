@@ -53,6 +53,9 @@ class HomeController extends AbstractController
             $navbar[] = $content->{"getNavbar$i"}();
         }
 
+        $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);
+        $articlesCountBySousCategorie1 = $sousCategories1Repository->countArticlesBySousCategorie1();
+
         $data = [
             'content' => $content,
             'navbar' => $navbar,
@@ -92,6 +95,7 @@ class HomeController extends AbstractController
             'facebook_link' => $content->getFacebookLink(),
             'total' => $totalArticles,
             'offset' => $offset,
+            'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1
 
         ];
 

@@ -8,12 +8,20 @@
     <section class="section-1-articles">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="titre-section">{{ titre_1 }}</h1>
-                <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>
-                <div class="temps-lecture">
-                    <p>Lecture : {{ temps_lecture }} minutes</p>
-                </div>
-            </div>
+    <h1 class="titre-section titre-articles">{{ titre_1 }}</h1>
+    <nav aria-label="breadcrumb" style="margin-top: 10px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item filAriane"><a href={{ categories.getSlug() }}>{{ categories }}</a></li>
+            <li class="breadcrumb-item filAriane"><a href={{ sous_categories_1.getSlug() }}>{{ sous_categories_1 }}</a></li>
+            <li class="breadcrumb-item filAriane" aria-current="page"><a href={{ sous_categories_2.getSlug() }}>{{ sous_categories_2 }}</a></li>
+        </ol>
+    </nav>
+    <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>
+    <div class="temps-lecture">
+        <p>Lecture : {{ temps_lecture }} minutes</p>
+    </div>
+</div>
+
         </div>
 
         <div class="row">

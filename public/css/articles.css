@@ -64,6 +64,23 @@
     padding: 0;
 }
 
+.titre-articles{
+    margin: 0;
+}
+
+.filAriane a{
+    color: var(--secondary);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 22px;
+
+}
+
+.breadcrumb-item + .breadcrumb-item::before{
+    color: var(--secondary);
+    font-size: 22px;
+}
+
 .bouton_tab{
     background-color: var(--secondary) !important;
     color: var(--white);
