@@ -44,7 +44,6 @@ public function countTotalArticles(): int
         ->getQuery()
         ->getSingleScalarResult();
 }
-}
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
@@ -71,3 +70,4 @@ public function countTotalArticles(): int
 //        ;
 //    }
 
+}

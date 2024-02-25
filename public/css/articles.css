@@ -56,6 +56,52 @@
 }
 
 .sujets{
-    padding: 50px 0 20px 0;
+    padding: 50px 0 40px 0;
     font-size: 36px;
+}
+
+.tab_impaire{
+    padding: 0;
+}
+
+.bouton_tab{
+    background-color: var(--secondary) !important;
+    color: var(--white);
+    font-weight: 600;
+    margin:5px 0;
+    max-width: 200px;
+}
+
+.bouton_tab:hover{
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.bouton_tab:active{
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
+}
+
+.section-2-articles{
+    margin-top: 30px;
+}
+
+.section-3-articles{
+    margin-top: 30px;
+}
+
+.section-4-articles{
+    margin-top: 90px;
+}
+
+.section-5-articles{
+    margin-top: 90px;
+}
+
+.section-6-articles{
+    margin-top: 50px;
+}
+
+.section-7-articles{
+    margin-top: 60px;
 }

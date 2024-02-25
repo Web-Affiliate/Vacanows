@@ -64,9 +64,11 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Colonne 2</th>
-                            <th>Colonne 3</th>
-                            <th>Colonne 4</th>
+                            {% for villeRandoms in villesRandom %}
+                                <th>
+                                    {{ villeRandoms.getNom() }}
+                                </th>
+                            {% endfor %}
                         </tr>
                     </thead>
                     <tbody>
@@ -75,15 +77,28 @@
                             {% if attribute(article, functionName) %}
                                 <tr class="{% if loop.index is even %}ligne-paire{% else %}ligne-impaire{% endif %}">
                                     <td>{{ libelles[i - 1] }}</td>
-                                    <td>{# {{ attribute(article, 'note_tab_item_' ~ (i + 3)) }}#}9</td>
-                                    <td>{# {{ attribute(article, 'note_tab_item_' ~ (i + 3)) }}#}7</td>
-                                    <td>{#{{ attribute(article, 'note_tab_item_' ~ (i + 3)) }} #}6</td>
+                                    {% for villeRandom in villesRandom %}
+                                        <td>{{ attribute(villeRandom, 'getNoteTabItem' ~ i) }}/10</td>
+                                    {% endfor %}
                                 </tr>
                             {% endif %}
                         {% endfor %}
-                    </tbody>
-                </table>
+                       <tr class="ligne-paire">
+                        <td></td>
 
+                        {% if villesRandom|length > 0 %}
+                            {% for i in range(1, 3) %}
+                                <td>
+                                <a class="btn bouton_tab">
+                                Voir les prix
+                                </a>
+                                </td>
+                            {% endfor %}
+                        {% endif %}
+                    </tr>
+                    </tbody>
+
+                </table>
             </div>
         </div>
     </div>
@@ -100,7 +115,7 @@
     </div>
 </section>
 
-<section class="section-6">
+<section class="section-6-articles">
     <div class="container">
         <div class="row">
          <div class="col-12">
@@ -121,7 +136,7 @@
     </div>
 </section>
 
-<section class="container section-7">
+<section class="container section-7-articles">
     <div class="row" id="nouveaux-articles-container">
         <div class="col-12">
             <h2 class="titre-dernier-articles"><strong>Derniers articles</strong></h2>

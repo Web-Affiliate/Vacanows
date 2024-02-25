@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Articles;
+use App\Entity\SousCategories1;
 use App\Entity\SousCategories2;
 use App\Entity\Content;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,6 +22,7 @@ class ArticleController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+
     }
 
     /**
@@ -35,12 +37,37 @@ class ArticleController extends AbstractController
             $navbar[] = $content->{"getNavbar$i"}();
         }
 
+
+
         $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
         $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
         $offset = count($lastArticles);
 
         $hasMoreArticles = count($lastArticles) === 4;
         $limit = 3;
+
+        $sousCategories2 = $article->getSousCategories2();
+        $sousCategories1 = null;
+        if ($sousCategories2 !== null) {
+            $sousCategories1 = $sousCategories2->getSousCategorie1();
+        }
+
+        $villesRepository = $this->entityManager->getRepository(SousCategories2::class);
+        $villesRandom = [];
+
+        if ($sousCategories1 !== null) {
+            $villesRandom = $villesRepository->findRandomVillesBySousCategories1($sousCategories1, $article, 3);
+        }
+
+        foreach ($villesRandom as $ville) {
+            $notes = [];
+            for ($i = 1; $i <= 12; $i++) {
+                $propertyName = 'NoteTabItem' . $i;
+                $notes[$i] = $ville->{'get' . ucfirst($propertyName)}();
+            }
+            $ville->notes = $notes;
+        }
+
 
         return $this->render('site/article/index.html.twig', [
             'article' => $article,
@@ -83,6 +110,7 @@ class ArticleController extends AbstractController
             'offset' => $offset,
             'hasMoreArticles' => $hasMoreArticles,
             'limit' => $limit,
+            'villesRandom' => $villesRandom,
 
         ]);
     }

@@ -3,17 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\SousCategories2;
+use App\Entity\SousCategories1;
+use App\Entity\Articles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<SousCategories2>
- *
- * @method SousCategories2|null find($id, $lockMode = null, $lockVersion = null)
- * @method SousCategories2|null findOneBy(array $criteria, array $orderBy = null)
- * @method SousCategories2[]    findAll()
- * @method SousCategories2[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class SousCategories2Repository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,28 +15,28 @@ class SousCategories2Repository extends ServiceEntityRepository
         parent::__construct($registry, SousCategories2::class);
     }
 
-//    /**
-//     * @return SousCategories2[] Returns an array of SousCategories2 objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findRandomVillesBySousCategories1(
+        SousCategories1 $sousCategories1,
+        Articles $article,
+        int $limit
+    ): array {
+        $villes = $this->createQueryBuilder('s')
+            ->leftJoin('s.articles', 'a')
+            ->where('s.sous_categorie_1 = :sousCategories1')
+            ->andWhere('a.id != :article_id')
+            ->andWhere('s.id != :sousCategories2_id')
+            ->setParameter('sousCategories1', $sousCategories1)
+            ->setParameter('article_id', $article->getId())
+            ->setParameter('sousCategories2_id', $article->getSousCategories2()->getId()) // Assuming SousCategories2 is a property of the Article entity
+            ->getQuery()
+            ->getResult();
 
-//    public function findOneBySomeField($value): ?SousCategories2
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        shuffle($villes);
+
+        $villesRandom = array_slice($villes, 0, $limit);
+
+        return $villesRandom;
+    }
+
+
 }
