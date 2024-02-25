@@ -203,6 +203,25 @@
 
 }
 
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+}
+
+.carousel-item {
+
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    z-index: 0;
+}
+
+
 .carousel-global{
     width: 100%;
     max-height: 1000px;
