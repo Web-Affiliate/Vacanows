@@ -13,6 +13,7 @@ use App\Entity\SousCategories1;
 use App\Entity\SousCategories2;
 use App\Entity\Categories;
 use App\Entity\Content;
+use App\Entity\Guides;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -41,6 +42,7 @@ class ArticleController extends AbstractController
         $category = $article->getSousCategories2()->getSousCategorie1()->getCategories();
 
         $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
+
         $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
         $offset = count($lastArticles);
 
@@ -55,6 +57,7 @@ class ArticleController extends AbstractController
 
         $villesRepository = $this->entityManager->getRepository(SousCategories2::class);
         $villesRandom = [];
+        $currentArticle = $article;
 
         if ($sousCategories1 !== null) {
             $villesRandom = $villesRepository->findRandomVillesBySousCategories1($sousCategories1, $article, 3);
@@ -68,7 +71,13 @@ class ArticleController extends AbstractController
             }
             $ville->notes = $notes;
         }
+        $articlesRepository = $this->entityManager->getRepository(Articles::class);
 
+        $articlesWithSameSousCategories2 = $articlesRepository->findRandomArticlesBySousCategories2($article, 3);
+
+        $guides = $article->getGuides();
+
+        $date = $article->getCreatedDate();
 
         return $this->render('site/article/index.html.twig', [
             'article' => $article,
@@ -82,7 +91,7 @@ class ArticleController extends AbstractController
             'sous_categories_2' => $article->getSousCategories2(),
             'sous_categories_1' => $sousCategories1,
             'categories' => $category,
-            'created_date' => $article->getCreatedDate(),
+            'date' => $date,
             'temps_lecture' => $article->getTempsLecture(),
             'paragraph_1' => $article->getParagraph1(),
             'image' => $article->getImage1(),
@@ -108,13 +117,14 @@ class ArticleController extends AbstractController
             'tab_col_url_1' => $article->getTabColUrl1(),
             'tab_col_url_2' => $article->getTabColUrl2(),
             'tab_col_url_3' => $article->getTabColUrl3(),
-            'guides' => $article->getGuides(),
+            'guides' => $guides,
             'meta' => $article->getMeta(),
             'offset' => $offset,
             'hasMoreArticles' => $hasMoreArticles,
             'limit' => $limit,
             'villesRandom' => $villesRandom,
-
+            'articlesWithSameSousCategories2' => $articlesWithSameSousCategories2,
+            'currentArticle' => $currentArticle,
         ]);
     }
 

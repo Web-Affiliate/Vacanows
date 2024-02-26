@@ -153,7 +153,7 @@
                 </div>
                 <div class="col-md-8 container-title-section7">
                     <h3 class="titre-voyage titre-sec7">Voyage à {{ article.getSousCategories2() }}</h3>
-                    <h4 class="titre-article titre-sec7">{{ article.getTitre1() }}</h4>
+                    <h4 class="titre-article titre-sec7">{{ article.getTitre1()|capitalize }}</h4>
                     <p class="date-article titre-sec7">{{ article.getCreatedDate()|date('d/m/Y') }}</p>
                 </div>
             </div>

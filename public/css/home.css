@@ -154,7 +154,7 @@
     border-radius: 25px;
     font-size: 20px;
     margin-right: 20px;
-    padding: 20px 80px 20px 20px;
+    padding: 20px 100px 20px 20px;
 }
 
 .searchbar-container input::placeholder{
@@ -498,6 +498,7 @@ margin-bottom: 50px;
 .card-img {
     border-radius: 40px;
     padding: 20px;
+    height: 280px;
 }
 
 .container-title-section7{

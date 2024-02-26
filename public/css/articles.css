@@ -55,6 +55,10 @@
     background-color: #EFEFEF;
 }
 
+.ligne-end td{
+    background-color: #e0e0e0;
+}
+
 .sujets{
     padding: 50px 0 40px 0;
     font-size: 36px;
@@ -68,17 +72,37 @@
     margin: 0;
 }
 
+.card-link{
+    color: var(--secondary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
 .filAriane a{
     color: var(--secondary);
     font-weight: 600;
     text-decoration: none;
     font-size: 22px;
+}
 
+.card-bottom{
+    padding-bottom: 50px;
+    height: 200px;
 }
 
 .breadcrumb-item + .breadcrumb-item::before{
     color: var(--secondary);
     font-size: 22px;
+}
+
+.Image-sujetlies{
+    max-width: 500px;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 25px;
+    padding: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .bouton_tab{
@@ -90,7 +114,7 @@
 }
 
 .bouton_tab:hover{
-    background-color: var(--primary);
+    background-color: var(--secondaryHover) !important;
     color: var(--white);
 }
 

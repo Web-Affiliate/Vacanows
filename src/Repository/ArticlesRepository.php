@@ -37,6 +37,22 @@ class ArticlesRepository extends ServiceEntityRepository
         return $results;
 }
 
+public function findRandomArticlesBySousCategories2(Articles $currentArticle, int $limit)
+{
+    $articles = $this->createQueryBuilder('a')
+        ->andWhere('a.sous_categories_2 = :sousCategories2')
+        ->andWhere('a != :currentArticle')
+        ->setParameter('sousCategories2', $currentArticle->getSousCategories2())
+        ->setParameter('currentArticle', $currentArticle)
+        ->getQuery()
+        ->getResult();
+
+    shuffle($articles);
+
+    return array_slice($articles, 0, $limit);
+}
+
+
 public function countTotalArticles(): int
 {
     return $this->createQueryBuilder('a')
