@@ -526,15 +526,23 @@ footer{
     padding: 50px 0;
     text-align: center;
     justify-content: space-around;
+    align-items: end;
+    flex-wrap: wrap;
 }
 
 footer ul:nth-child(2){
     list-style: none;
+    text-align: left;
 }
 
 .footer_nav{
     list-style: none;
     color : var(--black);
+    text-align: left;
+}
+
+.footer_nav .nav-link, .mention, .cookie{
+    padding : 5px 0;
 }
 
 .newsletter{
@@ -542,6 +550,7 @@ footer ul:nth-child(2){
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .newsletter input{
@@ -564,8 +573,27 @@ footer ul:nth-child(2){
     color : var(--secondary);
 }
 
-i[type='submit']{
+.input-container {
+    position: relative;
+    display: inline-block;
+}
+
+.input-container input[type='email'] {
+    width: 250px;
+    border: none;
+    font-size: 15px;
+    padding: 5px;
+    align-items: center;
+}
+
+.input-container i {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
     color: var(--primary);
+    cursor: pointer;
 }
 
 
