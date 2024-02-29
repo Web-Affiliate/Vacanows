@@ -178,11 +178,13 @@ $(document).ready(function () {
     $(document).on('click', '#charger-plus', function () {
         var offset = $(this).data('offset');
         var total = $(this).data('total');
+        var articleId = $(this).data('articleId'); // Ajouter cette ligne pour obtenir l'ID de l'article
         $.ajax({
             url: "{{ path('load_more_articles', {'offset': 0}) }}".replace('0', offset),
             type: "GET",
             data: {
-                offset: offset
+                offset: offset,
+                articleId: articleId // Ajouter l'ID de l'article à la requête
             },
             success: function (response) {
                 $('#nouveaux-articles-container').append(response);
@@ -195,6 +197,7 @@ $(document).ready(function () {
         });
     });
 });
+
 
 </script>
 {% endblock %}

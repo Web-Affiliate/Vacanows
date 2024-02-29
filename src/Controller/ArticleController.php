@@ -1,7 +1,5 @@
 <?php
 
-// src/Controller/ArticleController.php
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,7 +39,7 @@ class ArticleController extends AbstractController
 
         $category = $article->getSousCategories2()->getSousCategorie1()->getCategories();
 
-        $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
+        $lastArticles = $this->entityManager->getRepository(Articles::class)->findArticlesExcludingCurrent($article, 4);
 
         $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
         $offset = count($lastArticles);
@@ -128,19 +126,19 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/load-more-articles{offset}", name="load_more_articles", methods={"GET"})
-     */
-    #[Route('/load-more-articles{offset}', name: 'load_more_articles', methods: ['GET'])]
-     public function loadMoreArticles(Request $request)
-     {
-        $offset = $request->query->get('offset', 0);
-        $references = $this->entityManager->getRepository(Articles::class)->findNextArticles($offset, 3);
+  /**
+ * @Route("/load-more-articles", name="load_more_articles", methods={"GET"})
+ */
+#[Route('/load-more-articles', name: 'load_more_articles', methods: ['GET'])]
+public function loadMoreArticles(Request $request): Response
+{
+    $offset = $request->query->get('offset', 0);
+    $references = $this->entityManager->getRepository(Articles::class)->findNextArticles($offset, 3);
 
+    return $this->render('site/article/loadMore.html.twig', [
+        'articles' => $references,
+    ]);
+}
 
-        return $this->render('site/article/loadMore.html.twig', [
-            'articles' => $references,
-        ]);
-    }
 
 }

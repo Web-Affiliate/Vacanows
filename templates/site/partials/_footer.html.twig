@@ -1,10 +1,20 @@
 <footer>
     <ul class="footer_nav">
-        {% for navbar in navbar %}
-            <li class="nav-item">
-                <a class="nav-link" href="#">{{ navbar }}</a>
-            </li>
-        {% endfor %}
+        <li class="nav-item">
+            <a class="nav-link" href="#">{{ content.getNavbar1() }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">{{ content.getNavbar2() }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">{{ content.getNavbar3() }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">{{ content.getNavbar4() }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('about-us') }}">{{ content.getNavbar5() }}</a>
+        </li>
     </ul>
     <ul>
         <li class="mention">mention</li>

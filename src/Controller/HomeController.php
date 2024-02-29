@@ -47,18 +47,11 @@ class HomeController extends AbstractController
            }
            $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
 
-
-        $navbar = [];
-        for($i=1; $i<=5; $i++){
-            $navbar[] = $content->{"getNavbar$i"}();
-        }
-
         $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);
         $articlesCountBySousCategorie1 = $sousCategories1Repository->countArticlesBySousCategorie1();
 
         $data = [
             'content' => $content,
-            'navbar' => $navbar,
             'categoriesToShow' => $categoriesToShow,
             'sousCategoriesToShow' => $sousCategoriesToShow,
             'lastArticles' => $lastArticles,

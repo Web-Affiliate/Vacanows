@@ -174,7 +174,7 @@
             <h2 class="titre-dernier-articles"><strong>Derniers articles</strong></h2>
         </div>
         {% for article in lastArticles %}
-            {# {% if article != currentArticle %} #}
+            {% if article != currentArticle %}
                 <div class="col-12">
                     <a href="{{ path('article_show', {'slug': article.getSlug() }) }}" class="card card3">
                         <div class="row">
@@ -189,7 +189,7 @@
                         </div>
                     </a>
                 </div>
-            {# {% endif %} #}
+            {% endif %}
         {% endfor %}
     </div>
 

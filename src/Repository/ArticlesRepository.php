@@ -37,6 +37,30 @@ class ArticlesRepository extends ServiceEntityRepository
         return $results;
 }
 
+public function findNextArticlesExcludingCurrent($currentArticleId, int $offset, int $limit)
+{
+    return $this->createQueryBuilder('a')
+        ->andWhere('a.id != :currentArticleId')
+        ->setParameter('currentArticleId', $currentArticleId)
+        ->orderBy('a.id', 'DESC')
+        ->setFirstResult($offset)
+        ->setMaxResults($limit)
+        ->getQuery()
+        ->getResult();
+}
+
+
+public function findArticlesExcludingCurrent(Articles $currentArticle, int $limit)
+{
+    return $this->createQueryBuilder('a')
+        ->andWhere('a != :currentArticle')
+        ->setParameter('currentArticle', $currentArticle)
+        ->orderBy('a.id', 'DESC')
+        ->setMaxResults($limit)
+        ->getQuery()
+        ->getResult();
+}
+
 public function findRandomArticlesBySousCategories2(Articles $currentArticle, int $limit)
 {
     $articles = $this->createQueryBuilder('a')
