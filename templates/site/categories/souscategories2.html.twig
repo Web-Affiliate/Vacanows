@@ -1,0 +1,32 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Toutes les villes{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="titre-section">Toutes les villes</h1>
+            <p>{{ sousCategories2|length }} villes</p>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for sousCategory2 in sousCategories2 %}
+            <div class="col-md-3 mb-4">
+                <a href="{{ path('sous_categorie2_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link">
+                <div class="card">
+                    <img src="{{ asset('uploads/images/' ~ sousCategory2.image) }}" class="card-img-top" alt="Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sousCategory2.nom }}</h5>
+                        <p class="card-text">{{ articlesCountByVille[sousCategory2.getId()] }} {% if articlesCountByVille[sousCategory2.getId()] == 1 or sousCategory2.getId() == 0 %}article{% else %}articles{% endif %}</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

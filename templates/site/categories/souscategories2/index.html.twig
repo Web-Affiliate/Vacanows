@@ -1,0 +1,38 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Villes {% endblock %}
+
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="titre-section">{{ sousCategory1.nom }}</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
+                <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': categories.getSlug()}) }}">{{ categories }}</a></li>
+                <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories1glob_show') }}">Régions</a></li>
+                <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categorie1_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sousCategory1.getSlug() } ) }}">{{ sousCategory1 }}</a></li>
+                <li class="breadcrumb-item filAriane"></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for sousCategory2 in sousCategories2 %}
+            <div class="col-md-3 mb-4">
+                <a href="{{ path('sous_categorie2_show', {'categorySlug': categorySlug, 'sousCategory1Slug': sousCategory1Slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link">
+                    <div class="card">
+                        <img src="{{ asset('uploads/images/' ~ sousCategory2.image) }}" class="card-img-top" alt="Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ sousCategory2.nom }}</h5>
+                            <p class="card-text">{{ articlesCountBySousCategory2[sousCategory2.getId()] }} {% if articlesCountBySousCategory2[sousCategory2.getId()] == 1 or articlesCountBySousCategory2[sousCategory2.getId()] == 0 %}article{% else %}articles{% endif %}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}{{ category.nom }}{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="titre-section" >{{ category.nom }}</h1>
+             <ol class="breadcrumb">
+                <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
+                <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': category.getSlug()}) }}">{{ category }}</a></li>
+                <li class="breadcrumb-item filAriane"></li>
+            </ol>
+        </div>
+        <div class="temps-lecture">
+            <p class="col-12">Lecture: {{ tempsLectureMin }} - {{ tempsLectureMax }} min</p>
+        </div>
+
+    </div>
+
+    <div class="row">
+       {% for sousCategory in sousCategories %}
+        <div class="col-md-3 mb-4">
+            <a href="{{ path('sous_categorie1_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug }) }}" class="card-link">
+                <div class="card">
+                    <img src="{{ asset('uploads/images/' ~ sousCategory.image) }}" class="card-img-top" alt="Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sousCategory.nom }}</h5>
+                        {% set articleCount = articlesCountBySousCategorie1[sousCategory.getId()] ?? 0 %}
+                        {% set villeCount = countSousCategories2[sousCategory.getId()] ?? 0 %}
+                        <p class="card-text">{{ articleCount }} {% if articleCount == 1 or  articleCount == 0 %}article{% else %}articles{% endif %} / {{ villeCount }} {% if villeCount == 1 or villeCount == 0 %}ville{% else %}villes{% endif %}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

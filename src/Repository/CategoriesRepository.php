@@ -59,6 +59,28 @@ public function findNextCategoriesByDate(\DateTime $date, $limit)
         ->getResult();
 }
 
+public function countCountries()
+{
+    return $this->createQueryBuilder('c')
+        ->select('COUNT(c)')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+public function countArticlesByCategories()
+{
+    return $this->createQueryBuilder('c')
+        ->select('c.nom as category', 'COUNT(DISTINCT a.id) as count', 'COUNT(DISTINCT sousCategorie1.id) as regionCount')
+        ->leftJoin('c.sousCategories1s', 'sousCategorie1')
+        ->leftJoin('sousCategorie1.sousCategories2s', 'sousCategories2')
+        ->leftJoin('sousCategories2.articles', 'a')
+        ->groupBy('c.nom')
+        ->getQuery()
+        ->getResult();
+}
+
+
+
 //    public function findOneBySomeField($value): ?Categories
 //    {
 //        return $this->createQueryBuilder('c')

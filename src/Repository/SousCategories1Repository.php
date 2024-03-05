@@ -44,6 +44,25 @@ class SousCategories1Repository extends ServiceEntityRepository
         return $articleCounts;
     }
 
+    public function countArticlesSousCategorieAll(): array
+    {
+        $qb = $this->createQueryBuilder('s1');
+
+        $results = $qb
+            ->select('s1.id, COUNT(DISTINCT a.id) AS articleCount')
+            ->leftJoin('s1.sousCategories2s', 's2')
+            ->leftJoin('s2.articles', 'a')
+            ->groupBy('s1.id')
+            ->getQuery()
+            ->getResult();
+
+        $articleCounts = [];
+        foreach ($results as $result) {
+            $articleCounts[$result['id']] = $result['articleCount'];
+        }
+
+        return $articleCounts;
+    }
 
 
 

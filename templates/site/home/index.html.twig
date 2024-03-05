@@ -78,8 +78,12 @@
         <div class="col-12 ">
             <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
         </div>
+        {% for category in categoriesToShow %}
+        {% set categorySlug = category.getSlug() %}
         {% for sousCategorie in sousCategoriesToShow %}
+            {% if sousCategorie.getCategories() == category %}
             <div class="col-12 col-md-4">
+        <a href="{{ path('sous_categorie1_show', {'categorySlug': categorySlug, 'sousCategory1Slug': sousCategorie.getSlug()}) }}" class="card-link">
                 <div class="card">
                     <img src="{{ asset('uploads/images/' ~ sousCategorie.image) }}" class="card-img-top" alt="Image">
                     <div class="card-body">
@@ -91,13 +95,15 @@
                             <p class="card-text">{{ articleCount }} articles</p>
                         {% endif %}
                     </div>
+                </a>
                 </div>
             </div>
+            {% endif %}
+        {% endfor %}
         {% endfor %}
 
-
         <div class="col-12 ">
-            <a href="#" class="btn bouton1 bouton2">{{ bouton_1 }}</a>
+            <a href="{{ path('sous_categories1glob_show') }}" class="btn bouton1 bouton2">{{ bouton_1 }}</a>
         </div>
     </div>
 </div>
@@ -124,16 +130,18 @@
         </div>
         {% for categorie in categoriesToShow %}
             <div class="col-12 col-md-3">
+            <a href="{{ path('categorie_show', {'categorySlug': categorie.getSlug()}) }}" class="card-link">
                 <div class="card2">
                     <img src="{{ asset('uploads/images/' ~ categorie.image) }}" class="card-img-top" alt="Image">
                     <div class="card-body">
                         <h5 class="card-title2">{{ categorie.getNom() }}</h5>
                     </div>
                 </div>
+            </a>
             </div>
         {% endfor %}
         <div class="col-12 ">
-            <a href="#" class="btn bouton1 bouton2">{{ bouton_1 }}</a>
+            <a href="{{ path('categoriesglob_show') }}" class="btn bouton1 bouton2">{{ bouton_1 }}</a>
         </div>
     </div>
 </div>

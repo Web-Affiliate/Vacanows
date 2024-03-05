@@ -1,0 +1,42 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Vacanow{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="titre-section">Tout les pays</h1>
+            <div class="temps-lecture">
+                <p>Lecture: {{ tempsLectureMin }} - {{ tempsLectureMax }} min</p>
+            </div>
+            <p class="paragraph-section">{{ countCategory }} pays</p>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-md-3 mb-4">
+                <a href="{{ path('categorie_show', {'categorySlug': category.slug }) }}" class="card-link">
+                    <div class="card">
+                        <img src="{{ asset('uploads/images/' ~ category.image) }}" class="card-img-top" alt="Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ category.nom }}</h5>
+                            {% for categoryData in articlePerCategory %}
+                                {% if categoryData.category == category.nom %}
+                                    <p class="card-text">{{ categoryData.count }} {% if categoryData.count == 1 or categoryData.count == 0 %}article{% else %}articles{% endif %} / {{ categoryData.regionCount }} {% if categoryData.regionCount == 1 or categoryData.regionCount == 0 %}région{% else %}régions{% endif %}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% if loop.index % 4 == 0 %}
+                </div><div class="row">
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

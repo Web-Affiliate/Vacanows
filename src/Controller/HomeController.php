@@ -43,6 +43,10 @@ class HomeController extends AbstractController
                    shuffle($sousCategories);
                    $selectedSousCategory = reset($sousCategories);
                    $sousCategoriesToShow[] = $selectedSousCategory;
+
+                   $categorySlug = $category->getSlug();
+
+                    $sousCategorySlug = $selectedSousCategory->getSlug();
                }
            }
            $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
@@ -55,6 +59,8 @@ class HomeController extends AbstractController
             'categoriesToShow' => $categoriesToShow,
             'sousCategoriesToShow' => $sousCategoriesToShow,
             'lastArticles' => $lastArticles,
+            'categorySlug' => $categorySlug,
+            'sousCategorySlug' => $sousCategorySlug,
             'image_header' => $content->getImageHeader(),
             'image_header2' => $content->getImageHeader2(),
             'image_header3' => $content->getImageHeader3(),

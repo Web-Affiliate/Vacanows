@@ -85,6 +85,57 @@ public function countTotalArticles(): int
         ->getSingleScalarResult();
 }
 
+// TEMPS LECTURE
+
+public function findTempsLectureMin(): int
+{
+    return $this->createQueryBuilder('a')
+        ->select('MIN(a.temps_lecture)')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+public function findTempsLectureMax(): int
+{
+    return $this->createQueryBuilder('a')
+        ->select('MAX(a.temps_lecture)')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+public function findTempsLectureMinBySousCategorie1()
+{
+    return $this->createQueryBuilder('a')
+        ->select('MIN(a.temps_lecture)')
+        ->join('a.sous_categories_2', 's')
+        ->andWhere('s.sous_categorie_1 = :sousCategory1')
+        ->setParameter('sousCategory1', $sousCategory1)
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+// public function findTempsLectureMaxBySousCategorie1()
+// {
+//     return $this->createQueryBuilder('a')
+//         ->select('MAX(a.temps_lecture)')
+//         ->join('a.sous_categories_2', 's')
+//         ->andWhere('s.sous_categorie_1 = :sousCategory1')
+//         ->setParameter('sousCategory1', $sousCategory1)
+//         ->getQuery()
+//         ->getSingleScalarResult();
+// }
+
+// public function findTempsLectureBySousCategory2($sousCategory2)
+// {
+//     return $this->createQueryBuilder('a')
+//         ->select('a.temps_lecture')
+//         ->andWhere('a.sous_categories_2 = :sousCategory2')
+//         ->setParameter('sousCategory2', $sousCategory2)
+//         ->getQuery()
+//         ->getResult();
+// }
+
+
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
 //     */

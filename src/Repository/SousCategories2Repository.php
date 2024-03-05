@@ -38,5 +38,15 @@ class SousCategories2Repository extends ServiceEntityRepository
         return $villesRandom;
     }
 
+    public function countSousCategories2BySousCategory(SousCategories1 $sousCategory1): int
+    {
+        return $this->createQueryBuilder('s')
+            ->select('COUNT(s)')
+            ->where('s.sous_categorie_1 = :sousCategory1')
+            ->setParameter('sousCategory1', $sousCategory1)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
 }
+

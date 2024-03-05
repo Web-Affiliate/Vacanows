@@ -11,9 +11,13 @@
     <h1 class="titre-section titre-articles">{{ titre_1 }}</h1>
     <nav aria-label="breadcrumb" style="margin-top: 10px;">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item filAriane"><a href={{ categories.getSlug() }}>{{ categories }}</a></li>
-            <li class="breadcrumb-item filAriane"><a href={{ sous_categories_1.getSlug() }}>{{ sous_categories_1 }}</a></li>
-            <li class="breadcrumb-item filAriane" aria-current="page"><a href={{ sous_categories_2.getSlug() }}>{{ sous_categories_2 }}</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': categories.getSlug()}) }}">{{ categories }}</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories1glob_show') }}">Régions</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categorie1_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug() } ) }}">{{ sous_categories_1 }}</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories2glob_show') }}">Villes</a></li>
+            <li class="breadcrumb-item filAriane" aria-current="page"><a href="{{ path('sous_categorie2_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug(), 'sousCategory2Slug': sous_categories_2.getSlug() }  ) }}">{{ sous_categories_2 }}</a></li>
+            <li class="breadcrumb-item filAriane" aria-current="page"><a class="active-Ariane">{{ slug|capitalize }}</a></li>
         </ol>
     </nav>
     <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>

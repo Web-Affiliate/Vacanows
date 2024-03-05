@@ -85,6 +85,11 @@
     font-size: 22px;
 }
 
+.active-Ariane{
+    color: var(--secondary);
+
+}
+
 .card-bottom{
     padding-bottom: 50px;
     height: 200px;

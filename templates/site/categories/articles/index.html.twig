@@ -1,0 +1,40 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="titre-section">Articles</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': categories.getSlug()}) }}">{{ categories }}</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories1glob_show') }}">Régions</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categorie1_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug() } ) }}">{{ sous_categories_1 }}</a></li>
+            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories2glob_show') }}">Villes</a></li>
+            <li class="breadcrumb-item filAriane" aria-current="page"><a href="{{ path('sous_categorie2_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug(), 'sousCategory2Slug': sousCategory2.getSlug() }  ) }}">{{ sousCategory2 }}</a></li>
+            <li class="breadcrumb-item filAriane"></li>
+        </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for article in articles %}
+            <div class="col-md-3 mb-4">
+                <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
+                    <div class="card">
+                        <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img-top" alt="Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.getTitre1() }}</h5>
+                            <p class="card-text">Temps de lecture: {{ article.getTempsLecture() }} min</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
