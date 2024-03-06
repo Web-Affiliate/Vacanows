@@ -64,7 +64,33 @@ class SousCategories1Repository extends ServiceEntityRepository
         return $articleCounts;
     }
 
+    public function findTempsLectureMinBySousCategorie2(): int
+    {
+        $qb = $this->createQueryBuilder('s1');
 
+        $tempsLectureMin = $qb
+            ->select('MIN(a.temps_lecture)')
+            ->leftJoin('s1.sousCategories2s', 's2')
+            ->leftJoin('s2.articles', 'a')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $tempsLectureMin ?: 0;
+    }
+
+    public function findTempsLectureMaxBySousCategorie2(): int
+    {
+        $qb = $this->createQueryBuilder('s1');
+
+        $tempsLectureMax = $qb
+            ->select('MAX(a.temps_lecture)')
+            ->leftJoin('s1.sousCategories2s', 's2')
+            ->leftJoin('s2.articles', 'a')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $tempsLectureMax ?: 0;
+    }
 
 //     public function findSousCategories1ByDateAndByCategory(\DateTime $date, Categories $category, $limit)
 // {

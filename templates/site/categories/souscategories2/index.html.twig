@@ -4,10 +4,11 @@
 
 {% block main %}
 
+{# {% include 'site/partials/headerBan.html.twig' %} #}
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <h1 class="titre-section">{{ sousCategory1.nom }}</h1>
+            <h1 class="titre-section">Régions - {{ sousCategory1.nom }}</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
                 <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': categories.getSlug()}) }}">{{ categories }}</a></li>
@@ -16,6 +17,10 @@
                 <li class="breadcrumb-item filAriane"></li>
             </ol>
         </div>
+         <div class="temps-lecture">
+            <p class="col-12">Lecture: {{ tempsLecture }}</p>
+        </div>
+
     </div>
 
     <div class="row">

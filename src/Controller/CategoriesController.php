@@ -31,11 +31,6 @@ class CategoriesController extends AbstractController
             throw $this->createNotFoundException('Pays non trouvé');
         }
 
-        $sousCategories1Repository = $this->entityManager->getRepository
-        (SousCategories1::class);
-
-        $tempsLectureMin = $this->entityManager->getRepository(Articles::class)->findTempsLectureMin();
-        $tempsLectureMax = $this->entityManager->getRepository(Articles::class)->findTempsLectureMax();
         $sousCategories2Repository = $this->entityManager->getRepository(SousCategories2::class);
         $sousCategories = $category->getSousCategories1s();
 
@@ -50,6 +45,32 @@ class CategoriesController extends AbstractController
             $sousCategories2Repository->countSousCategories2BySousCategory($sousCategory1);
         }
 
+        $sousCategories1 = $sousCategories1Repository->findBy(['categories' => $category]);
+
+        $tempsLectureMin = PHP_INT_MAX;
+        $tempsLectureMax = 0;
+        foreach ($sousCategories1 as $sousCategory1) {
+            foreach ($sousCategory1->getSousCategories2s() as $sousCategory2) {
+                foreach ($sousCategory2->getArticles() as $article) {
+                    $tempsLecture = $article->getTempsLecture();
+                    if ($tempsLecture < $tempsLectureMin) {
+                        $tempsLectureMin = $tempsLecture;
+                    }
+                    if ($tempsLecture > $tempsLectureMax) {
+                        $tempsLectureMax = $tempsLecture;
+                    }
+                }
+            }
+        }
+
+        if ($tempsLectureMin === PHP_INT_MAX || $tempsLectureMax === 0) {
+            $tempsLecture = '0 min';
+        } elseif ($tempsLectureMin === $tempsLectureMax) {
+            $tempsLecture = $tempsLectureMin . ' min';
+        } else {
+            $tempsLecture = $tempsLectureMin . ' - ' . $tempsLectureMax . ' min';
+        }
+
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
         return $this->render('site/categories/souscategories1/index.html.twig', [
@@ -59,9 +80,18 @@ class CategoriesController extends AbstractController
             'tempsLectureMin' => $tempsLectureMin,
             'tempsLectureMax' => $tempsLectureMax,
             'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1,
-            'countSousCategories2' => $countSousCategories2
+            'countSousCategories2' => $countSousCategories2,
+            'image_header' => $content->getImageHeader(),
+            'image_header2' => $content->getImageHeader2(),
+            'image_header3' => $content->getImageHeader3(),
+            'image_header4' => $content->getImageHeader4(),
+            'titre_header' => $content->getTitreHeader(),
+            'paragraph_header' => $content->getParagraphHeader(),
+            'placeholder_search' => $content->getPlaceholderSearch(),
+            'tempsLecture' => $tempsLecture,
         ]);
     }
+
 
     #[Route('/pays/{categorySlug}/region/{sousCategory1Slug}', name: 'sous_categorie1_show')]
     public function showSousCategorie($categorySlug, $sousCategory1Slug): Response
@@ -76,13 +106,31 @@ class CategoriesController extends AbstractController
             $articlesCountBySousCategory2[$sousCategory2->getId()] = $sousCategory2->getArticles()->count();
         }
 
+        $tempsLectureMin = PHP_INT_MAX;
+        $tempsLectureMax = 0;
+
+        foreach ($sousCategories2 as $sousCategory2) {
+            foreach ($sousCategory2->getArticles() as $article) {
+                $tempsLecture = $article->getTempsLecture();
+
+                if ($tempsLecture < $tempsLectureMin) {
+                    $tempsLectureMin = $tempsLecture;
+                }
+                if ($tempsLecture > $tempsLectureMax) {
+                    $tempsLectureMax = $tempsLecture;
+                }
+            }
+        }
+
+        if ($tempsLectureMin === PHP_INT_MAX || $tempsLectureMax === 0) {
+            $tempsLecture = '0 min';
+        } elseif ($tempsLectureMin === $tempsLectureMax) {
+            $tempsLecture = $tempsLectureMin . ' min';
+        } else {
+            $tempsLecture = $tempsLectureMin . ' - ' . $tempsLectureMax . ' min';
+        }
+
         $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
-
-
-            // $tempsLectureMinBySousCategorie1 = $this->entityManager->
-    // getRepository(Articles::class)->findTempsLectureMinBySousCategorie1();
-    // $tempsLectureMaxBySousCategorie1 = $this->entityManager->
-    // getRepository(Articles::class)->findTempsLectureMaxBySousCategorie1();
 
         return $this->render('site/categories/souscategories2/index.html.twig', [
             'sousCategory1' => $sousCategory1,
@@ -92,23 +140,51 @@ class CategoriesController extends AbstractController
             'sousCategory1Slug' => $sousCategory1Slug,
             'content' => $content,
             'categories' => $category,
+            'image_header' => $content->getImageHeader(),
+            'image_header2' => $content->getImageHeader2(),
+            'image_header3' => $content->getImageHeader3(),
+            'image_header4' => $content->getImageHeader4(),
+            'titre_header' => $content->getTitreHeader(),
+            'paragraph_header' => $content->getParagraphHeader(),
+            'placeholder_search' => $content->getPlaceholderSearch(),
+            'tempsLecture' => $tempsLecture
         ]);
     }
 
     #[Route('/pays/{categorySlug}/region/{sousCategory1Slug}/ville/{sousCategory2Slug}', name: 'sous_categorie2_show')]
     public function showSousCategorie2($categorySlug, $sousCategory1Slug, $sousCategory2Slug): Response
     {
+        $sousCategory2 = $this->entityManager->getRepository(SousCategories2::class)->findOneBy(['slug' => $sousCategory2Slug]);
+
+        if (!$sousCategory2) {
+            throw $this->createNotFoundException('Ville non trouvée');
+        }
+
+        $articles = $sousCategory2->getArticles();
+        $tempsLectureMin = PHP_INT_MAX;
+        $tempsLectureMax = 0;
+        foreach ($articles as $article) {
+            $tempsLecture = $article->getTempsLecture();
+            if ($tempsLecture < $tempsLectureMin) {
+                $tempsLectureMin = $tempsLecture;
+            }
+            if ($tempsLecture > $tempsLectureMax) {
+                $tempsLectureMax = $tempsLecture;
+            }
+        }
+
+        // Gestion d'erreur si aucun article trouvé
+        if ($tempsLectureMin === PHP_INT_MAX || $tempsLectureMax === 0) {
+            $tempsLecture = '0 min';
+        } elseif ($tempsLectureMin === $tempsLectureMax) {
+            $tempsLecture = $tempsLectureMin . ' min';
+        } else {
+            $tempsLecture = $tempsLectureMin . ' - ' . $tempsLectureMax . ' min';
+        }
 
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
-
-        $sousCategory2 = $this->entityManager->getRepository(
-            SousCategories2::class)->findOneBy(['slug' => $sousCategory2Slug]);
-
-            $sousCategory1 = $sousCategory2->getSousCategorie1();
-            $articles = $sousCategory2->getArticles();
-
-            $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
-
+        $sousCategory1 = $sousCategory2->getSousCategorie1();
+        $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
 
         return $this->render('site/categories/articles/index.html.twig', [
             'categorySlug' => $categorySlug,
@@ -119,10 +195,17 @@ class CategoriesController extends AbstractController
             'sousCategory2' => $sousCategory2,
             'categories' => $category,
             'sous_categories_1' => $sousCategory1,
-
-            // 'tempsLecture' => $tempsLecture
+            'image_header' => $content->getImageHeader(),
+            'image_header2' => $content->getImageHeader2(),
+            'image_header3' => $content->getImageHeader3(),
+            'image_header4' => $content->getImageHeader4(),
+            'titre_header' => $content->getTitreHeader(),
+            'paragraph_header' => $content->getParagraphHeader(),
+            'placeholder_search' => $content->getPlaceholderSearch(),
+            'tempsLecture' => $tempsLecture
         ]);
     }
+
 
     #[Route('/pays', name: 'categoriesglob_show')]
 public function showCategories(): Response
@@ -139,17 +222,19 @@ public function showCategories(): Response
         $sousCategoriesByCategory[$category->getId()] = $sousCategories;
     }
 
-    $tempsLectureMin = $this->entityManager->getRepository(Articles::class)->findTempsLectureMin();
-    $tempsLectureMax = $this->entityManager->getRepository(Articles::class)->findTempsLectureMax();
-
     return $this->render('site/categories/categories.html.twig', [
         'content' => $content,
         'countCategory' => $countCategory,
         'categories' => $categories,
         'articlePerCategory' => $articlePerCategory,
         'sousCategoriesByCategory' => $sousCategoriesByCategory,
-        'tempsLectureMin' => $tempsLectureMin,
-        'tempsLectureMax' => $tempsLectureMax
+        'image_header' => $content->getImageHeader(),
+        'image_header2' => $content->getImageHeader2(),
+        'image_header3' => $content->getImageHeader3(),
+        'image_header4' => $content->getImageHeader4(),
+        'titre_header' => $content->getTitreHeader(),
+        'paragraph_header' => $content->getParagraphHeader(),
+        'placeholder_search' => $content->getPlaceholderSearch(),
     ]);
 }
 
@@ -177,6 +262,13 @@ public function showSousCategories(): Response
         'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1,
         'category' => $category,
         'countSousCategories2' => $countSousCategories2,
+        'image_header' => $content->getImageHeader(),
+        'image_header2' => $content->getImageHeader2(),
+        'image_header3' => $content->getImageHeader3(),
+        'image_header4' => $content->getImageHeader4(),
+        'titre_header' => $content->getTitreHeader(),
+        'paragraph_header' => $content->getParagraphHeader(),
+        'placeholder_search' => $content->getPlaceholderSearch(),
     ]);
 }
 
@@ -202,7 +294,14 @@ public function showSousCategories1(): Response
         'sousCategories2' => $sousCategories2,
         'articlesCountByVille' => $articlesCountByVille,
         'category' => $category,
-        'sousCategory' => $sousCategory1
+        'sousCategory' => $sousCategory1,
+        'image_header' => $content->getImageHeader(),
+        'image_header2' => $content->getImageHeader2(),
+        'image_header3' => $content->getImageHeader3(),
+        'image_header4' => $content->getImageHeader4(),
+        'titre_header' => $content->getTitreHeader(),
+        'paragraph_header' => $content->getParagraphHeader(),
+        'placeholder_search' => $content->getPlaceholderSearch(),
     ]);
 }
 

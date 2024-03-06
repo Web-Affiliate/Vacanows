@@ -1,0 +1,27 @@
+{% if content is not null %}
+    <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ asset('uploads/images/' ~ content.imageHeader) }}" alt="Bannière" class="img-fluid carousel-global w-100">
+            </div>
+            {% for i in 2..4 %}
+                <div class="carousel-item carousel-global {% if i == 2 %}image_banner{% elseif i == 3 %}image_banner2{% elseif i == 4 %}image_banner3{% endif %}">
+                    <img src="{{ asset('uploads/images/' ~ attribute(content, 'imageHeader' ~ i)) }}" alt="Bannière" class="img-fluid {% if i == 2 %}image_banner{% elseif i == 3 %}image_banner2{% elseif i == 4 %}image_banner3{% endif %}">
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-container">
+            <h1 class="titre-header">{{ titre_header|striptags|raw }}</h1>
+            <p class="paragraph-header">{{ paragraph_header|striptags|raw }}</p>
+        </div>
+        <div class="searchbar-container">
+            <form action="#" method="get">
+                <input type="text" name="search" id="search" placeholder="{{ placeholder_search }}" class="form-control">
+                <div class="search-icon">
+                    <img src="{{ asset('uploads/images/loupe.svg') }}" alt="Rechercher">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endif %}

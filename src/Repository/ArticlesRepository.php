@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Articles;
+use App\Entity\SousCategories1;
+use App\Entity\SousCategories2;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -102,38 +104,6 @@ public function findTempsLectureMax(): int
         ->getQuery()
         ->getSingleScalarResult();
 }
-
-public function findTempsLectureMinBySousCategorie1()
-{
-    return $this->createQueryBuilder('a')
-        ->select('MIN(a.temps_lecture)')
-        ->join('a.sous_categories_2', 's')
-        ->andWhere('s.sous_categorie_1 = :sousCategory1')
-        ->setParameter('sousCategory1', $sousCategory1)
-        ->getQuery()
-        ->getSingleScalarResult();
-}
-
-// public function findTempsLectureMaxBySousCategorie1()
-// {
-//     return $this->createQueryBuilder('a')
-//         ->select('MAX(a.temps_lecture)')
-//         ->join('a.sous_categories_2', 's')
-//         ->andWhere('s.sous_categorie_1 = :sousCategory1')
-//         ->setParameter('sousCategory1', $sousCategory1)
-//         ->getQuery()
-//         ->getSingleScalarResult();
-// }
-
-// public function findTempsLectureBySousCategory2($sousCategory2)
-// {
-//     return $this->createQueryBuilder('a')
-//         ->select('a.temps_lecture')
-//         ->andWhere('a.sous_categories_2 = :sousCategory2')
-//         ->setParameter('sousCategory2', $sousCategory2)
-//         ->getQuery()
-//         ->getResult();
-// }
 
 
 //    /**
