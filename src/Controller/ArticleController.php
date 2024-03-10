@@ -73,7 +73,7 @@ class ArticleController extends AbstractController
 
         $articlesWithSameSousCategories2 = $articlesRepository->findRandomArticlesBySousCategories2($article, 3);
 
-        $guides = $article->getGuides();
+        $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
         $date = $article->getCreatedDate();
 

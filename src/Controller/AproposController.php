@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Content;
+use App\Entity\Guides;
 
 class AproposController extends AbstractController
 {
@@ -25,9 +26,11 @@ class AproposController extends AbstractController
     public function index(): Response
     {
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
+        $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
         return $this->render('site/aboutUs/index.html.twig', [
             'content' => $content,
+            'guides' => $guides
         ]);
     }
 }

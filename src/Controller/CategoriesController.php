@@ -10,7 +10,9 @@ use App\Entity\SousCategories1;
 use App\Entity\SousCategories2;
 use App\Entity\Content;
 use App\Entity\Articles;
+use App\Entity\Guides;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class CategoriesController extends AbstractController
 {
@@ -71,6 +73,8 @@ class CategoriesController extends AbstractController
             $tempsLecture = $tempsLectureMin . ' - ' . $tempsLectureMax . ' min';
         }
 
+        $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
         return $this->render('site/categories/souscategories1/index.html.twig', [
@@ -89,6 +93,7 @@ class CategoriesController extends AbstractController
             'paragraph_header' => $content->getParagraphHeader(),
             'placeholder_search' => $content->getPlaceholderSearch(),
             'tempsLecture' => $tempsLecture,
+            'guides' => $guides
         ]);
     }
 
@@ -131,6 +136,7 @@ class CategoriesController extends AbstractController
         }
 
         $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
+        $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
         return $this->render('site/categories/souscategories2/index.html.twig', [
             'sousCategory1' => $sousCategory1,
@@ -147,7 +153,8 @@ class CategoriesController extends AbstractController
             'titre_header' => $content->getTitreHeader(),
             'paragraph_header' => $content->getParagraphHeader(),
             'placeholder_search' => $content->getPlaceholderSearch(),
-            'tempsLecture' => $tempsLecture
+            'tempsLecture' => $tempsLecture,
+            'guides' => $guides
         ]);
     }
 
@@ -185,6 +192,7 @@ class CategoriesController extends AbstractController
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
         $sousCategory1 = $sousCategory2->getSousCategorie1();
         $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
+        $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
         return $this->render('site/categories/articles/index.html.twig', [
             'categorySlug' => $categorySlug,
@@ -202,7 +210,8 @@ class CategoriesController extends AbstractController
             'titre_header' => $content->getTitreHeader(),
             'paragraph_header' => $content->getParagraphHeader(),
             'placeholder_search' => $content->getPlaceholderSearch(),
-            'tempsLecture' => $tempsLecture
+            'tempsLecture' => $tempsLecture,
+            'guides' => $guides
         ]);
     }
 
@@ -221,6 +230,7 @@ public function showCategories(): Response
         $sousCategories = $sousCategories1Repository->findBy(['categories' => $category]);
         $sousCategoriesByCategory[$category->getId()] = $sousCategories;
     }
+    $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
     return $this->render('site/categories/categories.html.twig', [
         'content' => $content,
@@ -235,6 +245,7 @@ public function showCategories(): Response
         'titre_header' => $content->getTitreHeader(),
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
+        'guides' => $guides
     ]);
 }
 
@@ -255,6 +266,7 @@ public function showSousCategories(): Response
         $countSousCategories2[$sousCategory1->getId()] =
         $sousCategories2Repository->countSousCategories2BySousCategory($sousCategory1);
     }
+    $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
     return $this->render('site/categories/souscategories1.html.twig', [
         'content' => $content,
@@ -269,6 +281,7 @@ public function showSousCategories(): Response
         'titre_header' => $content->getTitreHeader(),
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
+        'guides' => $guides
     ]);
 }
 
@@ -288,6 +301,7 @@ public function showSousCategories1(): Response
     $category = $this->entityManager->getRepository(Categories::class)->findOneBy([]);
     $sousCategory1 = $this->entityManager->getRepository(SousCategories1::class)->findOneBy([]);
 
+    $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
     return $this->render('site/categories/souscategories2.html.twig', [
         'content' => $content,
@@ -302,7 +316,43 @@ public function showSousCategories1(): Response
         'titre_header' => $content->getTitreHeader(),
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
+        'guides' => $guides
     ]);
 }
 
+#[Route('/articles', name: 'articles')]
+public function articles(Request $request): Response
+{
+    $queryString = $request->getQueryString();
+    $sousCategorie2Ids = [];
+    $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
+
+    // Vérifie si des paramètres sont passés dans l'URL
+    if ($queryString) {
+        // Récupère les paramètres de l'URL et sépare les clés et les valeurs
+        $params = explode('&', $queryString);
+        foreach ($params as $param) {
+            $parts = explode('=', $param);
+            if ($parts[0] === 'sousCategorie2Id' && isset($parts[1])) {
+                // Ajoute l'ID de sous-catégorie à la liste
+                $sousCategorie2Ids[] = $parts[1];
+            }
+        }
+    }
+
+    $articlesRepository = $this->entityManager->getRepository(Articles::class);
+    $articles = [];
+
+    foreach ($sousCategorie2Ids as $sousCategorie2Id) {
+        $articles = array_merge($articles, $articlesRepository->findBy(['sous_categories_2' => $sousCategorie2Id]));
+    }
+    $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+
+
+    return $this->render('site/reponse_select/articles.html.twig', [
+        'articles' => $articles,
+        'content' => $content,
+        'guides' => $guides,
+    ]);
+}
 }

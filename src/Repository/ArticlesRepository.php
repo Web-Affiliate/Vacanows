@@ -105,6 +105,17 @@ public function findTempsLectureMax(): int
         ->getSingleScalarResult();
 }
 
+// CATEGORIES
+
+public function findBySousCategories2Ids(array $sousCategorie2Ids)
+{
+    return $this->createQueryBuilder('a')
+        ->join('a.sous_categories_2', 'sous_categories_2')
+        ->andWhere('sous_categories_2.id IN (:sousCategorie2Ids)')
+        ->setParameter('sousCategorie2Ids', $sousCategorie2Ids)
+        ->getQuery()
+        ->getResult();
+}
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects

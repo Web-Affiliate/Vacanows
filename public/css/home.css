@@ -8,6 +8,21 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* ::-webkit-scrollbar {
+    width: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--white);
+}
+ */
+
+
 /* NAVBAR */
 
 .navbar-container{
@@ -148,26 +163,27 @@
     width: 500px;
 }
 
+
 .searchbar-container input{
-    width: 100%;
+    width: calc(100% - 60px) !important;
     border: none;
     border-radius: 25px;
     font-size: 20px;
     margin-right: 20px;
-    padding: 20px 100px 20px 20px;
+    width: 330px !important;
 }
 
 .searchbar-container input::placeholder{
     color: var(--text);
     font-size: 20px;
     font-weight: 400;
-    /* centre le verticalement*/
     vertical-align: middle;
 }
+
 .search-icon {
     position: absolute;
     top: 50%;
-    right: 25px;
+    right: 50px;
     transform: translateY(-50%);
     width: 45px;
     height: 45px;
@@ -178,6 +194,53 @@
     align-items: center;
     cursor: pointer;
 }
+
+/* SELECT2 */
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+    list-style: none;
+    padding: 5px 20px 5px 10px;
+    margin: 5px;
+    background-color: var(--secondary);
+    color: var(--white);
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+}
+
+.select2-container .select2-search--inline .select2-search__field{
+    margin-top: 10px;
+}
+
+.select2-container--default .select2-selection--multiple{
+    border: none !important;
+    border-radius: 25px !important;
+    font-size: 20px;
+    margin-right: 20px;
+    padding: 10px 20px 10px 20px;
+    display: none;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li:last-of-type
+{
+    background-color: var(--white);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__clear{
+    display: none;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected]{
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
+
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+    color: var(--white) !important;
+}
+
+/* END SELECT2 */
 
 .activenav{
     border-bottom: 1px solid var(--primary);
@@ -342,6 +405,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
     cursor: pointer;
+    height: 335px;
 }
 
 .card:hover{

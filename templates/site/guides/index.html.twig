@@ -1,0 +1,29 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Articles - {{ guide.nom }}</h1>
+                <hr>
+                <div class="row">
+                    {% for article in articlesByGuide %}
+                        <div class="col-md-4 mb-4">
+                            <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
+                                <div class="card">
+                                    <img src="{{ asset('uploads/images/' ~ article.image1) }}" class="card-img-top" alt="Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ article.titre1 }}</h5>
+                                        <p class="card-text">Temps de lecture: {{ article.tempsLecture }} min</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

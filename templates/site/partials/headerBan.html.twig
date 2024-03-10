@@ -16,12 +16,67 @@
             <p class="paragraph-header">{{ paragraph_header|striptags|raw }}</p>
         </div>
         <div class="searchbar-container">
-            <form action="#" method="get">
-                <input type="text" name="search" id="search" placeholder="{{ placeholder_search }}" class="form-control">
-                <div class="search-icon">
-                    <img src="{{ asset('uploads/images/loupe.svg') }}" alt="Rechercher">
-                </div>
-            </form>
+<form id="searchForm" action="{{ path('articles') }}" method="get">
+    <div class="search-wrapper">
+        <select id="searchInput" name="sousCategorie2Id[]" class="form-control" multiple>
+        </select>
+        <div id="searchIcon" class="search-icon">
+            <img src="{{ asset('uploads/images/loupe.svg') }}" alt="Rechercher Voyage" type="submit">
+        </div>
+    </div>
+</form>
+
+
+
         </div>
     </div>
 {% endif %}
+
+<script>
+    $(document).ready(function() {
+        function fetchSousCategories2() {
+            $.ajax({
+                url: "{{ path('selection_souscategories2') }}",
+                method: "GET",
+                dataType: "json",
+                success: function(response) {
+                    $("#searchInput").select2({
+                        data: response,
+                        placeholder: "{{ placeholder_search }}",
+                        allowClear: true,
+                        multiple: true
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erreur lors de la récupération des sous-catégories 2:", error);
+                }
+            });
+        }
+
+        fetchSousCategories2();
+
+        $('#searchForm').on('submit', function(event) {
+            event.preventDefault();
+
+            var selectedValues = $('#searchInput').val();
+
+            var url = "{{ path('articles') }}";
+            if (selectedValues) {
+                url += "?sousCategorie2Id=" + selectedValues.join("&sousCategorie2Id=");
+            }
+
+            window.location.href = url;
+        });
+
+        $('#searchIcon').on('click', function() {
+            var selectedValues = $('#searchInput').val();
+
+            var url = "{{ path('articles') }}";
+            if (selectedValues) {
+                url += "?sousCategorie2Id=" + selectedValues.join("&sousCategorie2Id=");
+            }
+
+            window.location.href = url;
+        });
+    });
+</script>

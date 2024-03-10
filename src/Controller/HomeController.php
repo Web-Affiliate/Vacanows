@@ -7,9 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Content;
-use App\ENtity\Articles;
+use App\Entity\Articles;
 use App\Entity\SousCategories1;
 use App\Entity\Categories;
+use App\Entity\SousCategories2;
+use App\Entity\Guides;
+
 
 class HomeController extends AbstractController
 {
@@ -54,6 +57,9 @@ class HomeController extends AbstractController
         $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);
         $articlesCountBySousCategorie1 = $sousCategories1Repository->countArticlesBySousCategorie1();
 
+           $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+        // $sousCategorie2Id = $this->entityManager->getRepository(SousCategories2::class)->find($sousCategorie2Id);
+
         $data = [
             'content' => $content,
             'categoriesToShow' => $categoriesToShow,
@@ -94,7 +100,9 @@ class HomeController extends AbstractController
             'facebook_link' => $content->getFacebookLink(),
             'total' => $totalArticles,
             'offset' => $offset,
-            'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1
+            'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1,
+            'guides' => $guides,
+            // 'sousCategorie2Id' => $sousCategorie2Id,
 
         ];
 

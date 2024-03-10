@@ -24,6 +24,9 @@ class Guides
     #[ORM\OneToMany(mappedBy: 'guides', targetEntity: Content::class)]
     private Collection $contents;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -110,5 +113,17 @@ class Guides
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
