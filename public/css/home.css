@@ -5,22 +5,30 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Raleway", sans-serif;
 }
 
-/* ::-webkit-scrollbar {
-    width: 10px;
+::-webkit-scrollbar {
+    width: 15px;
 
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--primary);
+    background-color: #cccccc;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--white);
+    background-color: #f0f0f0;
 }
- */
+
+#errorMessage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    display: none;
+}
 
 
 /* NAVBAR */
@@ -228,6 +236,10 @@
 
 .select2-container--default .select2-selection--multiple .select2-selection__clear{
     display: none;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered{
+    width: 90%;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected]{

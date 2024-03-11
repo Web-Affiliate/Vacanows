@@ -1,3 +1,4 @@
+
 {% if content is not null %}
     <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -16,44 +17,51 @@
             <p class="paragraph-header">{{ paragraph_header|striptags|raw }}</p>
         </div>
         <div class="searchbar-container">
-<form id="searchForm" action="{{ path('articles') }}" method="get">
-    <div class="search-wrapper">
-        <select id="searchInput" name="sousCategorie2Id[]" class="form-control" multiple>
-        </select>
-        <div id="searchIcon" class="search-icon">
-            <img src="{{ asset('uploads/images/loupe.svg') }}" alt="Rechercher Voyage" type="submit">
-        </div>
-    </div>
-</form>
-
-
-
+        <form id="searchForm" action="{{ path('articles') }}" method="get">
+            <div class="search-wrapper">
+                <select id="searchInput" name="sousCategorie2Id[]" class="form-control" multiple>
+                </select>
+                <div id="searchIcon" class="search-icon">
+                    <img src="{{ asset('uploads/images/loupe.svg') }}" alt="Rechercher Voyage" type="submit">
+                </div>
+            </div>
+        </form>
+<div id="errorMessage" style="display: none; margin-top:80px;" class="alert alert-danger" role="alert">
+    Veuillez sélectionner au moins une option.
+</div>
         </div>
     </div>
 {% endif %}
 
 <script>
     $(document).ready(function() {
-        function fetchSousCategories2() {
-            $.ajax({
-                url: "{{ path('selection_souscategories2') }}",
-                method: "GET",
-                dataType: "json",
-                success: function(response) {
-                    $("#searchInput").select2({
-                        data: response,
-                        placeholder: "{{ placeholder_search }}",
-                        allowClear: true,
-                        multiple: true,
-                        dropdownAutoWidth: false,
-                        dropdownParent: $('#searchForm')
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error("Erreur lors de la récupération des sous-catégories 2:", error);
-                }
-            });
-        }
+    function fetchSousCategories2() {
+        $.ajax({
+            url: "{{ path('selection_souscategories2') }}",
+            method: "GET",
+            dataType: "json",
+            success: function(response) {
+                $("#searchInput").select2({
+                    data: response,
+                    placeholder: "{{ placeholder_search }}",
+                    allowClear: true,
+                    multiple: true,
+                    dropdownAutoWidth: false,
+                    dropdownParent: $('#searchForm')
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Erreur lors de la récupération des sous-catégories 2:", error);
+            }
+        });
+    }
+
+        function showErrorAndHide() {
+        $('#errorMessage').show();
+        setTimeout(function() {
+            $('#errorMessage').hide();
+        }, 3000);
+    }
 
     fetchSousCategories2();
 
@@ -70,7 +78,7 @@
                     }
                 });
                 $('#selectedSousCategories2Names').text(selectedSousCategories2Names.join(', '));
-            console.log(selectedSousCategories2Names);
+                console.log(selectedSousCategories2Names);
             },
             error: function(xhr, status, error) {
                 console.error("Erreur lors de la récupération des noms des sous-catégories 2:", error);
@@ -79,31 +87,44 @@
     }
 
     $('#searchForm').on('submit', function(event) {
-        event.preventDefault();
-
         var selectedValues = $('#searchInput').val();
-        displaySelectedSousCategories2Names(selectedValues);
-
-        var url = "{{ path('articles') }}";
-        if (selectedValues) {
-            url += "?sousCategorie2Id[]=" + selectedValues.join("&sousCategorie2Id[]=");
+        if (!selectedValues || selectedValues.length === 0) {
+            showErrorAndHide();
+            event.preventDefault();
+        } else {
+            $('#errorMessage').hide();
+            displaySelectedSousCategories2Names(selectedValues);
+            var url = "{{ path('articles') }}";
+            if (selectedValues) {
+                url += "?sousCategorie2Id[]=" + selectedValues.join("&sousCategorie2Id[]=");
+            }
+            window.location.href = url;
         }
-
-        window.location.href = url;
     });
 
+    // Event listener for search icon click
     $('#searchIcon').on('click', function() {
         var selectedValues = $('#searchInput').val();
-        displaySelectedSousCategories2Names(selectedValues);
-
-        var url = "{{ path('articles') }}";
-        if (selectedValues) {
-            url += "?sousCategorie2Id[]=" + selectedValues.join("&sousCategorie2Id[]=");
+        if (!selectedValues || selectedValues.length === 0) {
+            showErrorAndHide();
+        } else {
+            $('#errorMessage').hide();
+            displaySelectedSousCategories2Names(selectedValues);
+            var url = "{{ path('articles') }}";
+            if (selectedValues) {
+                url += "?sousCategorie2Id[]=" + selectedValues.join("&sousCategorie2Id[]=");
+            }
+            window.location.href = url;
         }
-
-        window.location.href = url;
     });
 
-});
+    $('#searchInput').on('select2:opening', function(event) {
+            $('#errorMessage').hide();
+        });
+
+    fetchSousCategories2();
+    });
+
+
 
 </script>
