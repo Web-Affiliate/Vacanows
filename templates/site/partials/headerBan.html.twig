@@ -102,7 +102,6 @@
         }
     });
 
-    // Event listener for search icon click
     $('#searchIcon').on('click', function() {
         var selectedValues = $('#searchInput').val();
         if (!selectedValues || selectedValues.length === 0) {
@@ -122,9 +121,9 @@
             $('#errorMessage').hide();
         });
 
+
     fetchSousCategories2();
     });
-
 
 
 </script>

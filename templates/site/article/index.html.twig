@@ -72,61 +72,61 @@
                 'Culture',
                 'Bien-être'
             ] %}
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            {% for villeRandoms in villesRandom %}
-                                <th>
-                                    {{ villeRandoms.getNom() }}
-                                </th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% if villesRandom is not empty %}
-                        {% set previousRowEven = true %}
-                        {% set previousRowClass = 'ligne-paire' %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                {% for villeRandoms in villesRandom %}
+                                    <th>
+                                        {{ villeRandoms.getNom() }}
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% if villesRandom is not empty %}
+                            {% set previousRowEven = true %}
+                            {% set previousRowClass = 'ligne-paire' %}
 
-                        {% for i in 1..12 %}
-                            {% set functionName = 'isTabLibelle' ~ i %}
-                            {% if attribute(article, functionName) %}
-                                {% set currentRowEven = loop.index is even %}
-                                {% set rowClass = currentRowEven ? 'ligne-paire' : 'ligne-impaire' %}
+                            {% for i in 1..12 %}
+                                {% set functionName = 'isTabLibelle' ~ i %}
+                                {% if attribute(article, functionName) %}
+                                    {% set currentRowEven = loop.index is even %}
+                                    {% set rowClass = currentRowEven ? 'ligne-paire' : 'ligne-impaire' %}
 
-                                {% if rowClass == previousRowClass %}
-                                    {% set rowClass = currentRowEven ? 'ligne-impaire' : 'ligne-paire' %}
+                                    {% if rowClass == previousRowClass %}
+                                        {% set rowClass = currentRowEven ? 'ligne-impaire' : 'ligne-paire' %}
+                                    {% endif %}
+
+                                    {% set previousRowClass = rowClass %}
+
+                                    <tr class="{{ rowClass }}">
+                                        <td>{{ libelles[i - 1] }}</td>
+                                        {% for villeRandom in villesRandom %}
+                                            <td>{{ attribute(villeRandom, 'getNoteTabItem' ~ i) }}/10</td>
+                                        {% endfor %}
+                                    </tr>
                                 {% endif %}
-
-                                {% set previousRowClass = rowClass %}
-
-                                <tr class="{{ rowClass }}">
-                                    <td>{{ libelles[i - 1] }}</td>
-                                    {% for villeRandom in villesRandom %}
-                                        <td>{{ attribute(villeRandom, 'getNoteTabItem' ~ i) }}/10</td>
-                                    {% endfor %}
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                        <tr class="ligne-end">
-                            <td></td>
-                            {% for i in range(1, villesRandom|length) %}
-                                <td>
-                                    <a class="btn bouton_tab">
-                                        Voir les prix
-                                    </a>
-                                </td>
                             {% endfor %}
-                        </tr>
-                    {% else %}
-                        <tr class="ligne-paire">
-                            <td colspan="13">Aucune ville de la région {{ sous_categories_1 }} n'a été trouvée à part celui de {{ sous_categories_2 }}</td>
-                        </tr>
-                    {% endif %}
-
-                    </tbody>
-
-                </table>
+                            <tr class="ligne-end">
+                                <td></td>
+                                {% for i in range(1, villesRandom|length) %}
+                                    <td>
+                                        <a class="btn bouton_tab">
+                                            Voir les prix
+                                        </a>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% else %}
+                            <tr class="ligne-paire">
+                                <td colspan="13">Aucune ville de la région {{ sous_categories_1 }} n'a été trouvée à part celui de {{ sous_categories_2 }}</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -150,7 +150,7 @@
                 <h2 class="titre-section titre-section2 sujets">Sujets liés</h2>
             </div>
 {% if articlesWithSameSousCategories2 is empty %}
-    <p>Aucun article trouvé lié à {{ sous_categories_2 }}.</p>
+    <p class="aucun-articles">Aucun article trouvé lié à {{ sous_categories_2 }}.</p>
 {% else %}
     {% for article in articlesWithSameSousCategories2 %}
         <div class="col-12 col-md-4">
@@ -228,6 +228,7 @@ $(document).ready(function () {
         });
     });
 });
+
 
 </script>
 

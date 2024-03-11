@@ -239,7 +239,7 @@
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered{
-    width: 90%;
+    width: 90% !important;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected]{

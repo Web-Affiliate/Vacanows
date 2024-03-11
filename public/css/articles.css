@@ -110,6 +110,10 @@
     border-bottom-right-radius: 0;
 }
 
+.aucun-articles{
+    text-align: center;
+}
+
 .bouton_tab{
     background-color: var(--secondary) !important;
     color: var(--white);
