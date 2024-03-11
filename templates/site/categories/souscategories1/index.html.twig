@@ -26,7 +26,7 @@
         <div class="col-md-3 mb-4">
             <a href="{{ path('sous_categorie1_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug }) }}" class="card-link">
                 <div class="card">
-                    <img src="{{ asset('uploads/images/' ~ sousCategory.image) }}" class="card-img-top" alt="Image">
+                    <img src="{{ asset('uploads/images/' ~ sousCategory.image) }}" class="card-img-top" alt="{{ sousCategory.getCategories() }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ sousCategory.nom }}</h5>
                         {% set articleCount = articlesCountBySousCategorie1[sousCategory.getId()] ?? 0 %}

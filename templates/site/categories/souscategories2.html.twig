@@ -18,7 +18,7 @@
             <div class="col-md-3 mb-4">
                 <a href="{{ path('sous_categorie2_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link">
                 <div class="card">
-                    <img src="{{ asset('uploads/images/' ~ sousCategory2.image) }}" class="card-img-top" alt="Image">
+                    <img src="{{ asset('uploads/images/' ~ sousCategory2.image) }}" class="card-img-top" alt="{{ sousCategory2.nom }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ sousCategory2.nom }}</h5>
                         <p class="card-text">{{ articlesCountByVille[sousCategory2.getId()] }} {% if articlesCountByVille[sousCategory2.getId()] == 1 or sousCategory2.getId() == 0 %}article{% else %}articles{% endif %}</p>

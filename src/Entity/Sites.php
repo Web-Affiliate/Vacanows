@@ -24,10 +24,14 @@ class Sites
     #[ORM\OneToMany(mappedBy: 'sites', targetEntity: Articles::class)]
     private Collection $articles;
 
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: Todo::class)]
+    private Collection $todos;
+
     public function __construct()
     {
         $this->contents = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->todos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,5 +114,35 @@ class Sites
     public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection<int, Todo>
+     */
+    public function getTodos(): Collection
+    {
+        return $this->todos;
+    }
+
+    public function addTodo(Todo $todo): static
+    {
+        if (!$this->todos->contains($todo)) {
+            $this->todos->add($todo);
+            $todo->setSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTodo(Todo $todo): static
+    {
+        if ($this->todos->removeElement($todo)) {
+            // set the owning side to null (unless already changed)
+            if ($todo->getSite() === $this) {
+                $todo->setSite(null);
+            }
+        }
+
+        return $this;
     }
 }

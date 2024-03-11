@@ -34,49 +34,75 @@
 
 <script>
     $(document).ready(function() {
-        function fetchSousCategories2() {
-            $.ajax({
-                url: "{{ path('selection_souscategories2') }}",
-                method: "GET",
-                dataType: "json",
-                success: function(response) {
-                    $("#searchInput").select2({
-                        data: response,
-                        placeholder: "{{ placeholder_search }}",
-                        allowClear: true,
-                        multiple: true
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error("Erreur lors de la récupération des sous-catégories 2:", error);
-                }
-            });
+    function fetchSousCategories2() {
+        $.ajax({
+            url: "{{ path('selection_souscategories2') }}",
+            method: "GET",
+            dataType: "json",
+            success: function(response) {
+                $("#searchInput").select2({
+                    data: response,
+                    placeholder: "{{ placeholder_search }}",
+                    allowClear: true,
+                    multiple: true
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Erreur lors de la récupération des sous-catégories 2:", error);
+            }
+        });
+    }
+
+    fetchSousCategories2();
+
+    // Function to fetch and display selected sous-categories 2 names
+    function displaySelectedSousCategories2Names(selectedValues) {
+        $.ajax({
+            url: "{{ path('selection_souscategories2') }}",
+            method: "GET",
+            dataType: "json",
+            success: function(response) {
+                var selectedSousCategories2Names = [];
+                response.forEach(function(item) {
+                    if (selectedValues.includes(item.id.toString())) {
+                        selectedSousCategories2Names.push(item.text);
+                    }
+                });
+                $('#selectedSousCategories2Names').text(selectedSousCategories2Names.join(', '));
+            console.log(selectedSousCategories2Names);
+            },
+            error: function(xhr, status, error) {
+                console.error("Erreur lors de la récupération des noms des sous-catégories 2:", error);
+            }
+        });
+    }
+
+    $('#searchForm').on('submit', function(event) {
+        event.preventDefault();
+
+        var selectedValues = $('#searchInput').val();
+        displaySelectedSousCategories2Names(selectedValues);
+
+        var url = "{{ path('articles') }}";
+        if (selectedValues) {
+            url += "?sousCategorie2Id[]=" + selectedValues.join("&sousCategorie2Id[]=");
         }
 
-        fetchSousCategories2();
-
-        $('#searchForm').on('submit', function(event) {
-            event.preventDefault();
-
-            var selectedValues = $('#searchInput').val();
-
-            var url = "{{ path('articles') }}";
-            if (selectedValues) {
-                url += "?sousCategorie2Id=" + selectedValues.join("&sousCategorie2Id=");
-            }
-
-            window.location.href = url;
-        });
-
-        $('#searchIcon').on('click', function() {
-            var selectedValues = $('#searchInput').val();
-
-            var url = "{{ path('articles') }}";
-            if (selectedValues) {
-                url += "?sousCategorie2Id=" + selectedValues.join("&sousCategorie2Id=");
-            }
-
-            window.location.href = url;
-        });
+        window.location.href = url;
     });
+
+    $('#searchIcon').on('click', function() {
+        var selectedValues = $('#searchInput').val();
+        displaySelectedSousCategories2Names(selectedValues);
+
+        var url = "{{ path('articles') }}";
+        if (selectedValues) {
+            url += "?sousCategorie2Id[]=" + selectedValues.join("&sousCategorie2Id[]=");
+        }
+
+        window.location.href = url;
+    });
+
+});
+
 </script>

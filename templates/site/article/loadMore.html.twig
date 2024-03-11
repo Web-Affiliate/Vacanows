@@ -1,9 +1,9 @@
  {% for article in articles %}
     <div class="col-12">
-        <a href="{{ path('article_show', {'slug': article.getSlug()}) }}" class="card card3">
+        <a href="{{ path('article_show', {'slug': article.getSlug()}) }}" class="card card3 card-height">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img fixed-image" alt="Image">
+                    <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img fixed-image" alt="{{ article.getSousCategories2() }}">
                 </div>
                 <div class="col-md-8 container-title-section7">
                     <h3 class="titre-voyage titre-sec7">Voyage à {{ article.getSousCategories2() }}</h3>

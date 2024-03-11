@@ -29,7 +29,7 @@
             <div class="col-md-3 mb-4">
                 <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
                     <div class="card">
-                        <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img-top" alt="Image">
+                        <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img-top" alt="{{ article.getSousCategories2() }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ article.getTitre1() }}</h5>
                             <p class="card-text">Temps de lecture: {{ article.getTempsLecture() }} min</p>

@@ -323,31 +323,22 @@ public function showSousCategories1(): Response
 #[Route('/articles', name: 'articles')]
 public function articles(Request $request): Response
 {
-    $queryString = $request->getQueryString();
-    $sousCategorie2Ids = [];
-    $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
+    $sousCategorie2Ids = array_filter($request->query->all(), function ($key) {
+        return $key === 'sousCategorie2Id';
+    }, ARRAY_FILTER_USE_KEY);
 
-    // Vérifie si des paramètres sont passés dans l'URL
-    if ($queryString) {
-        // Récupère les paramètres de l'URL et sépare les clés et les valeurs
-        $params = explode('&', $queryString);
-        foreach ($params as $param) {
-            $parts = explode('=', $param);
-            if ($parts[0] === 'sousCategorie2Id' && isset($parts[1])) {
-                // Ajoute l'ID de sous-catégorie à la liste
-                $sousCategorie2Ids[] = $parts[1];
-            }
+    if (!empty($sousCategorie2Ids)) {
+        $articles = [];
+        foreach ($sousCategorie2Ids as $sousCategorie2Id) {
+            $articles = array_merge($articles, $this->entityManager->getRepository(Articles::class)->findBy(['sous_categories_2' => $sousCategorie2Id]));
         }
+    } else {
+        $articles = $this->entityManager->getRepository(Articles::class)->findAll();
     }
 
-    $articlesRepository = $this->entityManager->getRepository(Articles::class);
-    $articles = [];
-
-    foreach ($sousCategorie2Ids as $sousCategorie2Id) {
-        $articles = array_merge($articles, $articlesRepository->findBy(['sous_categories_2' => $sousCategorie2Id]));
-    }
+    // Récupérer d'autres données nécessaires
+    $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
     $guides = $this->entityManager->getRepository(Guides::class)->findAll();
-
 
     return $this->render('site/reponse_select/articles.html.twig', [
         'articles' => $articles,

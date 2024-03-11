@@ -25,7 +25,7 @@
                 <h2 class="titre-section titre-section2">{{ titre_2|striptags|raw }}</h2>
                 <p class="paragraph-section paragraph-section2">{{ paragraph_2|striptags|raw }}</p>
                     <div class="col-12 container-bouton1">
-                    <a href="#" class="btn bouton1">{{ bouton_1 }}</a>
+                    <a class="btn bouton1 boutonScroll">{{ bouton_1 }}</a>
                     </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<div class="container section-4 reco">
+<div class="container section-4 reco scrolling">
     <div class="row">
         <div class="col-12 ">
             <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
@@ -59,7 +59,7 @@
             <div class="col-12 col-md-4">
         <a href="{{ path('sous_categorie1_show', {'categorySlug': categorySlug, 'sousCategory1Slug': sousCategorie.getSlug()}) }}" class="card-link">
                 <div class="card">
-                    <img src="{{ asset('uploads/images/' ~ sousCategorie.image) }}" class="card-img-top" alt="Image">
+                    <img src="{{ asset('uploads/images/' ~ sousCategorie.image) }}" class="card-img-top" alt="{{sousCategorie.nom }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ sousCategorie.getNom() }}</h5>
                         {% set articleCount = articlesCountBySousCategorie1[sousCategorie.getId()] %}
@@ -89,7 +89,7 @@
             <p class="paragraph-section paragraph-section-5">{{ paragraph_7|striptags|raw }}</p>
             {% for sousCategory in sousCategoriesToShow %}
                 <div class="col-12">
-                    <h3 class="sous-titre sous-titre2">{{ sousCategory.getNom() }} : </h3>
+                    <h3 class="sous-titre sous-titre2 ">{{ sousCategory.getNom() }} : </h3>
                     <p class="paragraph-section paragraph-section-5">{{ sousCategory.getDescription|striptags|raw }}</p>
                 </div>
             {% endfor %}
@@ -106,7 +106,7 @@
             <div class="col-12 col-md-3">
             <a href="{{ path('categorie_show', {'categorySlug': categorie.getSlug()}) }}" class="card-link">
                 <div class="card2">
-                    <img src="{{ asset('uploads/images/' ~ categorie.image) }}" class="card-img-top" alt="Image">
+                    <img src="{{ asset('uploads/images/' ~ categorie.image) }}" class="card-img-top" alt="{{categorie.nom }}">
                     <div class="card-body">
                         <h5 class="card-title2">{{ categorie.getNom() }}</h5>
                     </div>
@@ -128,10 +128,10 @@
 
 {% for article in lastArticles %}
     <div class="col-12">
-        <a href="{{ path('article_show', {'slug': article.getSlug()}) }}" class="card card3">
+        <a href="{{ path('article_show', {'slug': article.getSlug()}) }}" class="card card3 card-height">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img fixed-image" alt="Image">
+                    <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img fixed-image" alt="{{ article.getSousCategories2() }}">
                 </div>
                 <div class="col-md-8 container-title-section7">
                     <h3 class="titre-voyage titre-sec7">Voyage à {{ article.getSousCategories2() }}</h3>
@@ -180,7 +180,11 @@ $(document).ready(function () {
     });
 });
 
-
+$('.boutonScroll').click(function() {
+    $('html, body').animate({
+        scrollTop: $(".scrolling").offset().top - 100
+    }, 1);
+});
 </script>
 {% endblock %}
 

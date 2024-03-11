@@ -21,7 +21,7 @@
             <div class="col-md-3 mb-4">
                 <a href="{{ path('categorie_show', {'categorySlug': category.slug }) }}" class="card-link">
                     <div class="card">
-                        <img src="{{ asset('uploads/images/' ~ category.image) }}" class="card-img-top" alt="Image">
+                        <img src="{{ asset('uploads/images/' ~ category.image) }}" class="card-img-top" alt="{{ category.nom }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ category.nom }}</h5>
                             {% for categoryData in articlePerCategory %}

@@ -405,8 +405,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
     cursor: pointer;
-    height: 335px;
 }
+
 
 .card:hover{
     transform: scale(1.05);
@@ -597,6 +597,8 @@ footer{
 footer ul:nth-child(2){
     list-style: none;
     text-align: left;
+    display: flex;
+    flex-direction: column;
 }
 
 .footer_nav{
@@ -605,9 +607,21 @@ footer ul:nth-child(2){
     text-align: left;
 }
 
-.footer_nav .nav-link, .mention, .cookie{
-    padding : 5px 0;
+.footer_nav .nav-link, .mention, .cookies {
+    display: inline-block;
+    padding: 5px 10px;
+    background: linear-gradient(to top, var(--primary) 0%, var(--primary) 1px, transparent 2px) no-repeat;
+    background-size: 0% 100%;
+    transition: background-size .3s;
+    padding-bottom: 3px;
 }
+
+.footer_nav .nav-link:hover, .mention:hover, .cookies:hover {
+    color: var(--secondary);
+    background-size: 100% 100%;
+}
+
+
 
 .newsletter{
     display: flex;
