@@ -240,6 +240,16 @@
     color: var(--white) !important;
 }
 
+.select2-results__options::-webkit-scrollbar {
+    background-color: #f0f0f0;
+}
+
+.select2-results__options::-webkit-scrollbar-thumb {
+    background-color: var(--secondaryHover);
+}
+
+
+
 /* END SELECT2 */
 
 .activenav{

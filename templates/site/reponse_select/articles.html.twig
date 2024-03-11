@@ -1,7 +1,14 @@
 {% extends 'site/base.html.twig' %}
 
 {% block title %}
-    Articles
+Articles - {% set displayedCategories = [] %}
+{% for article in articles %}
+    {% if loop.first or article.getSousCategories2() not in displayedCategories %}
+        {% set displayedCategories = displayedCategories|merge([article.getSousCategories2()]) %}
+        {{ article.getSousCategories2() }} -
+    {% endif %}
+{% endfor %}
+{{ parent() }}
 {% endblock %}
 
 {% block main %}

@@ -330,20 +330,24 @@ public function articles(Request $request): Response
     if (!empty($sousCategorie2Ids)) {
         $articles = [];
         foreach ($sousCategorie2Ids as $sousCategorie2Id) {
-            $articles = array_merge($articles, $this->entityManager->getRepository(Articles::class)->findBy(['sous_categories_2' => $sousCategorie2Id]));
+            $articles = array_merge($articles, $this->entityManager->
+            getRepository(Articles::class)->findBy(['sous_categories_2' => $sousCategorie2Id]));
         }
     } else {
         $articles = $this->entityManager->getRepository(Articles::class)->findAll();
     }
 
-    // Récupérer d'autres données nécessaires
     $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
     $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+
+    $sousCategories2Repository = $this->entityManager->getRepository(SousCategories2::class);
+    $sousCategories2Names = $sousCategories2Repository->findAll();
 
     return $this->render('site/reponse_select/articles.html.twig', [
         'articles' => $articles,
         'content' => $content,
         'guides' => $guides,
+        'sousCategories2Names' => $sousCategories2Names,
     ]);
 }
 }
