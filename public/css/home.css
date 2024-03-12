@@ -609,7 +609,7 @@ margin-bottom: 50px;
 footer{
     display: flex;
     background-color: var(--background-articles);
-    padding: 50px 0;
+    padding: 50px 0 10px 0;
     text-align: center;
     justify-content: space-around;
     align-items: end;
@@ -631,7 +631,7 @@ footer ul:nth-child(2){
 
 .footer_nav .nav-link, .mention, .cookies {
     display: inline-block;
-    padding: 5px 10px;
+    padding: 5px 10px 0 0;
     background: linear-gradient(to top, var(--primary) 0%, var(--primary) 1px, transparent 2px) no-repeat;
     background-size: 0% 100%;
     transition: background-size .3s;
