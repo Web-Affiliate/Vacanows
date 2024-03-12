@@ -101,7 +101,7 @@
     align-items: center;
     /* margin-left: 60vh; */
     justify-content: center;
-    margin-right: 60px;
+    /* margin-right: 60px; */
 }
 
 .img-navbar{
@@ -682,7 +682,8 @@ footer ul:nth-child(2){
     width: 250px;
     border: none;
     font-size: 15px;
-    padding: 5px;
+    border-radius: 30px;
+    padding: 15px;
     align-items: center;
 }
 
@@ -759,13 +760,174 @@ footer ul:nth-child(2){
     align-items: center;
     display: flex;
     justify-content: center;
+    margin-top: 20px;
     }
 
     .image-no-border{
         display: block;
+        padding: 0 10px;
     }
 
     .image-1{
         display: none;
     }
+
+    .navbarC
+    {
+        margin-left: 0rem !important;
+    }
+
+    .img-navbar{
+        margin-left: 0;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+    }
+
+    .navbar-nav .nav-item:nth-child(-n+2) {
+        display: block;
+    }
+    .navbar-toggler {
+        display: block;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+    }
+    .navbar-toggler:focus {
+        outline: none;
+        box-shadow: none;
+
+    }
+
+    .nav-item{
+        padding-right: 0;
+    }
+
+    .navbar-nav a{
+        padding-top: 15px;
+        text-align: center;
+    }
+
+    .contact-button{
+        margin-top: 20px;
+        /* centre le */
+        margin-left: 50%;
+        transform: translateX(-50%);
+
+    }
+
+    /* HEADER */
+
+    .titre-header{
+        font-size: 26px;
+        width: 300px;
+    }
+
+    .searchbar-container {
+        width: 90%;
+        top: 60px;
+        left: 50%;
+        transform: translate(-50%);
+    }
+
+    .searchbar-container input {
+        width: calc(100% - 40px);
+    }
+
+    .search-icon{
+        right: 20px;
+    }
+
+    .text-container{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -75%);
+    }
+
+    .carousel-container{
+        height: 400px;
+    }
+
+    .carousel-item{
+        height: 300px;
+    }
+
+    .carousel-item.active{
+        height: 300px;
+    }
+
+    .search-wrapper {
+        position: relative;
+    }
+
+    .search-wrapper .search-icon {
+        position: absolute;
+        top: -40px;
+        transform: translateY(-50%);
+        right: 30px;
+        z-index: 1;
+        width: 30px;
+        height: 30px;
+        padding: 20px;
+    }
+
+    .search-wrapper .search-icon img {
+        width: 50px;
+        height: 20px;
+    }
+
+    .paragraph-header{
+        margin: 30px 0 40px 0;
+        font-size: 10px;
+    }
+
+    /* SELECT2 */
+
+   .select2-container--default .select2-selection--multiple {
+    width: calc(100% - 40px); /* Ajustez la largeur du select2 */
+    margin: 10px auto; /* Centrez horizontalement avec une marge */
+    position: relative;
+    border: 1px solid var(--primary) !important;
+    top: -90px; /* Déplacez le select2 vers le haut pour qu'il se positionne sous la bannière */
+}
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+        padding: 5px 10px;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered li:last-of-type{
+        background-color: var(--white);
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered{
+        width: 100% !important;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+        color: var(--white) !important;
+    }
+
+    .select2-container--default .select2-results__option--highlighted[aria-selected]{
+        background-color: var(--secondary) !important;
+        color: var(--white) !important;
+    }
+
+    .select2-results__options::-webkit-scrollbar {
+        background-color: #f0f0f0;
+    }
+
+    .select2-results__options::-webkit-scrollbar-thumb {
+        background-color: var(--secondaryHover);
+    }
+
+    .select2-container--default .select2-search--inline .select2-search__field::placeholder{
+        color: var(--text);
+        font-size: 13.3px;
+        font-weight: 400;
+    }
+
+    /* END SELECT2 */
+
+
 }

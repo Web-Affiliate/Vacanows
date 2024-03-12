@@ -11,8 +11,7 @@
             <h1 class="titre-section" >Pays - {{ category.nom }}</h1>
              <ol class="breadcrumb">
                 <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
-                <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': category.getSlug()}) }}">{{ category }}</a></li>
-                <li class="breadcrumb-item filAriane"></li>
+                <li class="breadcrumb-item filAriane active"><a href="{{ path('categorie_show' , {'categorySlug': category.getSlug()}) }}">{{ category }}</a></li>
             </ol>
         </div>
         <div class="temps-lecture">

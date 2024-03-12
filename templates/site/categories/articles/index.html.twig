@@ -15,8 +15,7 @@
             <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories1glob_show') }}">Régions</a></li>
             <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categorie1_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug() } ) }}">{{ sous_categories_1 }}</a></li>
             <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories2glob_show') }}">Villes</a></li>
-            <li class="breadcrumb-item filAriane" aria-current="page"><a href="{{ path('sous_categorie2_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug(), 'sousCategory2Slug': sousCategory2.getSlug() }  ) }}">{{ sousCategory2 }}</a></li>
-            <li class="breadcrumb-item filAriane"></li>
+            <li class="breadcrumb-item filAriane active" aria-current="page"><a href="{{ path('sous_categorie2_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug(), 'sousCategory2Slug': sousCategory2.getSlug() }  ) }}">{{ sousCategory2 }}</a></li>
         </ol>
         </div>
          <div class="temps-lecture">

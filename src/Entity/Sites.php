@@ -27,11 +27,15 @@ class Sites
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: Todo::class)]
     private Collection $todos;
 
+    #[ORM\OneToMany(mappedBy: 'sites', targetEntity: About::class)]
+    private Collection $abouts;
+
     public function __construct()
     {
         $this->contents = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->todos = new ArrayCollection();
+        $this->abouts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,6 +144,36 @@ class Sites
             // set the owning side to null (unless already changed)
             if ($todo->getSite() === $this) {
                 $todo->setSite(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, About>
+     */
+    public function getAbouts(): Collection
+    {
+        return $this->abouts;
+    }
+
+    public function addAbout(About $about): static
+    {
+        if (!$this->abouts->contains($about)) {
+            $this->abouts->add($about);
+            $about->setSites($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbout(About $about): static
+    {
+        if ($this->abouts->removeElement($about)) {
+            // set the owning side to null (unless already changed)
+            if ($about->getSites() === $this) {
+                $about->setSites(null);
             }
         }
 

@@ -27,10 +27,14 @@ class Guides
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\OneToMany(mappedBy: 'guides', targetEntity: Affiliate::class)]
+    private Collection $affiliates;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->contents = new ArrayCollection();
+        $this->affiliates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,6 +127,36 @@ class Guides
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Affiliate>
+     */
+    public function getAffiliates(): Collection
+    {
+        return $this->affiliates;
+    }
+
+    public function addAffiliate(Affiliate $affiliate): static
+    {
+        if (!$this->affiliates->contains($affiliate)) {
+            $this->affiliates->add($affiliate);
+            $affiliate->setGuides($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffiliate(Affiliate $affiliate): static
+    {
+        if ($this->affiliates->removeElement($affiliate)) {
+            // set the owning side to null (unless already changed)
+            if ($affiliate->getGuides() === $this) {
+                $affiliate->setGuides(null);
+            }
+        }
 
         return $this;
     }

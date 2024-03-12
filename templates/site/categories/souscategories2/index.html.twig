@@ -13,8 +13,7 @@
                 <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
                 <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': categories.getSlug()}) }}">{{ categories }}</a></li>
                 <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories1glob_show') }}">Régions</a></li>
-                <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categorie1_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sousCategory1.getSlug() } ) }}">{{ sousCategory1 }}</a></li>
-                <li class="breadcrumb-item filAriane"></li>
+                <li class="breadcrumb-item filAriane active"><a href="{{ path('sous_categorie1_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sousCategory1.getSlug() } ) }}">{{ sousCategory1 }}</a></li>
             </ol>
         </div>
          <div class="temps-lecture">

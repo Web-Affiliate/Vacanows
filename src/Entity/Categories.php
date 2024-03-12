@@ -33,6 +33,10 @@ class Categories
     public function __construct()
     {
         $this->sousCategories1s = new ArrayCollection();
+
+        if (!$this->createdAt) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 
     public function getId(): ?int
