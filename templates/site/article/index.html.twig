@@ -155,7 +155,7 @@
     {% for article in articlesWithSameSousCategories2 %}
         <div class="col-12 col-md-4">
             <a href="{{ path('article_show', {'slug': article.getSlug()|lower}) }}" class="card-link">
-                <div class="card">
+                <div class="card cardHeight">
                     <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img fixed-image Image-sujetlies" alt="{{article.getSousCategories2() }} - {{ article.getTitre1()|capitalize }}">
                     <div class="card-body card-bottom">
                         <h5 class="card-title">{{ article.getTitre1()|capitalize }}</h5>

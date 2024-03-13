@@ -18,7 +18,7 @@ Articles - {% set displayedCategories = [] %}
         {% for article in articles %}
             <div class="col-md-3 mb-4">
                 <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
-                    <div class="card">
+                    <div class="card cardHeight">
                         <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img-top" alt="{{ article.getSousCategories2() }}-{{ article.getTitre1() }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ article.getTitre1() }}</h5>

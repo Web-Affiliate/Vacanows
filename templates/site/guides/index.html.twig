@@ -12,7 +12,7 @@
                     {% for article in articlesByGuide %}
                         <div class="col-md-4 mb-4">
                             <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
-                                <div class="card">
+                                <div class="card cardHeight">
                                     <img src="{{ asset('uploads/images/' ~ article.image1) }}" class="card-img-top" alt="Image">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ article.titre1 }}</h5>
