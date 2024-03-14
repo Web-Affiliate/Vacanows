@@ -895,11 +895,11 @@ footer ul:nth-child(2){
     /* SELECT2 */
 
    .select2-container--default .select2-selection--multiple {
-    width: calc(100% - 40px); /* Ajustez la largeur du select2 */
-    margin: 10px auto; /* Centrez horizontalement avec une marge */
+    width: calc(100% - 40px);
+    margin: 10px auto;
     position: relative;
     border: 1px solid var(--primary) !important;
-    top: -90px; /* Déplacez le select2 vers le haut pour qu'il se positionne sous la bannière */
+    top: -90px;
 }
     .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
         padding: 5px 10px;

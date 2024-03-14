@@ -21,7 +21,7 @@
         </ol>
     </nav>
     <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>
-    <div class="temps-lecture">
+    <div class="temps-lecture temps-lecture-articles">
         <p>Lecture : {{ temps_lecture }} minutes</p>
     </div>
 </div>
@@ -211,11 +211,16 @@ $(document).ready(function () {
     $(document).on('click', '#charger-plus', function () {
         var offset = $(this).data('offset');
         var total = $(this).data('total');
+        var excludedArticles = [];
+        $('#nouveaux-articles-container .card').each(function () {
+            excludedArticles.push($(this).data('article-id'));
+        });
         $.ajax({
             url: "{{ path('load_more_articles', {'offset': 0}) }}".replace('0', offset),
             type: "GET",
             data: {
-                offset: offset
+                offset: offset,
+                excludedArticles: JSON.stringify(excludedArticles)
             },
             success: function (response) {
                 $('#nouveaux-articles-container').append(response);

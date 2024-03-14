@@ -8,7 +8,11 @@
 }
 
 .temps-lecture{
-    padding: 20px 0;
+    padding: 20px 10px;
+}
+
+.temps-lecture-articles{
+    padding: 20px 0px;
 }
 
 .temps-lecture p{
@@ -158,6 +162,12 @@
 
 .section-7-articles{
     margin-top: 60px;
+}
+
+.paragraph-nb-categories{
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--secondary);
 }
 
 /* media queries */

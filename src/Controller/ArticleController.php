@@ -133,7 +133,8 @@ class ArticleController extends AbstractController
 public function loadMoreArticles(Request $request): Response
 {
     $offset = $request->query->get('offset', 0);
-    $references = $this->entityManager->getRepository(Articles::class)->findNextArticles($offset, 3);
+    $excludedArticles = json_decode($request->query->get('excludedArticles', '[]'));
+    $references = $this->entityManager->getRepository(Articles::class)->findNextArticles($offset, 3, $excludedArticles);
 
     return $this->render('site/article/loadMore.html.twig', [
         'articles' => $references,
