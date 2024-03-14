@@ -170,6 +170,30 @@
     color: var(--secondary);
 }
 
+#searchBarInput{
+    border-radius: 30px;
+    border: 1px solid var(--secondary);
+    margin: auto;
+    height: 60px;
+    width: 60vh;
+    display: flex;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 auto 50px auto;
+    padding-left: 15px;
+    color : var(--secondary);
+}
+
+#searchBarInput::placeholder{
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+#searchBarInput:focus{
+    outline: none;
+}
+
 /* media queries */
 
 @media (max-width: 768px) {
@@ -182,4 +206,10 @@
         padding: 0 5px;
         font-size: 16px;
     }
+
+    #searchBarInput{
+        width: 80%;
+    }
+
+
 }

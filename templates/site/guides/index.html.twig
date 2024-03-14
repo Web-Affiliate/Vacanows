@@ -6,11 +6,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Articles - {{ guide.nom }}</h1>
-                <hr>
+                <h1 class="titre-section mt-5">Articles - {{ guide.nom }}</h1>
+                <div class="temps-lecture">
+                    <p class="col-12">Lecture: {{ tempsLectureMin }} - {{ tempsLectureMax }} min</p>
+                </div>
+                <input type="text" id="searchBarInput" placeholder="Rechercher un article">
                 <div class="row">
                     {% for article in articlesByGuide %}
-                        <div class="col-md-4 mb-4">
+                        <div class="col-md-4 mb-4 article-card">
                             <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
                                 <div class="card cardHeight">
                                     <img src="{{ asset('uploads/images/' ~ article.image1) }}" class="card-img-top" alt="Image">
@@ -21,9 +24,42 @@
                                 </div>
                             </a>
                         </div>
+                    {% else %}
+                        <p class="text-center">Aucun article trouvé.</p>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+{% block javascripts %}
+        <script>
+            const searchBarInput = document.getElementById('searchBarInput');
+            const articleCards = document.querySelectorAll('.article-card');
+            const noArticlesFound = document.createElement('p');
+            noArticlesFound.textContent = 'Aucun article trouvé.';
+            noArticlesFound.style.display = 'none';
+            noArticlesFound.style.textAlign = 'center';
+            noArticlesFound.style.margin = '150px 0';
+            document.querySelector('.row').appendChild(noArticlesFound);
+
+            searchBarInput.addEventListener('keyup', (e) => {
+                const searchValue = e.target.value.toLowerCase();
+                let articlesFound = false;
+                articleCards.forEach((articleCard) => {
+                    const title = articleCard.querySelector('.card-title').textContent.toLowerCase();
+                    if (title.includes(searchValue)) {
+                        articleCard.style.display = 'block';
+                        articlesFound = true;
+                    } else {
+                        articleCard.style.display = 'none';
+                    }
+                });
+                if (!articlesFound) {
+                    noArticlesFound.style.display = 'block';
+                } else {
+                    noArticlesFound.style.display = 'none';
+                }
+            });
+        </script>
+    {% endblock %}

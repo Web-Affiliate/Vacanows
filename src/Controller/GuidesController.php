@@ -31,12 +31,26 @@ class GuidesController extends AbstractController
         $articlesByGuide = $guide->getArticles();
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
+        $tempsLectureMin = PHP_INT_MAX;
+        $tempsLectureMax = 0;
+        foreach ($article as $a) {
+            $tempsLecture = $a->getTempsLecture();
+            if ($tempsLecture < $tempsLectureMin) {
+                $tempsLectureMin = $tempsLecture;
+            }
+            if ($tempsLecture > $tempsLectureMax) {
+                $tempsLectureMax = $tempsLecture;
+            }
+        }
+
         return $this->render('site/guides/index.html.twig', [
             'guide' => $guide,
             'articlesByGuide' => $articlesByGuide,
             'content' => $content,
             'guides' => $guides,
             'article' => $article,
+            'tempsLectureMin' => $tempsLectureMin,
+            'tempsLectureMax' => $tempsLectureMax
         ]);
     }
 
