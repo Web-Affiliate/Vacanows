@@ -8,7 +8,7 @@
 <div class="container-fluid px-5">
     <div class="row">
         <div class="col-12">
-            <h1 class="titre-section" >Pays - {{ category.nom }}</h1>
+            <h1 class="titre-section mt-5" >Pays - {{ category.nom }}</h1>
              <ol class="breadcrumb">
                 <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
                 <li class="breadcrumb-item filAriane active"><a href="{{ path('categorie_show' , {'categorySlug': category.getSlug()}) }}">{{ category }}</a></li>

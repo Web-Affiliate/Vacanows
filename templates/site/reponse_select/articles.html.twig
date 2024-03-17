@@ -1,33 +1,102 @@
 {% extends 'site/base.html.twig' %}
 
 {% block title %}
-Articles - {% set displayedCategories = [] %}
-{% for article in articles %}
-    {% if loop.first or article.getSousCategories2() not in displayedCategories %}
-        {% set displayedCategories = displayedCategories|merge([article.getSousCategories2()]) %}
-        {{ article.getSousCategories2() }} -
-    {% endif %}
-{% endfor %}
-{{ parent() }}
+    Articles - {% set displayedCategories = [] %}
+    {% for article in articles %}
+        {% if loop.first or article.getSousCategories2() not in displayedCategories %}
+            {% set displayedCategories = displayedCategories|merge([article.getSousCategories2()]) %}
+            {{ article.getSousCategories2() }} -
+        {% endif %}
+    {% endfor %}
+    {{ parent() }}
 {% endblock %}
 
 {% block main %}
-<div class="container-fluid">
-    <div class="row">
-        <h2>{{ articles|length }} {% if articles|length == 1 %}article affiché{% else %} articles affichés{% endif %}</h2>
-        {% for article in articles %}
-            <div class="col-md-3 mb-4">
-                <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
-                    <div class="card cardHeight">
-                        <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img-top" alt="{{ article.getSousCategories2() }}-{{ article.getTitre1() }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ article.getTitre1() }}</h5>
-                            <p class="card-text">Temps de lecture: {{ article.getTempsLecture() }} min</p>
+    <div class="container">
+        <div class="row">
+            <h1 class="titre-section mt-5">Articles - Recherche</h1>
+            <h2 class="paragraph-nb-categories">{{ articles|length }} {% if articles|length == 1 %}article affiché{% else %} articles affichés{% endif %}</h2>
+
+            {% if articles|length > 20 %}
+                <div class="col-md-6 mb-3">
+                    <input type="text" id="searchBarInput" placeholder="Rechercher un article" class="form-control">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <select id="souscategories2Dropdown" class="form-select">
+                        <option value="">Toutes les villes</option>
+                        {% for category in sousCategories2Names %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+
+            {% for article in articles %}
+                <div class="col-md-4 mb-4 article-card" data-souscategorie="{{ article.getSousCategories2() }}">
+                    <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
+                        <div class="card cardHeight">
+                            <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img-top" alt="{{ article.getSousCategories2() }}-{{ article.getTitre1() }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.getTitre1() }}</h5>
+                                <p class="card-text">Temps de lecture: {{ article.getTempsLecture() }} min</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
+                    </a>
+                </div>
+            {% endfor %}
+
+            {% if articles|length == 0 %}
+                <div class="col-md-12 mt-5" id="noArticlesMessage"></div>
+            {% endif %}
+        </div>
     </div>
-</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const searchBarInput = document.getElementById('searchBarInput');
+        const souscategories2Dropdown = document.getElementById('souscategories2Dropdown');
+        const articleCards = document.querySelectorAll('.article-card');
+
+        searchBarInput.addEventListener('keyup', filterArticles);
+        souscategories2Dropdown.addEventListener('change', filterArticles);
+
+        function filterArticles() {
+            const searchValue = searchBarInput.value.toLowerCase();
+            const selectedCategory = souscategories2Dropdown.value.toLowerCase();
+
+            let foundArticles = 0;
+
+            articleCards.forEach((articleCard) => {
+                const title = articleCard.querySelector('.card-title').textContent.toLowerCase();
+                const cardCategory = articleCard.dataset.souscategorie.toLowerCase();
+
+                const isSearchMatch = title.includes(searchValue);
+                const isCategoryMatch = selectedCategory === '' || cardCategory === selectedCategory;
+
+                if (isSearchMatch && isCategoryMatch) {
+                    articleCard.style.display = 'block';
+                    foundArticles++;
+                } else {
+                    articleCard.style.display = 'none';
+                }
+            });
+
+            const noArticlesMessage = document.getElementById('noArticlesMessage');
+            if (foundArticles === 0) {
+                if (!noArticlesMessage) {
+                    const message = document.createElement('p');
+                    message.textContent = 'Aucun article trouvé';
+                    message.style.textAlign = 'center';
+                    message.style.margin = '150px 0';
+                    message.id = 'noArticlesMessage';
+                    document.querySelector('.row').appendChild(message);
+                }
+            } else {
+                if (noArticlesMessage) {
+                    noArticlesMessage.remove();
+                }
+            }
+        }
+    </script>
 {% endblock %}

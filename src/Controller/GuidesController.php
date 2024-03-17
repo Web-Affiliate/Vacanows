@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Content;
 use App\Entity\Articles;
 use App\Entity\Guides;
+use App\Entity\SousCategories2;
 
 class GuidesController extends AbstractController
 {
@@ -43,6 +44,8 @@ class GuidesController extends AbstractController
             }
         }
 
+        $souscategories2 = $this->entityManager->getRepository(SousCategories2::class)->findAll();
+
         return $this->render('site/guides/index.html.twig', [
             'guide' => $guide,
             'articlesByGuide' => $articlesByGuide,
@@ -50,7 +53,8 @@ class GuidesController extends AbstractController
             'guides' => $guides,
             'article' => $article,
             'tempsLectureMin' => $tempsLectureMin,
-            'tempsLectureMax' => $tempsLectureMax
+            'tempsLectureMax' => $tempsLectureMax,
+            'souscategories2' => $souscategories2
         ]);
     }
 

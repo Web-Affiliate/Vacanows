@@ -62,11 +62,12 @@
                     <img src="{{ asset('uploads/images/' ~ sousCategorie.image) }}" class="card-img-top" alt="{{sousCategorie.nom }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ sousCategorie.getNom() }}</h5>
+                        <span class="categoSpan card-title">({{category}})</span>
                         {% set articleCount = articlesCountBySousCategorie1[sousCategorie.getId()] %}
                         {% if articleCount == 0 or articleCount == 1 %}
-                            <p class="card-text">{{ articleCount }} article</p>
+                            <p class="card-text mt-2">{{ articleCount }} article</p>
                         {% else %}
-                            <p class="card-text">{{ articleCount }} articles</p>
+                            <p class="card-text mt-2">{{ articleCount }} articles</p>
                         {% endif %}
                     </div>
                 </a>

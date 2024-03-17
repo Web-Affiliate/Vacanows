@@ -1,43 +1,88 @@
 {% extends 'site/base.html.twig' %}
 
-{% block title %}Articles{% endblock %}
+{% block title %}
+    Articles - {{ sousCategory2 }}
+{% endblock %}
 
 {% block main %}
-
-{# {% include 'site/partials/headerBan.html.twig' %} #}
-<div class="container-fluid px-5">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="titre-section">Articles - {{ sousCategory2 }}</h1>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
-            <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': categories.getSlug()}) }}">{{ categories }}</a></li>
-            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories1glob_show') }}">Régions</a></li>
-            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categorie1_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug() } ) }}">{{ sous_categories_1 }}</a></li>
-            <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories2glob_show') }}">Villes</a></li>
-            <li class="breadcrumb-item filAriane active" aria-current="page"><a href="{{ path('sous_categorie2_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug(), 'sousCategory2Slug': sousCategory2.getSlug() }  ) }}">{{ sousCategory2 }}</a></li>
-        </ol>
-        </div>
-         <div class="temps-lecture">
-            <p class="col-12">Lecture: {{ tempsLecture }}</p>
-        </div>
-    </div>
-
-    <div class="row">
-        {% for article in articles %}
-            <div class="col-md-3 mb-4">
-                <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
-                    <div class="card cardHeight">
-                        <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img-top" alt="{{ article.getSousCategories2() }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ article.getTitre1() }}</h5>
-                            <p class="card-text">Temps de lecture: {{ article.getTempsLecture() }} min</p>
-                        </div>
-                    </div>
-                </a>
+    <div class="container-fluid px-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="titre-section mt-5">Articles - {{ sousCategory2 }}</h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item filAriane"><a href="{{ path('categoriesglob_show') }}">Pays</a></li>
+                    <li class="breadcrumb-item filAriane"><a href="{{ path('categorie_show' , {'categorySlug': categories.getSlug()}) }}">{{ categories }}</a></li>
+                    <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories1glob_show') }}">Régions</a></li>
+                    <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categorie1_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug() } ) }}">{{ sous_categories_1 }}</a></li>
+                    <li class="breadcrumb-item filAriane"><a href="{{ path('sous_categories2glob_show') }}">Villes</a></li>
+                    <li class="breadcrumb-item filAriane active" aria-current="page"><a href="{{ path('sous_categorie2_show', {'categorySlug': categories.getSlug(), 'sousCategory1Slug': sous_categories_1.getSlug(), 'sousCategory2Slug': sousCategory2.getSlug() }  ) }}">{{ sousCategory2 }}</a></li>
+                </ol>
             </div>
-        {% endfor %}
-    </div>
-</div>
+            <div class="temps-lecture">
+                <p class="col-12">Lecture: {{ tempsLecture }}</p>
+            </div>
+        </div>
 
+        {% if articles|length > 20 %}
+            <div class="row mb-3 justify-content-center">
+                    <input type="text" id="searchBarInput" placeholder="Rechercher un article" class="form-control">
+            </div>
+        {% endif %}
+
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-md-3 mb-4 article-card" data-souscategorie-id="{{ article.sousCategories2.id }}">
+                    <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
+                        <div class="card cardHeight">
+                            <img src="{{ asset('uploads/images/' ~ article.getImage1()) }}" class="card-img-top" alt="{{ article.getSousCategories2() }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.getTitre1() }}</h5>
+                                <p class="card-text">Temps de lecture: {{ article.getTempsLecture() }} min</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="row justify-content-center" style="display: none;" id="noArticlesFound">
+                <p>Aucun article trouvé</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchBarInput = document.getElementById('searchBarInput');
+            const articleCards = document.querySelectorAll('.article-card');
+            const noArticlesFound = document.getElementById('noArticlesFound');
+
+            noArticlesFound.style.margin = '150px 0';
+            noArticlesFound.style.textAlign = 'center';
+            searchBarInput.addEventListener('keyup', filterArticles);
+
+            function filterArticles() {
+                const searchValue = searchBarInput.value.toLowerCase();
+
+                let articlesFound = false;
+
+                articleCards.forEach((articleCard) => {
+                    const title = articleCard.querySelector('.card-title').textContent.toLowerCase();
+                    const cardSouscategorieId = articleCard.dataset.souscategorieId;
+
+                    if (title.includes(searchValue)) {
+                        articleCard.style.display = 'block';
+                        articlesFound = true;
+                    } else {
+                        articleCard.style.display = 'none';
+                    }
+                });
+
+                noArticlesFound.style.display = articlesFound ? 'none' : 'block';
+            }
+
+
+        });
+    </script>
 {% endblock %}

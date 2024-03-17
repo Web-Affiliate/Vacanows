@@ -482,6 +482,11 @@
     color: var(--white) !important;
 }
 
+.categoSpan{
+    font-size: 13px;
+    color: var(--black);
+}
+
 /* SECTION 5 */
 
 .section-5{

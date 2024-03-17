@@ -10,10 +10,27 @@
                 <div class="temps-lecture">
                     <p class="col-12">Lecture: {{ tempsLectureMin }} - {{ tempsLectureMax }} min</p>
                 </div>
-                <input type="text" id="searchBarInput" placeholder="Rechercher un article">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" id="searchBarInput" placeholder="Rechercher un article" class="form-control mb-3">
+                    </div>
+                    <div class="col-md-6">
+                        <select id="souscategories2Dropdown" class="form-select">
+                            <option value="">Toutes les villes</option>
+                            {% set souscategories2 = [] %}
+                            {% for article in articlesByGuide %}
+                                {% set souscategorie = article.sousCategories2 %}
+                                {% if souscategorie is not null and souscategorie not in souscategories2 %}
+                                    {% set souscategories2 = souscategories2|merge([souscategorie]) %}
+                                    <option value="{{ souscategorie.id }}">{{ souscategorie.nom }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
                 <div class="row">
                     {% for article in articlesByGuide %}
-                        <div class="col-md-4 mb-4 article-card">
+                        <div class="col-md-4 mb-4 article-card" data-souscategorie-id="{{ article.sousCategories2.id }}">
                             <a href="{{ path('article_show', {'slug': article.slug }) }}" class="card-link">
                                 <div class="card cardHeight">
                                     <img src="{{ asset('uploads/images/' ~ article.image1) }}" class="card-img-top" alt="Image">
@@ -24,42 +41,54 @@
                                 </div>
                             </a>
                         </div>
-                    {% else %}
-                        <p class="text-center">Aucun article trouvé.</p>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
-{% block javascripts %}
-        <script>
-            const searchBarInput = document.getElementById('searchBarInput');
-            const articleCards = document.querySelectorAll('.article-card');
-            const noArticlesFound = document.createElement('p');
-            noArticlesFound.textContent = 'Aucun article trouvé.';
-            noArticlesFound.style.display = 'none';
-            noArticlesFound.style.textAlign = 'center';
-            noArticlesFound.style.margin = '150px 0';
-            document.querySelector('.row').appendChild(noArticlesFound);
 
-            searchBarInput.addEventListener('keyup', (e) => {
-                const searchValue = e.target.value.toLowerCase();
-                let articlesFound = false;
-                articleCards.forEach((articleCard) => {
-                    const title = articleCard.querySelector('.card-title').textContent.toLowerCase();
-                    if (title.includes(searchValue)) {
-                        articleCard.style.display = 'block';
-                        articlesFound = true;
-                    } else {
-                        articleCard.style.display = 'none';
-                    }
-                });
-                if (!articlesFound) {
-                    noArticlesFound.style.display = 'block';
-                } else {
-                    noArticlesFound.style.display = 'none';
-                }
-            });
-        </script>
+{% block javascripts %}
+<script>
+    const searchBarInput = document.getElementById('searchBarInput');
+    const souscategories2Dropdown = document.getElementById('souscategories2Dropdown');
+    const articleCards = document.querySelectorAll('.article-card');
+    const noArticlesFound = document.createElement('p');
+    noArticlesFound.textContent = 'Aucun article trouvé.';
+    noArticlesFound.style.display = 'none';
+    noArticlesFound.style.textAlign = 'center';
+    noArticlesFound.style.margin = '150px 0';
+    document.querySelector('.row').appendChild(noArticlesFound);
+
+    searchBarInput.addEventListener('keyup', (e) => {
+        filterArticles();
+    });
+
+   souscategories2Dropdown.addEventListener('change', (e) => {
+    filterArticles();
+});
+
+function filterArticles() {
+    const searchValue = searchBarInput.value.toLowerCase();
+    const selectedSouscategorieId = souscategories2Dropdown.value;
+
+    articleCards.forEach((articleCard) => {
+        const title = articleCard.querySelector('.card-title').textContent.toLowerCase();
+        const cardSouscategorieId = articleCard.dataset.souscategorieId;
+
+        const isSearchMatch = title.includes(searchValue);
+        const isSouscategorieMatch = selectedSouscategorieId === '' || cardSouscategorieId === selectedSouscategorieId;
+
+        if (isSearchMatch && isSouscategorieMatch) {
+            articleCard.style.display = 'block';
+        } else {
+            articleCard.style.display = 'none';
+        }
+    });
+
+    const articlesFound = Array.from(articleCards).some(articleCard => articleCard.style.display !== 'none');
+    noArticlesFound.style.display = articlesFound ? 'none' : 'block';
+}
+
+</script>
     {% endblock %}

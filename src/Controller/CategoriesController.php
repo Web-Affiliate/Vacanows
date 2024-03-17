@@ -24,7 +24,7 @@ class CategoriesController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/pays/{categorySlug}', name: 'categorie_show')]
+    #[Route('/category/{categorySlug}', name: 'categorie_show')]
     public function showCategory($categorySlug): Response
     {
         $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
@@ -98,7 +98,7 @@ class CategoriesController extends AbstractController
     }
 
 
-    #[Route('/pays/{categorySlug}/region/{sousCategory1Slug}', name: 'sous_categorie1_show')]
+    #[Route('/category/{categorySlug}/SC1/{sousCategory1Slug}', name: 'sous_categorie1_show')]
     public function showSousCategorie($categorySlug, $sousCategory1Slug): Response
     {
         $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);
@@ -158,7 +158,7 @@ class CategoriesController extends AbstractController
         ]);
     }
 
-    #[Route('/pays/{categorySlug}/region/{sousCategory1Slug}/ville/{sousCategory2Slug}', name: 'sous_categorie2_show')]
+    #[Route('/category/{categorySlug}/SC1/{sousCategory1Slug}/SC2/{sousCategory2Slug}', name: 'sous_categorie2_show')]
     public function showSousCategorie2($categorySlug, $sousCategory1Slug, $sousCategory2Slug): Response
     {
         $sousCategory2 = $this->entityManager->getRepository(SousCategories2::class)->findOneBy(['slug' => $sousCategory2Slug]);
@@ -193,7 +193,7 @@ class CategoriesController extends AbstractController
         $sousCategory1 = $sousCategory2->getSousCategorie1();
         $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
         $guides = $this->entityManager->getRepository(Guides::class)->findAll();
-
+        $sousCategories2Names = $this->entityManager->getRepository(SousCategories2::class)->findAll();
         return $this->render('site/categories/articles/index.html.twig', [
             'categorySlug' => $categorySlug,
             'sousCategory1Slug' => $sousCategory1Slug,
@@ -210,13 +210,14 @@ class CategoriesController extends AbstractController
             'titre_header' => $content->getTitreHeader(),
             'paragraph_header' => $content->getParagraphHeader(),
             'placeholder_search' => $content->getPlaceholderSearch(),
+            'sousCategories2Names' => $sousCategories2Names,
             'tempsLecture' => $tempsLecture,
             'guides' => $guides
         ]);
     }
 
 
-    #[Route('/pays', name: 'categoriesglob_show')]
+    #[Route('/category', name: 'categoriesglob_show')]
 public function showCategories(): Response
 {
     $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
@@ -249,7 +250,7 @@ public function showCategories(): Response
     ]);
 }
 
-#[Route('/region', name: 'sous_categories1glob_show')]
+#[Route('/SC1', name: 'sous_categories1glob_show')]
 public function showSousCategories(): Response
 {
     $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
@@ -285,7 +286,7 @@ public function showSousCategories(): Response
     ]);
 }
 
-#[Route('/ville', name: 'sous_categories2glob_show')]
+#[Route('/SC2', name: 'sous_categories2glob_show')]
 public function showSousCategories1(): Response
 {
     $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
@@ -300,7 +301,7 @@ public function showSousCategories1(): Response
 
     $category = $this->entityManager->getRepository(Categories::class)->findOneBy([]);
     $sousCategory1 = $this->entityManager->getRepository(SousCategories1::class)->findOneBy([]);
-
+    $souscategoryAll = $this->entityManager->getRepository(SousCategories1::class)->findAll();
     $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
     return $this->render('site/categories/souscategories2.html.twig', [
@@ -309,6 +310,7 @@ public function showSousCategories1(): Response
         'articlesCountByVille' => $articlesCountByVille,
         'category' => $category,
         'sousCategory' => $sousCategory1,
+        'souscategoryAll' => $souscategoryAll,
         'image_header' => $content->getImageHeader(),
         'image_header2' => $content->getImageHeader2(),
         'image_header3' => $content->getImageHeader3(),
@@ -342,12 +344,13 @@ public function articles(Request $request): Response
 
     $sousCategories2Repository = $this->entityManager->getRepository(SousCategories2::class);
     $sousCategories2Names = $sousCategories2Repository->findAll();
-
+    $displayedCategories = [];
     return $this->render('site/reponse_select/articles.html.twig', [
         'articles' => $articles,
         'content' => $content,
         'guides' => $guides,
         'sousCategories2Names' => $sousCategories2Names,
+        'displayedCategories' => $displayedCategories
     ]);
 }
 }

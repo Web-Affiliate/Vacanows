@@ -8,26 +8,85 @@
 <div class="container-fluid px-5">
     <div class="row">
         <div class="col-12">
-            <h1 class="titre-section">Toutes les villes</h1>
+            <h1 class="titre-section mt-5">Toutes les villes</h1>
             <p class="paragraph-nb-categories">{{ sousCategories2|length }} villes</p>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="text" id="searchBarInput" placeholder="Rechercher une ville" class="form-control">
+        </div>
+        <div class="col-md-6">
+            <select id="souscategories2Dropdown" class="form-select">
+                <option value="" selected>Toutes les régions</option>
+                {% for sousCategory1 in souscategoryAll %}
+                    <option value="{{ sousCategory1.getId() }}">{{ sousCategory1.nom }}</option>
+                {% endfor %}
+            </select>
         </div>
     </div>
 
     <div class="row">
         {% for sousCategory2 in sousCategories2 %}
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3 mb-4" data-region-id="{{ sousCategory2.sousCategorie1.getId() }}">
                 <a href="{{ path('sous_categorie2_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link">
-                <div class="card">
-                    <img src="{{ asset('uploads/images/' ~ sousCategory2.image) }}" class="card-img-top" alt="{{ sousCategory2.nom }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ sousCategory2.nom }}</h5>
-                        <p class="card-text">{{ articlesCountByVille[sousCategory2.getId()] }} {% if articlesCountByVille[sousCategory2.getId()] == 1 or sousCategory2.getId() == 0 %}article{% else %}articles{% endif %}</p>
+                    <div class="card">
+                        <img src="{{ asset('uploads/images/' ~ sousCategory2.image) }}" class="card-img-top" alt="{{ sousCategory2.nom }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ sousCategory2.nom }}</h5>
+                            <p class="card-text">{{ articlesCountByVille[sousCategory2.getId()] }} {% if articlesCountByVille[sousCategory2.getId()] == 1 or sousCategory2.getId() == 0 %}article{% else %}articles{% endif %}</p>
+                        </div>
                     </div>
-                </div>
                 </a>
             </div>
         {% endfor %}
     </div>
+
+    <div class="row justify-content-center" style="display: none;" id="noResultsMessage">
+        <div class="col-12 text-center" style="margin: 150px 0;">
+            <p>Aucun résultat trouvé</p>
+        </div>
+    </div>
+
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchBarInput = document.getElementById('searchBarInput');
+            const souscategories2Dropdown = document.getElementById('souscategories2Dropdown');
+            const cards = document.querySelectorAll('.col-md-3');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            searchBarInput.addEventListener('keyup', filterCards);
+            souscategories2Dropdown.addEventListener('change', filterCards);
+
+            function filterCards() {
+                const searchValue = searchBarInput.value.toLowerCase();
+                const selectedRegionId = souscategories2Dropdown.value;
+                let cardsVisible = false;
+
+                cards.forEach(card => {
+                    const cardRegionId = card.dataset.regionId;
+                    const cardVisible = cardRegionId === selectedRegionId || selectedRegionId === '';
+
+                    if (cardVisible && card.querySelector('.card-title').textContent.toLowerCase().includes(searchValue)) {
+                        card.style.display = 'block';
+                        cardsVisible = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (!cardsVisible) {
+                    noResultsMessage.style.display = 'block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                }
+            }
+        });
+    </script>
 {% endblock %}
