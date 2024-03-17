@@ -8,6 +8,12 @@
     font-family: "Raleway", sans-serif;
 }
 
+body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
 ::-webkit-scrollbar {
     width: 15px;
 
@@ -692,6 +698,12 @@ footer ul:nth-child(2){
     align-items: center;
 }
 
+.input-container input[type='email']:focus {
+    outline: none;
+    border: 2px solid var(--primary);
+}
+
+
 .input-container i {
     position: absolute;
     right: 30px;
@@ -706,6 +718,46 @@ footer ul:nth-child(2){
     height: 350px;
 }
 
+/* MODAL */
+
+/* Style du formulaire de contact */
+.offcanvas {
+    max-width: 400px;
+    border-radius: 10px;
+    background-color: #f8f9fa; /* Couleur de fond du formulaire */
+    height: 100%;
+}
+
+.offcanvas-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333; /* Couleur du titre du formulaire */
+}
+
+.form-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555; /* Couleur des libellés des champs */
+}
+
+.form-control {
+    border: 1px solid #ccc; /* Bordure des champs */
+    border-radius: 5px;
+}
+
+textarea.form-control {
+    resize: vertical; /* Permet de redimensionner verticalement le champ de texte */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Couleur de fond du bouton Envoyer */
+    color: #fff; /* Couleur du texte du bouton Envoyer */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Couleur de fond au survol du bouton Envoyer */
+}
 
 /* MEDIA QUERIES */
 
