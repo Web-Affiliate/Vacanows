@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Content;
 use App\Entity\Guides;
+use App\Entity\About;
 
 class AproposController extends AbstractController
 {
@@ -27,10 +28,25 @@ class AproposController extends AbstractController
     {
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
         $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+        $about = $this->entityManager->getRepository(About::class)->findOneBy([]);
+        
 
         return $this->render('site/aboutUs/index.html.twig', [
             'content' => $content,
-            'guides' => $guides
+            'guides' => $guides,
+            'meta_title' => $about->getMetaTitle(),
+            'meta_description' => $about->getMetaDescription(),
+            'titre_1' => $about->getTitre1(),
+            'image_1' => $about->getImage1(),
+            'paragraph_1' => $about->getParagraph1(),
+            'image_2' => $about->getImage2(),
+            'slogan_logo' => $about->getSloganLogo(),
+            'image_panoramique' => $about->getImagePanoramique(),
+            'paragraph_2' => $about->getParagraph2(),
+            'image_3' => $about->getImage3(),
+            'image_4' => $about->getImage4(),
+            'text_final' => $about->getTextFinal(),
+            'sites' => $about->getSites(),
         ]);
     }
 }
