@@ -59,15 +59,6 @@ class Articles
     #[ORM\Column(length: 255)]
     private ?string $libelle_bouton_tab = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $tab_col_url_1 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $tab_col_url_2 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $tab_col_url_3 = null;
-
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Sites $sites = null;
@@ -114,6 +105,27 @@ class Articles
 
     #[ORM\Column(nullable: true)]
     private ?bool $tab_libelle_12 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_description = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_subject = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_category = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $meta_canonical = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_author = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_og_description = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_og_title = null;
 
     public function __construct()
     {
@@ -305,42 +317,6 @@ class Articles
         return $this;
     }
 
-    public function getTabColUrl1(): ?string
-    {
-        return $this->tab_col_url_1;
-    }
-
-    public function setTabColUrl1(string $tab_col_url_1): static
-    {
-        $this->tab_col_url_1 = $tab_col_url_1;
-
-        return $this;
-    }
-
-    public function getTabColUrl2(): ?string
-    {
-        return $this->tab_col_url_2;
-    }
-
-    public function setTabColUrl2(string $tab_col_url_2): static
-    {
-        $this->tab_col_url_2 = $tab_col_url_2;
-
-        return $this;
-    }
-
-    public function getTabColUrl3(): ?string
-    {
-        return $this->tab_col_url_3;
-    }
-
-    public function setTabColUrl3(string $tab_col_url_3): static
-    {
-        $this->tab_col_url_3 = $tab_col_url_3;
-
-        return $this;
-    }
-
     public function getGuides(): ?Guides
     {
         return $this->guides;
@@ -505,6 +481,90 @@ class Articles
     public function setTabLibelle12(?bool $tab_libelle_12): static
     {
         $this->tab_libelle_12 = $tab_libelle_12;
+
+        return $this;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->meta_description;
+    }
+
+    public function setMetaDescription(string $meta_description): static
+    {
+        $this->meta_description = $meta_description;
+
+        return $this;
+    }
+
+    public function getMetaSubject(): ?string
+    {
+        return $this->meta_subject;
+    }
+
+    public function setMetaSubject(string $meta_subject): static
+    {
+        $this->meta_subject = $meta_subject;
+
+        return $this;
+    }
+
+    public function getMetaCategory(): ?string
+    {
+        return $this->meta_category;
+    }
+
+    public function setMetaCategory(string $meta_category): static
+    {
+        $this->meta_category = $meta_category;
+
+        return $this;
+    }
+
+    public function getMetaCanonical(): ?string
+    {
+        return $this->meta_canonical;
+    }
+
+    public function setMetaCanonical(?string $meta_canonical): static
+    {
+        $this->meta_canonical = $meta_canonical;
+
+        return $this;
+    }
+
+    public function getMetaAuthor(): ?string
+    {
+        return $this->meta_author;
+    }
+
+    public function setMetaAuthor(string $meta_author): static
+    {
+        $this->meta_author = $meta_author;
+
+        return $this;
+    }
+
+    public function getMetaOgDescription(): ?string
+    {
+        return $this->meta_og_description;
+    }
+
+    public function setMetaOgDescription(string $meta_og_description): static
+    {
+        $this->meta_og_description = $meta_og_description;
+
+        return $this;
+    }
+
+    public function getMetaOgTitle(): ?string
+    {
+        return $this->meta_og_title;
+    }
+
+    public function setMetaOgTitle(string $meta_og_title): static
+    {
+        $this->meta_og_title = $meta_og_title;
 
         return $this;
     }

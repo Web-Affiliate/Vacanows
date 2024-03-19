@@ -125,6 +125,27 @@ class Content
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_1_no_border = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $meta_description = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_subject = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_category = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_og_description = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_og_title = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $meta_author = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $meta_canonical = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -570,6 +591,90 @@ class Content
     public function setImage1NoBorder(string $image_1_no_border): static
     {
         $this->image_1_no_border = $image_1_no_border;
+
+        return $this;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->meta_description;
+    }
+
+    public function setMetaDescription(string $meta_description): static
+    {
+        $this->meta_description = $meta_description;
+
+        return $this;
+    }
+
+    public function getMetaSubject(): ?string
+    {
+        return $this->meta_subject;
+    }
+
+    public function setMetaSubject(string $meta_subject): static
+    {
+        $this->meta_subject = $meta_subject;
+
+        return $this;
+    }
+
+    public function getMetaCategory(): ?string
+    {
+        return $this->meta_category;
+    }
+
+    public function setMetaCategory(string $meta_category): static
+    {
+        $this->meta_category = $meta_category;
+
+        return $this;
+    }
+
+    public function getMetaOgDescription(): ?string
+    {
+        return $this->meta_og_description;
+    }
+
+    public function setMetaOgDescription(string $meta_og_description): static
+    {
+        $this->meta_og_description = $meta_og_description;
+
+        return $this;
+    }
+
+    public function getMetaOgTitle(): ?string
+    {
+        return $this->meta_og_title;
+    }
+
+    public function setMetaOgTitle(string $meta_og_title): static
+    {
+        $this->meta_og_title = $meta_og_title;
+
+        return $this;
+    }
+
+    public function getMetaAuthor(): ?string
+    {
+        return $this->meta_author;
+    }
+
+    public function setMetaAuthor(string $meta_author): static
+    {
+        $this->meta_author = $meta_author;
+
+        return $this;
+    }
+
+    public function getMetaCanonical(): ?string
+    {
+        return $this->meta_canonical;
+    }
+
+    public function setMetaCanonical(?string $meta_canonical): static
+    {
+        $this->meta_canonical = $meta_canonical;
 
         return $this;
     }

@@ -255,18 +255,18 @@ public function showSousCategories(): Response
 {
     $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
-    $category = $this->entityManager->getRepository(Categories::class)->findOneBy([]);
-
     $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);
     $sousCategories1 = $sousCategories1Repository->findAll();
-    $sousCategories2Repository = $this->entityManager->getRepository(SousCategories2::class);
-    $articlesCountBySousCategorie1 = $sousCategories1Repository->countArticlesSousCategorieAll();
 
-    $countSousCategories2 = [];
+    $articlesCountBySousCategorie1 = [];
+    $category = [];
+
     foreach ($sousCategories1 as $sousCategory1) {
-        $countSousCategories2[$sousCategory1->getId()] =
-        $sousCategories2Repository->countSousCategories2BySousCategory($sousCategory1);
+        $articlesCountBySousCategorie1[$sousCategory1->getId()] = $sousCategories1Repository->countArticlesBySousCategorie1($sousCategory1);
+
+        $category[$sousCategory1->getId()] = $sousCategory1->getCategories();
     }
+
     $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
     return $this->render('site/categories/souscategories1.html.twig', [
@@ -274,7 +274,6 @@ public function showSousCategories(): Response
         'sousCategories' => $sousCategories1,
         'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1,
         'category' => $category,
-        'countSousCategories2' => $countSousCategories2,
         'image_header' => $content->getImageHeader(),
         'image_header2' => $content->getImageHeader2(),
         'image_header3' => $content->getImageHeader3(),

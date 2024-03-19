@@ -9,27 +9,28 @@
     <div class="row">
         <div class="col-12">
             <h1 class="titre-section mt-5">Toutes les régions</h1>
-            <p class="paragraph-nb-categories">{{ sousCategories|length }} régions</p>
+            <div class="temps-lecture">
+                <p class="paragraph-nb-categories">{{ sousCategories|length }} régions</p>
+            </div>
         </div>
     </div>
 
     <div class="row">
-        {% for sousCategory in sousCategories %}
-            <div class="col-md-3 mb-4">
-                <a href="{{ path('sous_categorie1_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug }) }}" class="card-link">
-                    <div class="card">
-                        <img src="{{ asset('uploads/images/' ~ sousCategory.image) }}" class="card-img-top" alt="{{ sousCategory.nom() }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ sousCategory.nom }}</h5>
-                            <span class="categoSpan card-title">({{category}})</span>
-                            {% set articleCount = articlesCountBySousCategorie1[sousCategory.getId()] ?? 0 %}
-                            {% set villeCount = countSousCategories2[sousCategory.getId()] ?? 0 %}
-                            <p class="card-text mt-2">{{ articleCount }} {% if articleCount == 1 or articleCount == 0 %}article{% else %}articles{% endif %} / {{ villeCount }} {% if villeCount == 1 or villeCount == 0 %}ville{% else %}villes{% endif %}</p>
-                        </div>
-                    </div>
-                </a>
+       {% for sousCategory in sousCategories %}
+    <div class="col-md-3 mb-4">
+        <a href="{{ path('sous_categorie1_show', {'categorySlug': category[sousCategory.getId()].getSlug(), 'sousCategory1Slug': sousCategory.getSlug() }) }}" class="card-link">
+            <div class="card">
+                <img src="{{ asset('uploads/images/' ~ sousCategory.image) }}" class="card-img-top" alt="{{ sousCategory.nom }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ sousCategory.nom }}</h5>
+                    <span class="categoSpan card-title">({{ category[sousCategory.getId()].nom }})</span>
+                    {% set articleCount = articlesCountBySousCategorie1[sousCategory.getId()] ?? 0 %}
+                    {# Le reste du contenu de la carte #}
+                </div>
             </div>
-        {% endfor %}
+        </a>
+    </div>
+{% endfor %}
     </div>
 </div>
 
