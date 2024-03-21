@@ -86,8 +86,6 @@
 
 <div class="container section-5">
     <div class="row">
-    <h2 class="titre-section titre-section5">{{ titre_4|striptags|raw }}</h2>
-            <p class="paragraph-section paragraph-section-5">{{ paragraph_7|striptags|raw }}</p>
             {% for sousCategory in sousCategoriesToShow %}
                 <div class="col-12">
                     <h3 class="sous-titre sous-titre2 ">{{ sousCategory.getNom() }} : </h3>

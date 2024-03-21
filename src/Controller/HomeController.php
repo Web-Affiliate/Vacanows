@@ -92,8 +92,6 @@ class HomeController extends AbstractController
             'sous_titre_3' => $content->getSousTitre3(),
             'paragraph_6' => $content->getParagraph6(),
             'titre_recommandation' => $content->getTitreRecommandation(),
-            'titre_4' => $content->getTitre4(),
-            'paragraph_7' => $content->getParagraph7(),
             'titre_new_recommandation' => $content->getTitreNewRecommandation(),
             'instagram_link' => $content->getInstagramLink(),
             'tiktok_link' => $content->getTiktokLink(),

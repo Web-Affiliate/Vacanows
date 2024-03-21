@@ -260,9 +260,11 @@ public function showSousCategories(): Response
 
     $articlesCountBySousCategorie1 = [];
     $category = [];
+    $sousCategories2Repository = $this->entityManager->getRepository(SousCategories2::class);
 
     foreach ($sousCategories1 as $sousCategory1) {
-        $articlesCountBySousCategorie1[$sousCategory1->getId()] = $sousCategories1Repository->countArticlesBySousCategorie1($sousCategory1);
+        $articlesCountBySousCategorie1 = $sousCategories1Repository->countArticlesSousCategorieAll();
+        $countSousCategories2[$sousCategory1->getId()] =$sousCategories2Repository->countSousCategories2BySousCategory($sousCategory1);
 
         $category[$sousCategory1->getId()] = $sousCategory1->getCategories();
     }
@@ -281,7 +283,8 @@ public function showSousCategories(): Response
         'titre_header' => $content->getTitreHeader(),
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
-        'guides' => $guides
+        'guides' => $guides,
+        'countSousCategories2' => $countSousCategories2
     ]);
 }
 
