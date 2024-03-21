@@ -9,87 +9,164 @@
     <div class="row">
         <div class="col-12">
             <h1 class="titre-section mt-5">Toutes les villes</h1>
-
-            <div class="temps-lecture">
-                <p class="paragraph-nb-categories">{{ sousCategories2|length }} villes</p>
-            </div>
+            <p class="paragraph-nb-categories nb-glob-sc2 text-center">{{ sousCategories2|length }} destinations de villes</p>
         </div>
     </div>
 
     <div class="row mb-3">
         <div class="col-md-6">
-            <input type="text" id="searchBarInput" placeholder="Rechercher une ville" class="form-control">
-        </div>
-        <div class="col-md-6">
-            <select id="souscategories2Dropdown" class="form-select">
-                <option value="" selected>Toutes les régions</option>
-                {% for sousCategory1 in souscategoryAll %}
-                    <option value="{{ sousCategory1.getId() }}">{{ sousCategory1.nom }}</option>
-                {% endfor %}
-            </select>
+            <button id="displayCardsBtn" class="btn btn-primary btn-filtre-all">Afficher les cartes</button>
+            <button id="displayTextBtn" class="btn btn-primary btn-filtre-all">Afficher le texte</button>
+
         </div>
     </div>
 
-    <div class="row">
-        {% for sousCategory2 in sousCategories2 %}
-            <div class="col-md-3 mb-4" data-region-id="{{ sousCategory2.sousCategorie1.getId() }}">
-                <a href="{{ path('sous_categorie2_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link">
-                    <div class="card">
-                        <img src="{{ asset('uploads/images/' ~ sousCategory2.image) }}" class="card-img-top" alt="{{ sousCategory2.nom }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ sousCategory2.nom }}</h5>
-                            <p class="card-text">{{ articlesCountByVille[sousCategory2.getId()] }} {% if articlesCountByVille[sousCategory2.getId()] == 1 or sousCategory2.getId() == 0 %}article{% else %}articles{% endif %}</p>
-                        </div>
-                    </div>
-                </a>
+
+    {# CARD #}
+    <div class="container-glob-card-SC2 d-none">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <input type="text" id="searchBarInput" placeholder="Rechercher une ville" class="form-control">
             </div>
-        {% endfor %}
-    </div>
+            <div class="col-md-6">
+                <select id="souscategories2Dropdown" class="form-select">
+                    <option value="" selected>Toutes les régions</option>
+                    {% for sousCategory1 in souscategoryAll %}
+                        <option value="{{ sousCategory1.getId() }}">{{ sousCategory1.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
 
-    <div class="row justify-content-center" style="display: none;" id="noResultsMessage">
-        <div class="col-12 text-center" style="margin: 150px 0;">
-            <p>Aucun résultat trouvé</p>
+        <div class="row">
+            {% for sousCategory2 in sousCategories2 %}
+                <div class="col-md-3 mb-4" data-region-id="{{ sousCategory2.sousCategorie1.getId() }}">
+                    <a href="{{ path('sous_categorie2_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link">
+                        <div class="card">
+                            <img src="{{ asset('uploads/images/' ~ sousCategory2.image) }}" class="card-img-top" alt="{{ sousCategory2.nom }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ sousCategory2.nom }}</h5>
+                                <p class="card-text">{{ articlesCountByVille[sousCategory2.getId()] }} {% if articlesCountByVille[sousCategory2.getId()] == 1 or sousCategory2.getId() == 0 %}article{% else %}articles{% endif %}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="row justify-content-center" style="display: none;" id="noResultsMessage">
+            <div class="col-12 text-center" style="margin: 150px 0;">
+                <p>Aucun résultat trouvé</p>
+            </div>
         </div>
     </div>
 
+
+    {# TEXT #}
+    <div class="container-glob-text-SC2"> {# Utilisation d'une nouvelle classe pour l'affichage du texte #}
+        <div class="row">
+            {% for sousCategory1 in souscategoryAll %}
+                <div class="col-md-3 mb-4">
+                    <div class="titre-section titre-glob-sc2">{{ sousCategory1.nom }}</div>
+                    <div class="glob-container-SC2">
+                        {% for sousCategory2 in sousCategories2 %}
+                            {% if sousCategory2.sousCategorie1.getId() == sousCategory1.getId() %}
+                                <p class="text-glob-sc2">
+                                    <a href="{{ path('sous_categorie2_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link">
+                                        {{ sousCategory2.nom }}
+                                    </a>
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchBarInput = document.getElementById('searchBarInput');
-            const souscategories2Dropdown = document.getElementById('souscategories2Dropdown');
-            const cards = document.querySelectorAll('.col-md-3');
-            const noResultsMessage = document.getElementById('noResultsMessage');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchBarInput = document.getElementById('searchBarInput');
+        const souscategories2Dropdown = document.getElementById('souscategories2Dropdown');
+        const cards = document.querySelectorAll('.col-md-3');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const displayCardsBtn = document.getElementById('displayCardsBtn');
+        const displayTextBtn = document.getElementById('displayTextBtn');
+        const containerGlobCardSC2 = document.querySelector('.container-glob-card-SC2');
+        const containerGlobTextSC2 = document.querySelector('.container-glob-text-SC2');
 
-            searchBarInput.addEventListener('keyup', filterCards);
-            souscategories2Dropdown.addEventListener('change', filterCards);
+        searchBarInput.addEventListener('keyup', filterCards);
+        displayCardsBtn.addEventListener('click', displayCards);
+        displayTextBtn.addEventListener('click', displayText);
 
-            function filterCards() {
-                const searchValue = searchBarInput.value.toLowerCase();
-                const selectedRegionId = souscategories2Dropdown.value;
-                let cardsVisible = false;
+        function filterCards() {
+            const searchValue = searchBarInput.value.toLowerCase();
+            const selectedRegionId = souscategories2Dropdown.value;
+            let cardsVisible = false;
 
-                cards.forEach(card => {
-                    const cardRegionId = card.dataset.regionId;
-                    const cardVisible = cardRegionId === selectedRegionId || selectedRegionId === '';
+            cards.forEach(card => {
+                const cardRegionId = card.dataset.regionId;
+                const cardVisible = cardRegionId === selectedRegionId || selectedRegionId === '';
 
-                    if (cardVisible && card.querySelector('.card-title').textContent.toLowerCase().includes(searchValue)) {
-                        card.style.display = 'block';
-                        cardsVisible = true;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                if (!cardsVisible) {
-                    noResultsMessage.style.display = 'block';
+                if (cardVisible && card.querySelector('.card-title').textContent.toLowerCase().includes(searchValue)) {
+                    card.style.display = 'block';
+                    cardsVisible = true;
                 } else {
-                    noResultsMessage.style.display = 'none';
+                    card.style.display = 'none';
                 }
+            });
+
+            if (!cardsVisible) {
+                noResultsMessage.style.display = 'block';
+            } else {
+                noResultsMessage.style.display = 'none';
+            }
+        }
+
+        function displayCards() {
+            containerGlobCardSC2.classList.remove('d-none');
+            containerGlobTextSC2.style.display = 'none';
+            searchBarInput.value = ''; 
+            filterCards();
+        }
+
+        function displayText() {
+            containerGlobCardSC2.classList.add('d-none');
+            containerGlobTextSC2.style.display = 'block';
+            searchBarInput.value = ''; 
+            filterText();
+        }
+
+        // Fonction pour filtrer le texte
+        function filterText() {
+            const searchValue = searchBarInput.value.toLowerCase();
+
+            document.querySelectorAll('.text-glob-sc2').forEach(textElement => {
+                const text = textElement.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    textElement.style.display = 'block';
+                } else {
+                    textElement.style.display = 'none';
+                }
+            });
+        }
+
+        // Filtrer le texte lorsque la valeur de recherche change
+        searchBarInput.addEventListener('keyup', filterText);
+
+        // Réinitialiser le filtre lorsque le menu déroulant change
+        souscategories2Dropdown.addEventListener('change', function() {
+            if (containerGlobTextSC2.style.display === 'block') {
+                filterText(); // Appliquer le filtre au texte affiché
+            } else {
+                filterCards(); // Appliquer le filtre aux cartes
             }
         });
-    </script>
+});
+</script>
 {% endblock %}
+

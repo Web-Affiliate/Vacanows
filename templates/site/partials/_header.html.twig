@@ -21,51 +21,14 @@
                         <a class="nav-link" href="{{ path('about-us') }}">{{ content.getNavbar5 }}</a>
                     </li>
                 </ul>
-                <a class="btn ml-auto contact-button" href="#Contactform" title="Contactez nous" rel="nofollow" data-bs-toggle="offcanvas" aria-controls="Contactform" data-action="OuverturefromContactform" data-label="Nous contactez" data-categorie="Header" data-value="1">Contact</a>
+                <a class="btn ml-auto contact-button" href="#" title="Contactez nous" rel="nofollow" data-bs-toggle="offcanvas" data-bs-target="#offcanvasContactForm" aria-controls="Contactform" data-action="OuverturefromContactform" data-label="Nous contactez" data-categorie="Header" data-value="1">Contact</a>
             </div>
         {% endif %}
     </div>
 </nav>
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="Contactform" aria-labelledby="ContactformLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="ContactformLabel">Contact</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <form id="contactForm">
-            <div class="mb-3">
-                <label for="name" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="subject" class="form-label">Objet</label>
-                <input type="text" class="form-control" id="subject" name="subject" required>
-            </div>
-            <div class="mb-3">
-                <label for="message" class="form-label">Message</label>
-                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-        </form>
-    </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const btnContact = document.querySelector('.contact-button');
-        const formContact = document.getElementById('Contactform');
-        const offcanvasInstance = new bootstrap.Offcanvas(formContact);
-
-        btnContact.addEventListener('click', function() {
-            offcanvasInstance.toggle();
-        });
-    });
-</script>
+{% include 'site/form/formContact.html.twig' %}
 
 
 
@@ -92,4 +55,6 @@
         });
 
     });
+
+    
 </script>
