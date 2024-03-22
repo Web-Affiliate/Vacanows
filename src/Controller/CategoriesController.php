@@ -261,7 +261,7 @@ public function showSousCategories(): Response
     $articlesCountBySousCategorie1 = [];
     $category = [];
     $sousCategories2Repository = $this->entityManager->getRepository(SousCategories2::class);
-
+    $categorybyId = $this->entityManager->getRepository(Categories::class)->findAll();
     foreach ($sousCategories1 as $sousCategory1) {
         $articlesCountBySousCategorie1 = $sousCategories1Repository->countArticlesSousCategorieAll();
         $countSousCategories2[$sousCategory1->getId()] =$sousCategories2Repository->countSousCategories2BySousCategory($sousCategory1);
@@ -276,6 +276,7 @@ public function showSousCategories(): Response
         'sousCategories' => $sousCategories1,
         'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1,
         'category' => $category,
+        'categorybyId' => $categorybyId,
         'image_header' => $content->getImageHeader(),
         'image_header2' => $content->getImageHeader2(),
         'image_header3' => $content->getImageHeader3(),

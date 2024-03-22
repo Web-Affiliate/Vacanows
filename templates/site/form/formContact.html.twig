@@ -1,72 +1,24 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasContactForm" aria-labelledby="offcanvasContactFormLabel">
     <div class="offcanvas-header">
-        <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <h5 class="offcanvas-title" id="offcanvasContactFormLabel">Formulaire de Contact</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div>
-            <h2>Contactez-nous</h2>
-            <p>Utilisez le formulaire ci-dessous pour nous contacter.</p>
-        </div>
         <form class="d-flex flex-column mt-3 align-items-start" role="search" id="contactForm" method="POST">
-          <div class="col-12 mb-3">
-            <input type="text" required class="form-control contact" name="name" id="contactName" placeholder="Nom*" aria-label="Nom" />
-          </div>
-          <div class="col-12 mb-3">
-            <input type="email" required class="form-control contact" name="email" id="contactEmail" placeholder="Email*" aria-label="Email" />
-          </div>
-          <div class="col-12 mb-3">
-            <textarea required class="form-control contact" name="message" id="contactMessage" placeholder="Message*" aria-label="Message"></textarea>
-          </div>
-          <div id="contactMessageContainer"></div>
-          <button class="form-button mt-5" type="submit" id="submitContactForm">
-              <span id="contactLoader" style="display: none;">Chargement...</span>
-              <p class="contact-text">Envoyer</p>
-          </button>
+            <div class="col-12 mb-3">
+                <input type="text" required class="form-control contact" name="name" id="contactName" placeholder="Nom*" aria-label="Nom" />
+            </div>
+            <div class="col-12 mb-3">
+                <input type="email" required class="form-control contact" name="email" id="contactEmail" placeholder="Email*" aria-label="Email" />
+            </div>
+            <div class="col-12 mb-3">
+                <textarea required class="form-control contact" name="message" id="contactMessage" placeholder="Message*" aria-label="Message"></textarea>
+            </div>
+            <div id="contactMessageContainer"></div>
+            <button class="form-button mt-5" type="submit" id="submitContactForm">
+                <span id="contactLoader" style="display: none;">Chargement...</span>
+                <p class="contact-text">Envoyer</p>
+            </button>
         </form>
     </div>
-  </div>
-  
-  <script>
-    document.getElementById('submitContactForm').addEventListener('click', function (event) {
-      event.preventDefault();
-    
-      var nameInput = document.getElementById('contactName');
-      var emailInput = document.getElementById('contactEmail');
-      var messageInput = document.getElementById('contactMessage');
-      var submitButton = document.getElementById('submitContactForm');
-      var messageContainer = document.getElementById('contactMessageContainer');
-    
-      var nameValue = nameInput.value.trim();
-      var emailValue = emailInput.value.trim();
-      var messageValue = messageInput.value.trim();
-    
-      if (!nameValue) {
-        messageContainer.innerHTML = '<p class="text-danger">Veuillez saisir votre nom.</p>';
-        return;
-      } 
-      if (!emailValue || !isValidEmail(emailValue)) {
-        messageContainer.innerHTML = '<p class="text-danger">Veuillez saisir une adresse e-mail valide.</p>';
-        return;
-      }
-      if (!messageValue) {
-        messageContainer.innerHTML = '<p class="text-danger">Veuillez saisir un message.</p>';
-        return;
-      }
-    
-      submitButton.disabled = true;
-    
-      var contactText = document.querySelector('.contact-text');
-    
-      contactText.style.opacity = 0;
-      contactText.style.position = 'absolute';
-    
-      document.getElementById('contactLoader').style.display = 'inline-block';
-    
-      // Envoyer les données du formulaire ici
-    });
-    
-    function isValidEmail(email) {
-      var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
-      return emailRegex.test(email);
-    }
-  </script>
+</div>

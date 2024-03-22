@@ -725,19 +725,7 @@ footer ul:nth-child(2){
 
 /* MODAL */
 
-/* Style du formulaire de contact */
-.offcanvas {
-    max-width: 400px;
-    border-radius: 10px;
-    background-color: #f8f9fa; /* Couleur de fond du formulaire */
-    height: 100%;
-}
 
-.offcanvas-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333; /* Couleur du titre du formulaire */
-}
 
 .form-label {
     font-size: 16px;

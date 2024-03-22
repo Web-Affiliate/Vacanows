@@ -213,9 +213,15 @@
     font-size: 26px;
 }
 
-.card-link-glob {
-   
+.containerTextGlob {
+    border: thick double var(--secondary);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    height: 100%; 
+    box-sizing: border-box;
 }
+
 
 .glob-container-SC2{
     display: flex;
