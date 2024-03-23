@@ -1,7 +1,7 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasContactForm" aria-labelledby="offcanvasContactFormLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasContactFormLabel">Formulaire de Contact</h5>
-        <button type="button" class="c" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
     </div>
     <div class="offcanvas-body">
         <p class="mb-3 paragraphFormContact">Vous avez une question ou une demande particulière ? N'hésitez pas à nous contacter en remplissant le formulaire ci-dessous.</p>
@@ -52,34 +52,30 @@ document.addEventListener("DOMContentLoaded", function () {
         let isValid = true;
         messageContainer.innerHTML = "";
 
-        if (name === "") {
-            isValid = false;
-            appendErrorMessage("Le champ Nom est requis.");
-        }
-
-        else if (!validateEmail(email)) {
-            isValid = false;
-            appendErrorMessage("Veuillez saisir une adresse e-mail valide.");
-        }
-
-        else if (subject === "") {
-            isValid = false;
-            appendErrorMessage("Le champ Objet est requis.");
-        }
-
-        else if (message === "") {
-            isValid = false;
-            appendErrorMessage("Le champ Message est requis.");
+        switch (true) {
+            case name === "":
+                isValid = false;
+                appendErrorMessage("Le champ Nom est requis.");
+                break;
+            case !validateEmail(email):
+                isValid = false;
+                appendErrorMessage("Veuillez saisir une adresse e-mail valide.");
+                break;
+            case subject === "":
+                isValid = false;
+                appendErrorMessage("Le champ Objet est requis.");
+                break;
+            case message === "":
+                isValid = false;
+                appendErrorMessage("Le champ Message est requis.");
+                break;
         }
 
         if (isValid) {
-            // Afficher le chargement dans le bouton
             document.getElementById("contactLoader").style.display = "block";
             document.querySelector(".contact-text").textContent = "";
 
-            // Simuler une requête asynchrone (exemple : setTimeout)
             setTimeout(function () {
-                // Cacher le formulaire
                 form.style.display = "none";
 
                // messageContainer.innerHTML = "<p class='text-success'>Le formulaire a été envoyé avec succès!</p>";

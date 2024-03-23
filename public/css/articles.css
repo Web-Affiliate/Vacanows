@@ -300,5 +300,9 @@
         margin-bottom: 20px;
     }
 
+    .temps-lecture{
+        display: flex;justify-content: center;
+    }
+
 
 }
