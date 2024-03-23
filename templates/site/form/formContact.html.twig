@@ -1,7 +1,7 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasContactForm" aria-labelledby="offcanvasContactFormLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasContactFormLabel">Formulaire de Contact</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="c" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <p class="mb-3 paragraphFormContact">Vous avez une question ou une demande particulière ? N'hésitez pas à nous contacter en remplissant le formulaire ci-dessous.</p>
@@ -77,33 +77,20 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("contactLoader").style.display = "block";
             document.querySelector(".contact-text").textContent = "";
 
-            // Création de l'objet FormData pour envoyer les données du formulaire
-            const formData = new FormData(form);
+            // Simuler une requête asynchrone (exemple : setTimeout)
+            setTimeout(function () {
+                // Cacher le formulaire
+                form.style.display = "none";
 
-            // Envoi des données du formulaire via fetch
-            fetch("send_email.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Afficher un message de succès
-                    messageContainer.innerHTML = "<p class='text-success'>Le formulaire a été envoyé avec succès!</p>";
-
-                    // Cacher le formulaire après un certain délai
-                    setTimeout(function () {
-                        document.getElementById("offcanvasContactForm").classList.remove("show");
-                    }, 3000);
-                } else {
-                    // Afficher un message d'erreur si la réponse du serveur n'est pas OK
-                    throw new Error("Une erreur s'est produite lors de l'envoi du formulaire.");
-                }
-            })
-            .catch(error => {
-                // Afficher un message d'erreur en cas d'échec de la requête
-                console.error("Erreur lors de l'envoi du formulaire:", error);
-                appendErrorMessage("Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer.");
-            });
+               // messageContainer.innerHTML = "<p class='text-success'>Le formulaire a été envoyé avec succès!</p>";
+                document.querySelector(".paragraphFormContact").textContent = "Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.";
+                document.getElementById("submitContactForm").style.display = "none";
+                document.getElementById("contactName").style.display = "none";
+                document.getElementById("contactEmail").style.display = "none";
+                document.getElementById("contactSubject").style.display = "none";
+                document.getElementById("contactMessage").style.display = "none";
+                document.getElementById("closeContactForm").classList.remove("d-none");
+            }, 1500);
         }
     });
 
