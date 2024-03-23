@@ -1,5 +1,6 @@
 {% extends 'site/base.html.twig' %}
 
+
 {% block title %}Articles{% endblock %}
 
 {% block main %}
@@ -46,10 +47,8 @@
             </div>
         </div>
     </div>
-{% endblock %}
 
-{% block javascripts %}
-<script>
+    <script>
     const searchBarInput = document.getElementById('searchBarInput');
     const souscategories2Dropdown = document.getElementById('souscategories2Dropdown');
     const articleCards = document.querySelectorAll('.article-card');
@@ -91,4 +90,6 @@ function filterArticles() {
 }
 
 </script>
-    {% endblock %}
+{% endblock %}
+
+

@@ -52,29 +52,24 @@
         <div class="col-12 ">
             <h2 class="titre-reco">{{ titre_new_recommandation|striptags|raw }}</h2>
         </div>
-        {% for category in categoriesToShow %}
-        {% set categorySlug = category.getSlug() %}
         {% for sousCategorie in sousCategoriesToShow %}
-            {% if sousCategorie.getCategories() == category %}
             <div class="col-12 col-md-4">
-        <a href="{{ path('sous_categorie1_show', {'categorySlug': categorySlug, 'sousCategory1Slug': sousCategorie.getSlug()}) }}" class="card-link">
-                <div class="card">
-                    <img src="{{ asset('uploads/images/' ~ sousCategorie.image) }}" class="card-img-top" alt="{{sousCategorie.nom }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ sousCategorie.getNom() }}</h5>
-                        <span class="categoSpan card-title">({{category}})</span>
-                        {% set articleCount = articlesCountBySousCategorie1[sousCategorie.getId()] %}
+                <a href="{{ path('sous_categorie1_show', {'categorySlug': sousCategorie.getCategories().getSlug(), 'sousCategory1Slug': sousCategorie.getSlug()}) }}" class="card-link">
+                    <div class="card">
+                        <img src="{{ asset('uploads/images/' ~ sousCategorie.image) }}" class="card-img-top" alt="{{sousCategorie.nom }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ sousCategorie.getNom() }}</h5>
+                            <span class="categoSpan card-title">({{ sousCategorie.getCategories() }})</span>
+                           {% set articleCount = articlesCountBySousCategorie1[sousCategorie.getId()] %}
                         {% if articleCount == 0 or articleCount == 1 %}
                             <p class="card-text mt-2">{{ articleCount }} article</p>
                         {% else %}
                             <p class="card-text mt-2">{{ articleCount }} articles</p>
                         {% endif %}
+                        </div>
                     </div>
                 </a>
-                </div>
             </div>
-            {% endif %}
-        {% endfor %}
         {% endfor %}
 
         <div class="col-12 ">

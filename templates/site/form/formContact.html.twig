@@ -1,24 +1,123 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasContactForm" aria-labelledby="offcanvasContactFormLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasContactFormLabel">Formulaire de Contact</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+        <p class="mb-3 paragraphFormContact">Vous avez une question ou une demande particulière ? N'hésitez pas à nous contacter en remplissant le formulaire ci-dessous.</p>
         <form class="d-flex flex-column mt-3 align-items-start" role="search" id="contactForm" method="POST">
             <div class="col-12 mb-3">
-                <input type="text" required class="form-control contact" name="name" id="contactName" placeholder="Nom*" aria-label="Nom" />
+                <input type="text"  class="form-control formContactInput contact" name="name" id="contactName" placeholder="Nom*" aria-label="Nom" />
             </div>
             <div class="col-12 mb-3">
-                <input type="email" required class="form-control contact" name="email" id="contactEmail" placeholder="Email*" aria-label="Email" />
+                <input type="email"  class="form-control formContactInput contact" name="email" id="contactEmail" placeholder="Email*" aria-label="Email" />
             </div>
             <div class="col-12 mb-3">
-                <textarea required class="form-control contact" name="message" id="contactMessage" placeholder="Message*" aria-label="Message"></textarea>
+                <input type="text"  class="form-control formContactInput contact" name="subject" id="contactSubject" placeholder="Objet*" aria-label="Objet" />
+            </div>
+            <div class="col-12 mb-3">
+                <textarea  class="form-control formContactInput contact" name="message" id="contactMessage" placeholder="Message*" aria-label="Message"></textarea>
             </div>
             <div id="contactMessageContainer"></div>
-            <button class="form-button mt-5" type="submit" id="submitContactForm">
+            <button class="form-button mt-3" type="submit" id="submitContactForm">
                 <span id="contactLoader" style="display: none;">Chargement...</span>
                 <p class="contact-text">Envoyer</p>
             </button>
+            <button class="form-button d-none" id="closeContactForm" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+                <p class="contact-text">Fermer</p>
+            </button>
+
         </form>
     </div>
 </div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contactForm");
+    const nameInput = document.getElementById("contactName");
+    const emailInput = document.getElementById("contactEmail");
+    const subjectInput = document.getElementById("contactSubject");
+    const messageInput = document.getElementById("contactMessage");
+    const messageContainer = document.getElementById("contactMessageContainer");
+
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const subject = subjectInput.value.trim();
+        const message = messageInput.value.trim();
+
+        let isValid = true;
+        messageContainer.innerHTML = "";
+
+        if (name === "") {
+            isValid = false;
+            appendErrorMessage("Le champ Nom est requis.");
+        }
+
+        else if (!validateEmail(email)) {
+            isValid = false;
+            appendErrorMessage("Veuillez saisir une adresse e-mail valide.");
+        }
+
+        else if (subject === "") {
+            isValid = false;
+            appendErrorMessage("Le champ Objet est requis.");
+        }
+
+        else if (message === "") {
+            isValid = false;
+            appendErrorMessage("Le champ Message est requis.");
+        }
+
+        if (isValid) {
+            // Afficher le chargement dans le bouton
+            document.getElementById("contactLoader").style.display = "block";
+            document.querySelector(".contact-text").textContent = "";
+
+            // Création de l'objet FormData pour envoyer les données du formulaire
+            const formData = new FormData(form);
+
+            // Envoi des données du formulaire via fetch
+            fetch("send_email.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Afficher un message de succès
+                    messageContainer.innerHTML = "<p class='text-success'>Le formulaire a été envoyé avec succès!</p>";
+
+                    // Cacher le formulaire après un certain délai
+                    setTimeout(function () {
+                        document.getElementById("offcanvasContactForm").classList.remove("show");
+                    }, 3000);
+                } else {
+                    // Afficher un message d'erreur si la réponse du serveur n'est pas OK
+                    throw new Error("Une erreur s'est produite lors de l'envoi du formulaire.");
+                }
+            })
+            .catch(error => {
+                // Afficher un message d'erreur en cas d'échec de la requête
+                console.error("Erreur lors de l'envoi du formulaire:", error);
+                appendErrorMessage("Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer.");
+            });
+        }
+    });
+
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function appendErrorMessage(message) {
+        const errorMessage = document.createElement("p");
+        errorMessage.classList.add("text-danger");
+        errorMessage.textContent = message;
+        messageContainer.appendChild(errorMessage);
+    }
+});
+
+</script>

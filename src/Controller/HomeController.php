@@ -12,6 +12,8 @@ use App\Entity\SousCategories1;
 use App\Entity\Categories;
 use App\Entity\SousCategories2;
 use App\Entity\Guides;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use App\Service\CategoryCache;
 
 
 class HomeController extends AbstractController
@@ -24,7 +26,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function index(): Response
+    public function index(CategoryCache $categoryCache): Response
     {
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
@@ -32,12 +34,13 @@ class HomeController extends AbstractController
            $offset = count($lastArticles);
 
            $currentDate = new \DateTime();
-           $categoriesToShow = $this->entityManager->getRepository(
-            Categories::class)->findNextCategoriesByDate($currentDate, 4);
+           $categoriesToShow = $categoryCache->getCategoriesForToday();
+
 
            $categoriesToShowBySousCategory = array_slice($categoriesToShow, 0, 3);
            $sousCategoriesToShow = [];
-
+              $categorySlug = null;
+                $sousCategorySlug = null;
            foreach ($categoriesToShowBySousCategory as $category) {
                $sousCategories = $this->entityManager->getRepository(
                 SousCategories1::class)->findBy(['categories' => $category]);

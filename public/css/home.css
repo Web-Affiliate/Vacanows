@@ -114,16 +114,90 @@ body {
     margin-left: 60px;
 }
 
+.modal-backdrop{
+    z-index: 998;
+}
+
 .navbar-container-scrolled {
     position: sticky;
     top: 0;
     transform: translateY(-80%);
     animation: stickyHeader 0.5s ease forwards;
-    z-index: 999;
+    z-index: 100;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 100%;
 }
+
+.offcanvas-header {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.offcanvas-body {
+    background-color: var(--light);
+    padding: 20px;
+}
+
+.form-control {
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    outline: none;
+    box-shadow: none;
+}
+
+.formContactInput{
+    border-top:none !important;
+    border-left:none !important;
+    border-right:none !important;
+    border-bottom: 1px solid var(--primary) !important;
+    border-radius: 0 !important;
+}
+
+.form-button {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-left: auto;
+}
+
+.form-button:hover {
+    background-color: var(--primaryHover) !important;
+}
+
+.form-control:focus {
+    border: 1px solid var(--primary);
+    box-shadow: none;
+}
+
+.contact-text {
+    margin: 0;
+}
+
+.btn-close {
+    box-shadow: none !important;
+    filter: invert(100%);
+    border: none;
+    opacity: 0.6;
+}
+
+#contactMessage {
+    resize: none;
+    margin-bottom: 0;
+}
+
+.paragraphFormContact{
+    font-size: 14px;
+    color: #5e5e5e;
+
+}
+
 
 @keyframes stickyHeader {
     from {
@@ -133,6 +207,8 @@ body {
         transform: translateY(0%);
     }
 }
+
+
 
 /* HEADER */
 

@@ -87,9 +87,6 @@
     </div>
 </div>
 
-{% endblock %}
-
-{% block javascripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const searchBarInput = document.getElementById('searchBarInput');
@@ -132,20 +129,20 @@
         function displayCards() {
             containerGlobCardSC2.classList.remove('d-none');
             containerGlobTextSC2.style.display = 'none';
-            searchBarInput.value = ''; 
+            searchBarInput.value = '';
             filterCards();
         }
 
         function filterText() {
             const searchValue = searchBarInput.value.toLowerCase();
             const selectedRegionId = souscategories2Dropdown.value;
-        
+
             document.querySelectorAll('.text-glob-sc2').forEach(textElement => {
                 const text = textElement.textContent.toLowerCase();
                 const regionId = textElement.closest('.col-md-3').dataset.regionId;
                 const regionMatches = regionId === selectedRegionId || selectedRegionId === '';
                 const textMatches = text.includes(searchValue);
-        
+
                 if (regionMatches && textMatches) {
                     textElement.style.display = 'block';
                 } else {
@@ -153,31 +150,31 @@
                 }
             });
         }
-        
+
         function displayText() {
             containerGlobCardSC2.classList.add('d-none');
             containerGlobTextSC2.style.display = 'block';
-            searchBarInput.value = ''; 
+            searchBarInput.value = '';
             souscategories2Dropdown.value = '';
 
             filterText();
         }
-        
+
         souscategories2Dropdown.addEventListener('change', function() {
             if (containerGlobTextSC2.style.display === 'block') {
                 filterText();
             } else {
-                filterCards(); 
+                filterCards();
             }
         });
-        
+
         searchBarInput.addEventListener('keyup', filterText);
 
         souscategories2Dropdown.addEventListener('change', function() {
             if (containerGlobTextSC2.style.display === 'block') {
                 filterText();
             } else {
-                filterCards(); 
+                filterCards();
             }
         });
 });

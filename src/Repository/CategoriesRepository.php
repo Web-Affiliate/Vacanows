@@ -48,16 +48,20 @@ public function findCategoriesWithSubcategories($limit)
 }
 
 
-public function findNextCategoriesByDate(\DateTime $date, $limit)
+public function findRandomCategoriesForToday()
 {
-    return $this->createQueryBuilder('c')
-        ->where('c.createdAt < :date')
-        ->setParameter('date', $date)
-        ->orderBy('c.createdAt', 'ASC')
-        ->setMaxResults($limit)
+    $categories = $this->createQueryBuilder('c')
         ->getQuery()
         ->getResult();
+
+    shuffle($categories);
+
+    $randomCategories = array_slice($categories, 0, 4);
+
+    return $randomCategories;
 }
+
+
 
 public function countCountries()
 {
