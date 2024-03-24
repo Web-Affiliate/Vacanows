@@ -21,7 +21,7 @@ class CategoryCache
 
     public function getCategoriesForToday()
     {
-        $today = (new \DateTime())->format('Y-m-d');
+        $today = (new \DateTime())->format('Y-m-d H:i:s');
         $item = $this->cache->getItem('categories_for_' . $today);
 
         if (!$item->isHit()) {

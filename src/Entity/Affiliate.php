@@ -14,7 +14,7 @@ class Affiliate
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: "text")]
     private ?string $lien = null;
 
     #[ORM\ManyToOne(inversedBy: 'affiliates')]

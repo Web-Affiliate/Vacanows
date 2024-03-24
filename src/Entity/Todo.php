@@ -20,6 +20,9 @@ class Todo
     #[ORM\JoinColumn(nullable: false)]
     private ?Sites $site = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $token = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Todo
     public function setSite(?Sites $site): static
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): static
+    {
+        $this->token = $token;
 
         return $this;
     }

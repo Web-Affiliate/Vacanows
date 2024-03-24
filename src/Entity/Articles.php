@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 class Articles
@@ -26,10 +27,11 @@ class Articles
     #[ORM\JoinColumn(nullable: false)]
     private ?SousCategories2 $sous_categories_2 = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: 'datetime')]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeInterface $created_date = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $temps_lecture = null;
 
     #[ORM\Column(type: "text")]
@@ -126,6 +128,13 @@ class Articles
 
     #[ORM\Column(length: 255)]
     private ?string $meta_og_title = null;
+
+    #[ORM\Column(type: 'datetime')]
+    #[Gedmo\Timestampable(on: 'update')]
+    private ?\DateTimeInterface $modif_date = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $meta_image = null;
 
     public function __construct()
     {
@@ -565,6 +574,30 @@ class Articles
     public function setMetaOgTitle(string $meta_og_title): static
     {
         $this->meta_og_title = $meta_og_title;
+
+        return $this;
+    }
+
+    public function getModifDate(): ?\DateTimeInterface
+    {
+        return $this->modif_date;
+    }
+
+    public function setModifDate(\DateTimeInterface $modif_date): static
+    {
+        $this->modif_date = $modif_date;
+
+        return $this;
+    }
+
+    public function getMetaImage(): ?string
+    {
+        return $this->meta_image;
+    }
+
+    public function setMetaImage(?string $meta_image): static
+    {
+        $this->meta_image = $meta_image;
 
         return $this;
     }

@@ -5,24 +5,35 @@ namespace App\Service;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
-class Mailer{
+class Mailer
+{
     public $mailer;
 
-    public function __construct(MailerInterface $mailer){
+    public function __construct(MailerInterface $mailer)
+    {
         $this->mailer = $mailer;
     }
 
-
-    public function sendContact($emetteur, $email, array $data, $recepteur){
-        $email = (new TemplatedEmail())
+    public function sendContact($emetteur, $email, array $data, $recepteur, $subject)
+    {
+        $userEmail = (new TemplatedEmail())
             ->from('vacanows@gmail.com')
-            ->to($recepteur)
-            ->subject('Nouveau message de '.$emetteur)
+            ->to($email)
+            ->subject('Confirmation de réception de votre message')
             ->htmlTemplate('site/mail/contact.html.twig')
             ->context([
                 'data' => $data
             ]);
 
-        $this->mailer->send($email);
+        $vacanowsEmail = (new TemplatedEmail())
+            ->from($email)
+            ->to($recepteur)
+            ->subject($subject . ' - ' . $email . ' - ' . $emetteur)
+            ->text($data['message']);
+
+
+        $this->mailer->send($userEmail);
+        $this->mailer->send($vacanowsEmail);
     }
 }
+

@@ -146,6 +146,9 @@ class Content
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $meta_canonical = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $meta_image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -675,6 +678,18 @@ class Content
     public function setMetaCanonical(?string $meta_canonical): static
     {
         $this->meta_canonical = $meta_canonical;
+
+        return $this;
+    }
+
+    public function getMetaImage(): ?string
+    {
+        return $this->meta_image;
+    }
+
+    public function setMetaImage(string $meta_image): static
+    {
+        $this->meta_image = $meta_image;
 
         return $this;
     }

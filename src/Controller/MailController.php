@@ -20,28 +20,12 @@ class MailController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    // public function sendContact($emetteur, $email, array $data, $recepteur){
-    //     $email = (new TemplatedEmail())
-    //         ->from('vacanows@gmail.com')
-    //         ->to($recepteur)
-    //         ->subject('Nouveau message de '.$emetteur)
-    //         ->htmlTemplate('site/mail/contact.html.twig')
-    //         ->context([
-    //             'data' => $data
-    //         ]);
-
-    //     $this->mailer->send($email);
-    // }
-
     #[Route('/sendMail', name: 'sendMail')]
     public function sendMail(Request $request): Response
     {
-        // Récupération des données du formulaire
         $data = $request->request->all();
 
-        // Vérification si les données nécessaires sont présentes
         if(isset($data['name']) && isset($data['email']) && isset($data['subject']) && isset($data['message'])) {
-            // Traitement des données du formulaire
             $name = $data['name'];
             $email = $data['email'];
             $subject = $data['subject'];
@@ -50,7 +34,7 @@ class MailController extends AbstractController
             $recepteur = 'vacanows@gmail.com';
 
             // Envoi de l'e-mail
-            $this->mailer->sendContact($name, $email, ['subject' => $subject, 'message' => $messageContent], $recepteur);
+            $this->mailer->sendContact($name, $email, ['subject' => $subject, 'message' => $messageContent], $recepteur, $subject);
 
             return $this->json(['message' => 'Votre message a été envoyé avec succès']);
         }
@@ -58,6 +42,3 @@ class MailController extends AbstractController
         return $this->json(['error' => 'Veuillez remplir tous les champs du formulaire'], 400);
     }
 }
-
-
-?>
