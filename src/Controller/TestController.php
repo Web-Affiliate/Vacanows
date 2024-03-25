@@ -13,6 +13,6 @@ class TestController extends AbstractController
     #[Route('/test', name: 'test')]
     public function test(): Response
     {
-        return $this->render('site/mail/contact.html.twig');
+        return $this->render('site/mail/confirmationInscription.html.twig');
     }
 }

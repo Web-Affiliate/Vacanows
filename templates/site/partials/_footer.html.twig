@@ -18,17 +18,20 @@
             <img src="{{ asset('uploads/images/' ~ content.getLogo()) }}" alt="logo" width="80" height="80" class="img-navbar">
         {% endif %}
     </a>
-    <div class="newsletter">
-        <p>Rejoignez notre newsletter</p>
-        <p>pour recevoir nos nouvelles offres</p>
-        <form action="">
-            <div class="input-container">
-                <input type="email" placeholder="Votre adresse mail">
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
-        </form>
-
+<div class="newsletter">
+    <p>Rejoignez notre newsletter</p>
+    <p>pour recevoir nos nouvelles offres</p>
+<form id="newsletter-form" action="{{ path('alertemail') }}" method="post">
+    <div class="input-container">
+        <input type="email" id="email" name="email" placeholder="Votre adresse mail" required>
+        <button type="submit" style="display: none;"><i class="fa-solid fa-arrow-right"></i></button>
+        <i id="submit-icon" class="fa-solid fa-arrow-right" style="cursor: pointer;"></i> <!-- Icone -->
     </div>
+    <div id="message" class="message"></div> <!-- Zone de message -->
+</form>
+
+
+</div>
     <div class="resseau_footer">
         <ul>
             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
@@ -37,3 +40,55 @@
         </ul>
     </div>
 </footer>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('newsletter-form');
+    const submitIcon = document.getElementById('submit-icon');
+    const message = document.getElementById('message');
+
+    submitIcon.addEventListener('click', function() {
+        form.dispatchEvent(new Event('submit'));
+    });
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête');
+            }
+            return response.json();
+        })
+        .then(data => {
+            showMessage(data.message, 'success');
+            form.reset(); // Réinitialiser le formulaire après succès
+        })
+        .catch(error => {
+            showMessage('Une erreur s\'est produite lors de l\'inscription à la newsletter.', 'error');
+        });
+    });
+
+    function showMessage(msg, type) {
+        message.textContent = msg;
+        message.classList.remove('success', 'error');
+        message.classList.add(type);
+        // Appliquer des styles en fonction du type de message
+        if (type === 'success') {
+            message.style.fontSize = '12px';
+            message.style.color = 'green';
+        } else if (type === 'error') {
+            message.style.fontSize = '14px';
+            message.style.color = 'red';
+        }
+    }
+});
+
+</script>

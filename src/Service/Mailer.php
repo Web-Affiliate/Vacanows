@@ -35,5 +35,21 @@ class Mailer
         $this->mailer->send($userEmail);
         $this->mailer->send($vacanowsEmail);
     }
-}
 
+    public function sendAlert($email, $data)
+    {
+        dump($data);
+
+        $alertEmail = (new TemplatedEmail())
+        ->from('vacanows@gmail.com')
+        ->to($email)
+        ->subject('Inscription à la newsletter')
+        ->htmlTemplate('site/mail/confirmationInscription.html.twig')
+        ->context([
+            'data' => $data
+        ]);
+
+        $this->mailer->send($alertEmail);
+    }
+
+}
