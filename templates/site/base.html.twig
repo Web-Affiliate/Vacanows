@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Vacanows{% endblock %}</title>
+
+    <title>{% block title %}Vacanow - Your Ultimate Travel Guide{% endblock %}</title>
+
+    {% block meta %}
+    <meta name="description" content="Discover the best travel destinations with Vacanow. Explore our articles on unusual places and more." />
+    <meta name="subject" content="Travel" />
+    <meta name="author" content="Vacanow" />
+    <meta name="category" content="Travel" />
+    <meta property="og:description" content="Discover the best travel destinations with Vacanow. Explore our articles on unusual places and more." />
+    <meta property="og:title" content="Vacanow - Your Ultimate Travel Guide" />
+    <link rel="canonical" href="https://www.vacanows.com" />
+    <meta property="og:image" content="https://www.vacanows.com/uploads/images/logo_vacanows.png" />
+    {% endblock %}
 
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('build/bootstrap.css') }}">

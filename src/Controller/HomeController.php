@@ -74,7 +74,17 @@ class HomeController extends AbstractController
             'image_header2' => $content->getImageHeader2(),
             'image_header3' => $content->getImageHeader3(),
             'image_header4' => $content->getImageHeader4(),
+            // meta
             'meta' => $content->getMeta(),
+            'meta_description' => $content->getMetaDescription(),
+            'meta_subject' => $content->getMetaSubject(),
+            'meta_author' => $content->getMetaAuthor(),
+            'meta_category' => $content->getMetaCategory(),
+            'meta_og_description' => $content->getMetaOgDescription(),
+            'meta_og_title' => $content->getMetaOgTitle(),
+            'meta_canonical' => $content->getMetaCanonical(),
+            'meta_image' => $content->getMetaImage(),
+            // end meta
             'logo' => $content->getLogo(),
             'titre_header' => $content->getTitreHeader(),
             'paragraph_header' => $content->getParagraphHeader(),

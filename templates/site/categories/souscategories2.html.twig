@@ -1,6 +1,6 @@
 {% extends 'site/base.html.twig' %}
 
-{% block title %}Toutes les villes{% endblock %}
+{% block title %}Nos Villes touristiques{% endblock %}
 
 {% block main %}
 
@@ -13,14 +13,12 @@
         </div>
     </div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <button id="displayCardsBtn" class="btn btn-primary btn-filtre-all">Afficher les cartes</button>
-            <button id="displayTextBtn" class="btn btn-primary btn-filtre-all">Afficher le texte</button>
-
+    <div class="row mb-3 align-items-center">
+        <div class="ps-4 col-md-6 d-flex justify-content-start align-items-center">
+            <i id="displayCardsBtn" class="fas fa-map btn-filtre-all me-2"></i>
+            <i id="displayTextBtn" class="fas fa-align-left btn-filtre-all"></i>
         </div>
     </div>
-
 
     {# CARD #}
     <div class="container-glob-card-SC2 d-none">
@@ -63,29 +61,31 @@
 
 
     {# TEXT #}
-    <div class="container-glob-text-SC2 container-fluid">
-        <div class="row row-cols-1 row-cols-md-4 justify-content-between">
-            {% for sousCategory1 in souscategoryAll %}
-            <div class="col mb-4">
-                <div class="containerTextGlob">
-                <div class="titre-section titre-glob-sc2">{{ sousCategory1.nom }}</div>
-                    <div class="glob-container-SC2">
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        {% for sousCategory1 in souscategoryAll %}
+        <div class="col">
+            <div class="card h-100 card-SC2-glob">
+                <div class="card-body">
+                    <h5 class="card-title">{{ sousCategory1.nom }}</h5>
+                    <ul class="list-group list-group-flush">
                         {% for sousCategory2 in sousCategories2 %}
                             {% if sousCategory2.sousCategorie1.getId() == sousCategory1.getId() %}
-                                <p class="text-glob-sc2">
-                                    <a href="{{ path('sous_categorie2_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link">
+                                <li class="list-group-item">
+                                    <a href="{{ path('sous_categorie2_show', {'categorySlug': category.slug, 'sousCategory1Slug': sousCategory.slug, 'sousCategory2Slug': sousCategory2.slug }) }}" class="card-link card-SC2-glob-title">
                                         {{ sousCategory2.nom }}
                                     </a>
-                                </p>
+                                </li>
                             {% endif %}
                         {% endfor %}
-                    </div>
+                    </ul>
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
