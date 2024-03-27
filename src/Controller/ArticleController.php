@@ -12,6 +12,7 @@ use App\Entity\SousCategories2;
 use App\Entity\Categories;
 use App\Entity\Content;
 use App\Entity\Guides;
+use App\Entity\Affiliate;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,6 +37,8 @@ class ArticleController extends AbstractController
         for($i=1; $i<=5; $i++){
             $navbar[] = $content->{"getNavbar$i"}();
         }
+
+        $affiliateLinks = [];
 
         $category = $article->getSousCategories2()->getSousCategorie1()->getCategories();
 
@@ -67,8 +70,21 @@ class ArticleController extends AbstractController
                 $propertyName = 'NoteTabItem' . $i;
                 $notes[$i] = $ville->{'get' . ucfirst($propertyName)}();
             }
+            // Récupérer tous les liens d'affiliation pour cette ville
+            $affiliateLinks = $this->entityManager->getRepository(Affiliate::class)->findBySousCategories2AndGuide($ville, $article->getGuides());
+
+            // Sélectionner un lien d'affiliation aléatoire parmi ceux disponibles
+            $randomAffiliateLink = null;
+            if (!empty($affiliateLinks)) {
+                $randomAffiliateLink = $affiliateLinks[array_rand($affiliateLinks)]->getLien();
+            }
+
+            // Ajouter le lien d'affiliation (ou une chaîne vide si aucun lien disponible) à la liste des liens
+            $affiliateLinksForCurrentVille[] = $randomAffiliateLink ?? '';
+
             $ville->notes = $notes;
         }
+
         $articlesRepository = $this->entityManager->getRepository(Articles::class);
 
         $articlesWithSameSousCategories2 = $articlesRepository->findRandomArticlesBySousCategories2($article, 3);
@@ -120,6 +136,7 @@ class ArticleController extends AbstractController
             'villesRandom' => $villesRandom,
             'articlesWithSameSousCategories2' => $articlesWithSameSousCategories2,
             'currentArticle' => $currentArticle,
+            'affiliateLinks' => $affiliateLinksForCurrentVille,
         ]);
     }
 

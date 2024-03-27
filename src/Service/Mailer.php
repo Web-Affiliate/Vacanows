@@ -5,6 +5,7 @@ namespace App\Service;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
+
 class Mailer
 {
     public $mailer;
@@ -38,18 +39,31 @@ class Mailer
 
     public function sendAlert($email, $data)
     {
-        dump($data);
-
         $alertEmail = (new TemplatedEmail())
-        ->from('vacanows@gmail.com')
-        ->to($email)
-        ->subject('Inscription à la newsletter')
-        ->htmlTemplate('site/mail/confirmationInscription.html.twig')
-        ->context([
-            'data' => $data
-        ]);
+            ->from('vacanows@gmail.com')
+            ->to($email)
+            ->subject('Inscription à la newsletter')
+            ->htmlTemplate('site/mail/confirmationInscription.html.twig')
+            ->context([
+                'data' => $data
+            ]);
 
         $this->mailer->send($alertEmail);
     }
+
+    public function sendCurrentAlert($email, $data)
+    {
+        $alertEmail = (new TemplatedEmail())
+            ->from('vacanows@gmail.com')
+            ->to($email)
+            ->subject('Articles récents de notre plateforme')
+            ->htmlTemplate('site/mail/articlesAlert.html.twig')
+            ->context([
+                'data' => $data
+            ]);
+
+        $this->mailer->send($alertEmail);
+    }
+
 
 }

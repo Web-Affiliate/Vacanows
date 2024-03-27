@@ -89,6 +89,18 @@ public function countTotalArticles(): int
         ->getSingleScalarResult();
 }
 
+public function findArticlesModifiedOneDayAgo(): array
+{
+    $date = new \DateTime();
+    $date->modify('-1 day');
+
+    return $this->createQueryBuilder('a')
+        ->andWhere('a.modif_date >= :date')
+        ->setParameter('date', $date)
+        ->getQuery()
+        ->getResult();
+}
+
 // TEMPS LECTURE
 
 public function findTempsLectureMin(): int

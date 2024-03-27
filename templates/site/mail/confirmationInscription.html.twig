@@ -21,28 +21,31 @@
                 padding: 30px;
                 border-radius: 10px;
                 box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-                text-align: center;">
+                text-align: center;
+                color:#000000">
 
         <img src="http://127.0.0.1:8000/uploads/images/logo_vacanows.png" alt="Logo" style="max-width: 150px;
                                                                     width:70px;">
 
-<h2 style="color: #333333;">Confirmation d'inscription à la newsletter {{token}}</h2>
+<h2 style="color: #333333;">Confirmation d'inscription à la newsletter </h2>
 
         <p style="font-size: 16px;
                   line-height: 1.6;
-                  margin-top: 20px;">
+                  margin-top: 20px;
+                  color:#000000";>
             Félicitations ! Vous vous êtes inscrit à notre newsletter. Vous recevrez bientôt les dernières actualités, offres exclusives et bien plus encore.
         </p>
 
         <p style="font-size: 16px;
                   line-height: 1.6;
-                  margin-top: 30px;">
+                  margin-top: 30px;
+                  color:#000000">
             Vous pouvez vous désinscrire à tout moment en cliquant sur le lien ci-dessous :
         </p>
 
         <div style="text-align: center;
                     margin-top: 20px;">
-            <a href="#" style="text-decoration: none;
+            <a href="http://127.0.0.1:8000/your-alert-mail/{{data.token}}" style="text-decoration: none;
                                 color: #B04F08;
                                 font-weight: bold;">Se désinscrire</a>
         </div>

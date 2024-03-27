@@ -27,7 +27,7 @@
 
 .image-article{
     width: 100%;
-    max-height: 511px;
+    max-height: 700px;
     object-fit: cover;
     border-radius: 25px;
 
@@ -161,6 +161,10 @@
 .bouton_tab:active{
     background-color: var(--secondary) !important;
     color: var(--white) !important;
+}
+
+.bouton_tab:disabled{
+    border: 2px solid var(--secondary);
 }
 
 .section-2-articles{

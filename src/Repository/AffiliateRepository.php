@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Affiliate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\SousCategories2;
+use App\Entity\Guides;
 
 /**
  * @extends ServiceEntityRepository<Affiliate>
@@ -20,6 +22,19 @@ class AffiliateRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Affiliate::class);
     }
+
+
+    public function findBySousCategories2AndGuide(SousCategories2 $sousCategories2, Guides $guide): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.sous_categories_2 = :sousCategories2')
+            ->andWhere('a.guides = :guide')
+            ->setParameter('sousCategories2', $sousCategories2)
+            ->setParameter('guide', $guide)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Affiliate[] Returns an array of Affiliate objects

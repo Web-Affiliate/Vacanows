@@ -109,13 +109,20 @@
                                     </tr>
                                 {% endif %}
                             {% endfor %}
+
                             <tr class="ligne-end">
                                 <td></td>
-                                {% for i in range(1, villesRandom|length) %}
+                                {% for i, affiliateLink in affiliateLinks %}
                                     <td>
-                                        <a class="btn bouton_tab">
-                                            Voir les prix
-                                        </a>
+                                        {% if affiliateLink %}
+                                            <a href="{{ affiliateLink|striptags|raw }}" target="_blank" class="btn bouton_tab">
+                                                Voir les prix
+                                            </a>
+                                        {% else %}
+                                            <button class="btn bouton_tab" disabled>
+                                                Voir les prix
+                                            </button>
+                                        {% endif %}
                                     </td>
                                 {% endfor %}
                             </tr>
@@ -124,6 +131,7 @@
                                 <td colspan="13">Aucune ville de la région {{ sous_categories_1 }} n'a été trouvée à part celui de {{ sous_categories_2 }}</td>
                             </tr>
                         {% endif %}
+
                         </tbody>
                     </table>
                 </div>

@@ -735,7 +735,10 @@ footer ul:nth-child(2){
     background-size: 100% 100%;
 }
 
-
+#loadingNewsletter{
+    color: var(--primary);
+    font-size: 14px;
+}
 
 .newsletter{
     display: flex;
@@ -751,6 +754,10 @@ footer ul:nth-child(2){
     font-size: 15px;
     margin-right: 20px;
     padding: 5px;
+}
+
+.hidden {
+    display: none;
 }
 
 .newsletter p:first-of-type{

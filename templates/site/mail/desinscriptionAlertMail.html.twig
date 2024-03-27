@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Désinscription de la newsletter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333333;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="email"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #B04F08;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .message {
+            margin-top: 20px;
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+
+        @media (max-width: 280px) {
+            input[type="email"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h2>Désinscription de la newsletter</h2>
+
+        <p>
+            Vous avez demandé à vous désinscrire de notre newsletter. Si c'est bien le cas, veuillez entrer votre adresse e-mail ci-dessous :
+        </p>
+
+       <div class="form-container">
+    <form id="unsubscribe-form">
+        <input type="email" id="email" name="email" placeholder="Votre adresse e-mail" required>
+        <input type="hidden" id="token" name="token" value="{{ token }}">
+        <br>
+        <input type="submit" value="Confirmer la désinscription">
+    </form>
+</div>
+
+        <div class="message" id="message"></div>
+
+    </div>
+
+    <script>
+       document.getElementById('unsubscribe-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var email = document.getElementById('email').value;
+    var token = document.getElementById('token').value;
+
+    fetch('/unsubscribe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, token: token }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        var messageElement = document.getElementById('message');
+        if (data.success) {
+            messageElement.textContent = 'Désinscription réussie';
+            messageElement.classList.add('success');
+            window.location.href = '/';
+        } else {
+            messageElement.textContent = 'Désinscription échouée';
+            messageElement.classList.remove('success');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors de la désinscription :', error);
+    });
+});
+
+    </script>
+
+</body>
+</html>
