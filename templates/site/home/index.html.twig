@@ -35,7 +35,7 @@
 {% include 'site/partials/headerBan.html.twig' %}
 
 <div class="container section-1">
-    <div class="row">
+    <div class="row me-0">
         <div class="col-12">
             <h2 class="titre-section">{{ titre_1|striptags|raw }}</h2>
             <p class="paragraph-section">{{ paragraph_1|striptags|raw }}</p>
@@ -45,8 +45,8 @@
 
 <div class="section-2">
     <div>
-        <div class="row">
-            <div class="col-12 col-md-6 ">
+        <div class="row me-0">
+            <div class="col-12 col-md-6 pe-0">
                 <img src="{{ asset('uploads/images/' ~ image_1) }}" alt="image1" class="img-fluid image-1">
                 <img src="{{ asset('uploads/images/' ~ image_1_no_border) }}" alt="image2" class="img-fluid image-no-border">
             </div>
@@ -62,7 +62,7 @@
 </div>
 
 <div class="container section-3">
-    <div class="row">
+    <div class="row me-0">
         <div class="col-12 ">
             <h2 class="titre-section titre-section3">{{ titre_3|striptags|raw }}</h2>
             <p class="paragraph-section paragraph-section3">{{ paragraph_3|striptags|raw }}</p>
@@ -109,7 +109,7 @@
 
 
 <div class="container section-5">
-    <div class="row">
+    <div class="row me-0">
             {% for sousCategory in sousCategoriesToShow %}
                 <div class="col-12">
                     <h3 class="sous-titre sous-titre2 ">{{ sousCategory.getNom() }} : </h3>

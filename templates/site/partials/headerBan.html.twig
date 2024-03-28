@@ -1,9 +1,8 @@
-
 {% if content is not null %}
-    <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
+    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ asset('uploads/images/' ~ content.imageHeader) }}" alt="Bannière" class="img-fluid carousel-global w-100">
+                <img src="{{ asset('uploads/images/' ~ content.imageHeader) }}" alt="Bannière" class="image_bannerFirst img-fluid carousel-global w-100">
             </div>
             {% for i in 2..4 %}
                 <div class="carousel-item carousel-global {% if i == 2 %}image_banner{% elseif i == 3 %}image_banner2{% elseif i == 4 %}image_banner3{% endif %}">

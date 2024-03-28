@@ -208,14 +208,12 @@
     </div>
 </section>
 
- {# ~ '-' ~ article.getGuides()|lower   a la suite de getSlug #}
 <section class="container section-7-articles">
     <div class="row" id="nouveaux-articles-container">
         <div class="col-12">
-            <h2 class="titre-dernier-articles"><strong>Derniers articles</strong></h2>
+                <h2 class="titre-dernier-articles"><strong>Derniers articles</strong></h2>
         </div>
         {% for article in lastArticles %}
-            {% if article != currentArticle %}
                 <div class="col-12">
                     <a href="{{ path('article_show', {'slug': article.getSlug() }) }}" class="card card3 card-height">
                         <div class="row">
@@ -230,7 +228,6 @@
                         </div>
                     </a>
                 </div>
-            {% endif %}
         {% endfor %}
     </div>
 

@@ -42,8 +42,7 @@ class ArticleController extends AbstractController
 
         $category = $article->getSousCategories2()->getSousCategorie1()->getCategories();
 
-        $lastArticles = $this->entityManager->getRepository(Articles::class)->findArticlesExcludingCurrent($article, 4);
-
+        $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
         $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
         $offset = count($lastArticles);
 

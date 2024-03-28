@@ -4,10 +4,11 @@
 {% block title %}About Vacanow{% endblock %}
 
 {% block main %}
-    <h1>About Vacanow</h1>
-    <p>
-        Vacanow is a website that allows you to find and book the perfect vacation rental.
-    </p>
+
+    {{ titre_1|striptags|raw }}
+    <img src="{{ asset('uploads/images/tempo/' ~ image_1) }}" alt="Paris" class="img-fluid">
+    {{ paragraph_1|striptags|raw }}
+
 {% endblock %}
 
 

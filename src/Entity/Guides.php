@@ -21,9 +21,6 @@ class Guides
     #[ORM\OneToMany(mappedBy: 'guides', targetEntity: Articles::class)]
     private Collection $articles;
 
-    #[ORM\OneToMany(mappedBy: 'guides', targetEntity: Content::class)]
-    private Collection $contents;
-
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
@@ -33,7 +30,6 @@ class Guides
     public function __construct()
     {
         $this->articles = new ArrayCollection();
-        $this->contents = new ArrayCollection();
         $this->affiliates = new ArrayCollection();
     }
 
@@ -78,36 +74,6 @@ class Guides
             // set the owning side to null (unless already changed)
             if ($article->getGuides() === $this) {
                 $article->setGuides(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Content>
-     */
-    public function getContents(): Collection
-    {
-        return $this->contents;
-    }
-
-    public function addContent(Content $content): static
-    {
-        if (!$this->contents->contains($content)) {
-            $this->contents->add($content);
-            $content->setGuides($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContent(Content $content): static
-    {
-        if ($this->contents->removeElement($content)) {
-            // set the owning side to null (unless already changed)
-            if ($content->getGuides() === $this) {
-                $content->setGuides(null);
             }
         }
 

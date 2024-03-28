@@ -355,6 +355,10 @@ body {
     background-size: 100% 100% !important;
 }
 
+.image_bannerFirst{
+    filter: brightness(80%) sepia(30%) hue-rotate(0deg);
+}
+
 .image_banner{
     filter: brightness(50%) sepia(100%) hue-rotate(180deg);
     max-height: 1000px;
@@ -382,8 +386,8 @@ body {
 
 .carousel-item {
 
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    opacity: 0.2;
+    transition: opacity 0.2s ease;
     z-index: -1;
 }
 

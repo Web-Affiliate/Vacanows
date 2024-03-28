@@ -26,18 +26,15 @@ class ArticlesRepository extends ServiceEntityRepository
 
     public function findNextArticles($offset, $limit)
     {
-       $results = $this->getEntityManager()
-            ->createQuery(
-                'SELECT a
-                FROM App\Entity\Articles a
-                ORDER BY a.id DESC'
-
-            )
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
+        $results = $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult((int)$offset)
+            ->setMaxResults((int)$limit)
+            ->getQuery()
             ->getResult();
+
         return $results;
-}
+    }
 
 public function findNextArticlesExcludingCurrent(Articles $currentArticle, int $offset, int $limit)
 {
@@ -130,30 +127,5 @@ public function findBySousCategories2Ids(array $sousCategorie2Ids)
         ->getQuery()
         ->getResult();
 }
-
-//    /**
-//     * @return Articles[] Returns an array of Articles objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Articles
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 
 }
