@@ -57,3 +57,5 @@ class AlertCurrentCommand extends Command
     }
 }
 
+//php bin/console app:alert-current
+
