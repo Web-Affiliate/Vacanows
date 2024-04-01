@@ -1,15 +1,26 @@
 {% extends 'site/base.html.twig' %}
 
-
 {% block title %}About Vacanow{% endblock %}
 
-{% block main %}
-
-    {{ titre_1|striptags|raw }}
-    <img src="{{ asset('uploads/images/tempo/' ~ image_1) }}" alt="Paris" class="img-fluid">
-    {{ paragraph_1|striptags|raw }}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/aboutUs.css') }}">
+    <style>
+        .design-in-progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+            color: #333333;
+            font-family: Arial, sans-serif;
+        }
+    </style>
 {% endblock %}
 
-
+{% block main %}
+    <div class="design-in-progress">
+        <h1>Page in progress...</h1>
+    </div>
+{% endblock %}
 
