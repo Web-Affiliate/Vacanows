@@ -63,6 +63,7 @@ class ArticleController extends AbstractController
             $villesRandom = $villesRepository->findRandomVillesBySousCategories1($sousCategories1, $article, 3);
         }
 
+        $affiliateLinksForCurrentVille = [];
         foreach ($villesRandom as $ville) {
             $notes = [];
             for ($i = 1; $i <= 12; $i++) {
