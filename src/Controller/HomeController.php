@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Content;
 use App\Entity\Articles;
@@ -26,41 +28,42 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function index(CategoryCache $categoryCache): Response
+    public function index(CategoryCache $categoryCache, Request $request): Response
     {
+
+        $cookieConsent = $request->cookies->get('cookieConsent');
+
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
-           $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
-           $offset = count($lastArticles);
+        $lastArticles = $this->entityManager->getRepository(Articles::class)->findBy([], ['id' => 'DESC'], 4);
+        $offset = count($lastArticles);
 
-           $currentDate = new \DateTime();
-           $categoriesToShow = $categoryCache->getCategoriesForToday();
+        $currentDate = new \DateTime();
+        $categoriesToShow = $categoryCache->getCategoriesForToday();
 
+        $categoriesToShowBySousCategory = array_slice($categoriesToShow, 0, 3);
+        $sousCategoriesToShow = [];
+        $categorySlug = null;
+        $sousCategorySlug = null;
+        foreach ($categoriesToShowBySousCategory as $category) {
+            $sousCategories = $this->entityManager->getRepository(SousCategories1::class)->findBy(['categories' => $category]);
 
-           $categoriesToShowBySousCategory = array_slice($categoriesToShow, 0, 3);
-           $sousCategoriesToShow = [];
-              $categorySlug = null;
-                $sousCategorySlug = null;
-           foreach ($categoriesToShowBySousCategory as $category) {
-               $sousCategories = $this->entityManager->getRepository(
-                SousCategories1::class)->findBy(['categories' => $category]);
+            if (!empty($sousCategories)) {
+                shuffle($sousCategories);
+                $selectedSousCategory = reset($sousCategories);
+                $sousCategoriesToShow[] = $selectedSousCategory;
 
-               if (!empty($sousCategories)) {
-                   shuffle($sousCategories);
-                   $selectedSousCategory = reset($sousCategories);
-                   $sousCategoriesToShow[] = $selectedSousCategory;
+                $categorySlug = $category->getSlug();
+                $sousCategorySlug = $selectedSousCategory->getSlug();
+            }
+        }
 
-                   $categorySlug = $category->getSlug();
-
-                    $sousCategorySlug = $selectedSousCategory->getSlug();
-               }
-           }
-           $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
+        $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
 
         $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);
         $articlesCountBySousCategorie1 = $sousCategories1Repository->countArticlesBySousCategorie1();
 
-           $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+        $guides = $this->entityManager->getRepository(Guides::class)->findAll();
         // $sousCategorie2Id = $this->entityManager->getRepository(SousCategories2::class)->find($sousCategorie2Id);
 
         $data = [
@@ -114,9 +117,14 @@ class HomeController extends AbstractController
             'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1,
             'guides' => $guides,
             // 'sousCategorie2Id' => $sousCategorie2Id,
-
         ];
 
+        if ($cookieConsent) {
+            $data['showCookiePopup'] = false;
+        } else {
+            $data['showCookiePopup'] = true;
+        }
+
         return $this->render('site/home/index.html.twig', $data);
+        }
     }
-}

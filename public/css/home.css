@@ -736,6 +736,7 @@ footer ul:nth-child(2){
     background-size: 0% 100%;
     transition: background-size .3s;
     padding-bottom: 3px;
+    cursor: pointer;
 }
 
 .footer_nav .nav-link:hover, .mention:hover, .cookies:hover {
@@ -842,6 +843,91 @@ textarea.form-control {
 .btn-primary:hover {
     background-color: #0056b3; /* Couleur de fond au survol du bouton Envoyer */
 }
+
+/* COOKIES */
+
+.cookie-consent-popup {
+    bottom: 20px;
+    transform: translateX(-50%);
+    background-color: var(--white);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 9999;
+    border: 2px solid var(--primary);
+    border-bottom: none;
+    border-radius: 0;
+}
+
+.cookie-consent-popup p {
+    color: var(--text);
+    font-size: 14px;
+    margin: 0;
+}
+
+.cookie-consent-popup h2{
+    color: var(--primary);
+    margin: 0;
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.popup-content svg{
+    color: var(--primary);
+    width: 80px;
+
+}
+
+s.button {
+    margin-top: 10px;
+}
+
+.btnCook{
+    padding: 10px 25px;
+    font-size: 16px;
+}
+
+.btnCook1 {
+    margin: 0 5px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 0 !important;
+
+}
+
+.btnCook1:hover {
+    background-color: var(--primaryHover);
+}
+
+.btnCook1:active {
+    background-color: var(--primary) !important;
+}
+
+.btnCook2 {
+    margin: 0 5px;
+    color: var(--white);
+    border-radius: 0 !important;
+}
+
+#cookieConsentPopup {
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    width: 60%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    transition: bottom 0.5s ease;
+}
+
+#cookieConsentPopup.show {
+    bottom: 0;
+}
+
+
 
 /* MEDIA QUERIES */
 
