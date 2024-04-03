@@ -12,11 +12,11 @@
 <div class="container" style="display: block; background-color: #f9f9f9; padding: 20px; margin: 0 auto; max-width: 800px;">
     <h2 style="font-weight:bold; color:#000000; text-align:center;">Derniers articles</h2>
         {% for article in data.articles %}
-                <a href="http://127.0.0.1:8000/article/{{ article.getSlug() }}" style="text-decoration: none; color: inherit;">
+                <a href="https://vacanows.com/article/{{ article.getSlug() }}" style="text-decoration: none; color: inherit;">
     <table class="card card3 card-height" style="width: 80%; max-width: 600px; background-color: #f9f9f9; margin-top: 20px; border-radius: 10px; text-decoration: none; color: inherit; display: block;">
         <tr>
             <td style="padding: 10px;">
-                <img src="http://127.0.0.1:8000/uploads/images/{{ article.getImage1() }}" class="card-img fixed-image" alt="Image article" style="border-radius: 10px; width: 200px; height: auto; margin-right: 20px;">
+                <img src="https://vacanows.com/uploads/images/{{ article.getImage1() }}" class="card-img fixed-image" alt="Image article" style="border-radius: 10px; width: 200px; height: auto; margin-right: 20px;">
             </td>
             <td style="padding: 10px;">
                 <h3 class="titre-voyage titre-sec7" style="color: #E76F51; font-size: 18px; margin-top: 10px; font-weight: 600;">Voyage à {{ article.getSousCategories2() }}</h3>
