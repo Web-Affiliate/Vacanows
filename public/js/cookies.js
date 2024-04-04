@@ -14,18 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     cookieLink.addEventListener('click', function() {
-        var cookieConsent = getCookie('cookieConsent');
-        if (!cookieConsent) {
-            showPopup();
-        }
+        showPopup(); // Afficher le popup lorsque le lien est cliqué
     });
 
-    // Vérifier si le cookie a déjà été accepté ou rejeté
+    // Afficher le popup lors du chargement de la page si le cookie n'a pas été accepté ou rejeté
     var cookieConsent = getCookie('cookieConsent');
-    if (!cookieConsent) {
-        showPopup(); // Afficher le popup si le cookie n'existe pas
-    } else if (cookieConsent && (cookieConsent === 'accepted' || cookieConsent === 'rejected')) {
-        hidePopup(); // Masquer le popup si le cookie a déjà été accepté ou rejeté
+    if (!cookieConsent || cookieConsent === 'rejected') {
+        showPopup();
+    } else {
+        hidePopup(); // Masquer le popup si le cookie a déjà été accepté
     }
 
     function setCookie(name, value, days) {
