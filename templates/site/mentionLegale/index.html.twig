@@ -1,0 +1,26 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Mentions Légales - {{ parent() }}{% endblock %}
+
+{% block main %}
+    <div class="container mention-legaleContainer">
+        <h1>Mentions Légales</h1>
+        <p>Ce site internet est édité par <span>{{ sites }}</span>, une plateforme spécialisée dans la <span>publication d'articles</span> et de blogs sur diverses destinations, <span>villes</span>, <span>régions</span>, et sujets liés au <span>voyage</span>.</p>
+
+        <p>Adresse du siège social : <span>Non renseigné</span></p>
+        <p>Adresse e-mail : <a href="mailto:vacanows@gmail.com">vacanows@gmail.com</a></p>
+        <h2>Hébergement</h2>
+        <p>Ce site est hébergé par <a href="https://www.alwaysdata.com/">alwaysdata</a> dont le siège social est situé à 91 Rue du Faubourg Saint-Honoré, 75008 Paris.</p>
+        <h2>Données personnelles</h2>
+        <p>Les données personnelles collectées sur ce site sont uniquement destinées à <span>{{ sites }}</span>. Elles ne seront en aucun cas transmises à des tiers. Conformément à la loi informatique et libertés du 6 janvier 1978, vous disposez d'un droit d'accès, de modification et de suppression des données qui vous concernent. Pour exercer ce droit, veuillez contacter [adresse de contact].</p>
+        <h2>Cookies</h2>
+        <p>Ce site utilise des <span>cookies</span> afin d'améliorer l'expérience utilisateur. En naviguant sur ce site, vous acceptez l'utilisation de ces cookies.</p>
+        <h2>Propriété intellectuelle</h2>
+        <p>L'ensemble de ce site relève des législations françaises et internationales sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les <span>représentations iconographiques et photographiques</span>.</p>
+        <p>Toute reproduction ou représentation totale ou partielle de ce site, par quelque procédé que ce soit, sans l'autorisation expresse de <span>{{ sites }}</span> est interdite et constituerait une contrefaçon sanctionnée par les articles L. 335-2 et suivants du Code de la propriété intellectuelle.</p>
+        <h2>Liens hypertextes</h2>
+        <p>Les liens hypertextes mis en place dans le cadre du présent site internet en direction d'autres ressources présentes sur le réseau Internet ne sauraient engager la responsabilité de <span>{{ sites }}</span>.</p>
+        <h2>Responsabilité</h2>
+        <p>Les informations contenues sur ce site sont fournies à titre indicatif et sont susceptibles d'évoluer. <span>{{ sites }}</span> ne saurait être tenu responsable pour toute erreur ou omission dans les informations diffusées sur ce site.</p>
+    </div>
+{% endblock %}

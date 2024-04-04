@@ -25,8 +25,9 @@ class CategoriesController extends AbstractController
     }
 
     #[Route('/category/{categorySlug}', name: 'categorie_show')]
-    public function showCategory($categorySlug): Response
+    public function showCategory($categorySlug, Request $request): Response
     {
+        $cookieConsent = $request->cookies->get('cookieConsent');
         $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
 
         if (!$category) {
@@ -77,6 +78,12 @@ class CategoriesController extends AbstractController
 
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
+        if ($cookieConsent) {
+            $data['showCookiePopup'] = false;
+        } else {
+            $data['showCookiePopup'] = true;
+        }
+
         return $this->render('site/categories/souscategories1/index.html.twig', [
             'content' => $content,
             'category' => $category,
@@ -93,14 +100,16 @@ class CategoriesController extends AbstractController
             'paragraph_header' => $content->getParagraphHeader(),
             'placeholder_search' => $content->getPlaceholderSearch(),
             'tempsLecture' => $tempsLecture,
-            'guides' => $guides
+            'guides' => $guides,
+            'showCookiePopup' => $data['showCookiePopup']
         ]);
     }
 
 
     #[Route('/category/{categorySlug}/SC1/{sousCategory1Slug}', name: 'sous_categorie1_show')]
-    public function showSousCategorie($categorySlug, $sousCategory1Slug): Response
+    public function showSousCategorie($categorySlug, $sousCategory1Slug, Request $request): Response
     {
+        $cookieConsent = $request->cookies->get('cookieConsent');
         $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);
         $sousCategory1 = $sousCategories1Repository->findOneBy(['slug' => $sousCategory1Slug]);
 
@@ -138,6 +147,12 @@ class CategoriesController extends AbstractController
         $category = $this->entityManager->getRepository(Categories::class)->findOneBy(['slug' => $categorySlug]);
         $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
+        if ($cookieConsent) {
+            $data['showCookiePopup'] = false;
+        } else {
+            $data['showCookiePopup'] = true;
+        }
+
         return $this->render('site/categories/souscategories2/index.html.twig', [
             'sousCategory1' => $sousCategory1,
             'sousCategories2' => $sousCategories2,
@@ -154,13 +169,15 @@ class CategoriesController extends AbstractController
             'paragraph_header' => $content->getParagraphHeader(),
             'placeholder_search' => $content->getPlaceholderSearch(),
             'tempsLecture' => $tempsLecture,
-            'guides' => $guides
+            'guides' => $guides,
+            'showCookiePopup' => $data['showCookiePopup']
         ]);
     }
 
     #[Route('/category/{categorySlug}/SC1/{sousCategory1Slug}/SC2/{sousCategory2Slug}', name: 'sous_categorie2_show')]
-    public function showSousCategorie2($categorySlug, $sousCategory1Slug, $sousCategory2Slug): Response
+    public function showSousCategorie2($categorySlug, $sousCategory1Slug, $sousCategory2Slug, Request $request): Response
     {
+        $cookieConsent = $request->cookies->get('cookieConsent');
         $sousCategory2 = $this->entityManager->getRepository(SousCategories2::class)->findOneBy(['slug' => $sousCategory2Slug]);
 
         if (!$sousCategory2) {
@@ -194,6 +211,13 @@ class CategoriesController extends AbstractController
         $category = $sousCategory1->getCategories();
         $guides = $this->entityManager->getRepository(Guides::class)->findAll();
         $sousCategories2Names = $this->entityManager->getRepository(SousCategories2::class)->findAll();
+
+        if($cookieConsent){
+            $data['showCookiePopup'] = false;
+        }else{
+            $data['showCookiePopup'] = true;
+        }
+
         return $this->render('site/categories/articles/index.html.twig', [
             'categorySlug' => $categorySlug,
             'sousCategory1Slug' => $sousCategory1Slug,
@@ -212,14 +236,16 @@ class CategoriesController extends AbstractController
             'placeholder_search' => $content->getPlaceholderSearch(),
             'sousCategories2Names' => $sousCategories2Names,
             'tempsLecture' => $tempsLecture,
-            'guides' => $guides
+            'guides' => $guides,
+            'showCookiePopup' => $data['showCookiePopup']
         ]);
     }
 
 
     #[Route('/category', name: 'categoriesglob_show')]
-public function showCategories(): Response
+public function showCategories(Request $request): Response
 {
+    $cookieConsent = $request->cookies->get('cookieConsent');
     $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
     $categories = $this->entityManager->getRepository(Categories::class)->findAll();
     $countCategory = $this->entityManager->getRepository(Categories::class)->countCountries();
@@ -232,6 +258,12 @@ public function showCategories(): Response
         $sousCategoriesByCategory[$category->getId()] = $sousCategories;
     }
     $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+
+    if ($cookieConsent) {
+        $data['showCookiePopup'] = false;
+    } else {
+        $data['showCookiePopup'] = true;
+    }
 
     return $this->render('site/categories/categories.html.twig', [
         'content' => $content,
@@ -246,15 +278,16 @@ public function showCategories(): Response
         'titre_header' => $content->getTitreHeader(),
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
-        'guides' => $guides
+        'guides' => $guides,
+        'showCookiePopup' => $data['showCookiePopup']
     ]);
 }
 
 #[Route('/SC1', name: 'sous_categories1glob_show')]
-public function showSousCategories(): Response
+public function showSousCategories(Request $request): Response
 {
+    $cookieConsent = $request->cookies->get('cookieConsent');
     $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
-
     $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);
     $sousCategories1 = $sousCategories1Repository->findAll();
 
@@ -271,6 +304,11 @@ public function showSousCategories(): Response
 
     $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
+    if ($cookieConsent) {
+        $data['showCookiePopup'] = false;
+    } else {
+        $data['showCookiePopup'] = true;
+    }
     return $this->render('site/categories/souscategories1.html.twig', [
         'content' => $content,
         'sousCategories' => $sousCategories1,
@@ -285,20 +323,22 @@ public function showSousCategories(): Response
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
         'guides' => $guides,
-        'countSousCategories2' => $countSousCategories2
+        'countSousCategories2' => $countSousCategories2,
+        'showCookiePopup' => $data['showCookiePopup']
     ]);
 }
 
 #[Route('/SC2', name: 'sous_categories2glob_show')]
-public function showSousCategories1(): Response
+public function showSousCategories1(Request $request): Response
 {
+    $cookieConsent = $request->cookies->get('cookieConsent');
     $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
     $sousCategories2Repository = $this->entityManager->getRepository(SousCategories2::class);
     $sousCategories2 = $sousCategories2Repository->findAll();
 
     $articlesCountByVille = [];
-  
+
     foreach ($sousCategories2 as $sousCategory2) {
         $articlesCountByVille[$sousCategory2->getId()] = $sousCategory2->getArticles()->count();
         $category[$sousCategory2->getId()] = $sousCategory2->getSousCategorie1()->getCategories();
@@ -308,6 +348,13 @@ public function showSousCategories1(): Response
     $souscategoryAll = $this->entityManager->getRepository(SousCategories1::class)->findAll();
     $guides = $this->entityManager->getRepository(Guides::class)->findAll();
     $category = $this->entityManager->getRepository(Categories::class)->findOneBy([]);
+
+    if ($cookieConsent) {
+        $data['showCookiePopup'] = false;
+    } else {
+        $data['showCookiePopup'] = true;
+    }
+
     return $this->render('site/categories/souscategories2.html.twig', [
         'content' => $content,
         'sousCategories2' => $sousCategories2,
@@ -322,13 +369,15 @@ public function showSousCategories1(): Response
         'titre_header' => $content->getTitreHeader(),
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
-        'guides' => $guides
+        'guides' => $guides,
+        'showCookiePopup' => $data['showCookiePopup']
     ]);
 }
 
 #[Route('/articles', name: 'articles')]
 public function articles(Request $request): Response
 {
+    $cookieConsent = $request->cookies->get('cookieConsent');
     $sousCategorie2Ids = array_filter($request->query->all(), function ($key) {
         return $key === 'sousCategorie2Id';
     }, ARRAY_FILTER_USE_KEY);
@@ -349,12 +398,20 @@ public function articles(Request $request): Response
     $sousCategories2Repository = $this->entityManager->getRepository(SousCategories2::class);
     $sousCategories2Names = $sousCategories2Repository->findAll();
     $displayedCategories = [];
+
+    if ($cookieConsent) {
+        $data['showCookiePopup'] = false;
+    } else {
+        $data['showCookiePopup'] = true;
+    }
+
     return $this->render('site/reponse_select/articles.html.twig', [
         'articles' => $articles,
         'content' => $content,
         'guides' => $guides,
         'sousCategories2Names' => $sousCategories2Names,
-        'displayedCategories' => $displayedCategories
+        'displayedCategories' => $displayedCategories,
+        'showCookiePopup' => $data['showCookiePopup']
     ]);
 }
 }

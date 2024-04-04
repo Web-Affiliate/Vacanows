@@ -4,6 +4,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Content;
 use App\Entity\Articles;
@@ -20,8 +21,9 @@ class GuidesController extends AbstractController
     }
 
     #[Route('/guides/{guideSlug}', name: 'guides')]
-    public function guides($guideSlug): Response
+    public function guides($guideSlug, Request $request): Response
     {
+        $cookieConsent = $request->cookies->get('cookieConsent');
         $guide = $this->entityManager->getRepository(Guides::class)->findOneBy(['slug' => $guideSlug]);
         $guides = $this->entityManager->getRepository(Guides::class)->findAll();
 
@@ -46,6 +48,12 @@ class GuidesController extends AbstractController
 
         $souscategories2 = $this->entityManager->getRepository(SousCategories2::class)->findAll();
 
+        if ($cookieConsent) {
+            $data['showCookiePopup'] = false;
+        } else {
+            $data['showCookiePopup'] = true;
+        }
+
         return $this->render('site/guides/index.html.twig', [
             'guide' => $guide,
             'articlesByGuide' => $articlesByGuide,
@@ -54,7 +62,8 @@ class GuidesController extends AbstractController
             'article' => $article,
             'tempsLectureMin' => $tempsLectureMin,
             'tempsLectureMax' => $tempsLectureMax,
-            'souscategories2' => $souscategories2
+            'souscategories2' => $souscategories2,
+            'showCookiePopup' => $data['showCookiePopup'],
         ]);
     }
 

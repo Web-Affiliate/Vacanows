@@ -705,6 +705,50 @@ margin-bottom: 50px;
     display: none;
 }
 
+/* MENTIONS LEGALES */
+
+.mention-legaleContainer {
+    padding: 50px 0;
+}
+
+.mention-legaleContainer h1 {
+    color: var(--primary);
+    font-size: 36px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 10px;
+}
+
+.mention-legaleContainer p {
+    color: var(--text);
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.mention-legaleContainer h2 {
+    color: var(--secondary);
+    font-size: 28px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--secondary);
+}
+
+.mention-legaleContainer a {
+    color: var(--primary); /* Changer en couleur primaire */
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+.mention-legaleContainer span {
+    color: var(--primary); /* Changer en couleur primaire */
+    font-size: 18px;
+}
+
+.mention-legaleContainer a:hover {
+    color: var(--primaryActive); /* Changer en couleur primaire au survol */
+}
+
+
 /* FOOTER */
 footer{
     display: flex;
@@ -737,6 +781,7 @@ footer ul:nth-child(2){
     transition: background-size .3s;
     padding-bottom: 3px;
     cursor: pointer;
+    color: var(--black);
 }
 
 .footer_nav .nav-link:hover, .mention:hover, .cookies:hover {
@@ -904,7 +949,7 @@ s.button {
 }
 
 .btnCook1:active {
-    background-color: var(--primary) !important;
+    background-color: var(--primaryActive) !important;
 }
 
 .btnCook2 {

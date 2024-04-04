@@ -65,7 +65,11 @@ class HomeController extends AbstractController
 
         $guides = $this->entityManager->getRepository(Guides::class)->findAll();
         // $sousCategorie2Id = $this->entityManager->getRepository(SousCategories2::class)->find($sousCategorie2Id);
-
+        if ($cookieConsent) {
+            $data['showCookiePopup'] = false;
+        } else {
+            $data['showCookiePopup'] = true;
+        }
         $data = [
             'content' => $content,
             'categoriesToShow' => $categoriesToShow,
@@ -117,13 +121,8 @@ class HomeController extends AbstractController
             'articlesCountBySousCategorie1' => $articlesCountBySousCategorie1,
             'guides' => $guides,
             // 'sousCategorie2Id' => $sousCategorie2Id,
+            'showCookiePopup' => $data['showCookiePopup'],
         ];
-
-        if ($cookieConsent) {
-            $data['showCookiePopup'] = false;
-        } else {
-            $data['showCookiePopup'] = true;
-        }
 
         return $this->render('site/home/index.html.twig', $data);
         }

@@ -1,5 +1,3 @@
-console.log("cookies.js loaded");
-
 document.addEventListener('DOMContentLoaded', function() {
     var acceptCookiesBtn = document.getElementById('acceptCookiesBtn');
     var rejectCookiesBtn = document.getElementById('rejectCookiesBtn');
@@ -16,8 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     cookieLink.addEventListener('click', function() {
-        showPopup();
+        var cookieConsent = getCookie('cookieConsent');
+        if (!cookieConsent) {
+            showPopup();
+        }
     });
+
+    // Vérifier si le cookie a déjà été accepté ou rejeté
+    var cookieConsent = getCookie('cookieConsent');
+    if (!cookieConsent) {
+        showPopup(); // Afficher le popup si le cookie n'existe pas
+    } else if (cookieConsent && (cookieConsent === 'accepted' || cookieConsent === 'rejected')) {
+        hidePopup(); // Masquer le popup si le cookie a déjà été accepté ou rejeté
+    }
 
     function setCookie(name, value, days) {
         var expires = "";
@@ -27,6 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
             expires = "; expires=" + date.toUTCString();
         }
         document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
     }
 
     function hidePopup() {

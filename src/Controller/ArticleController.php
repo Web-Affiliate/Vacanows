@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Cookie;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Articles;
 use App\Entity\SousCategories1;
@@ -30,8 +31,9 @@ class ArticleController extends AbstractController
      * @Route("/article/{slug}", name="article_show")
      */
     #[Route('/article/{slug}', name: 'article_show')]
-    public function show(Articles $article): Response
+    public function show(Articles $article, Request $request): Response
     {
+        $cookieConsent = $request->cookies->get('cookieConsent');
         $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
         $navbar = [];
         for($i=1; $i<=5; $i++){
@@ -93,6 +95,12 @@ class ArticleController extends AbstractController
 
         $date = $article->getCreatedDate();
 
+        if ($cookieConsent) {
+            $data['showCookiePopup'] = false;
+        } else {
+            $data['showCookiePopup'] = true;
+        }
+
         return $this->render('site/article/index.html.twig', [
             'article' => $article,
             'total' => $totalArticles,
@@ -145,6 +153,7 @@ class ArticleController extends AbstractController
             'articlesWithSameSousCategories2' => $articlesWithSameSousCategories2,
             'currentArticle' => $currentArticle,
             'affiliateLinks' => $affiliateLinksForCurrentVille,
+            'showCookiePopup' => $data['showCookiePopup'],
         ]);
     }
 
