@@ -33,7 +33,7 @@
 {% endif %}
 
 <script>
-    $(document).ready(function() {
+   $(document).ready(function() {
     function fetchSousCategories2() {
         $.ajax({
             url: "{{ path('selection_souscategories2') }}",
@@ -46,7 +46,7 @@
                     allowClear: true,
                     multiple: true,
                     dropdownAutoWidth: false,
-                    dropdownParent: $('#searchForm')
+                    dropdownParent: $('#searchForm'),
                 });
             },
             error: function(xhr, status, error) {
@@ -55,14 +55,12 @@
         });
     }
 
-        function showErrorAndHide() {
+    function showErrorAndHide() {
         $('#errorMessage').show();
         setTimeout(function() {
             $('#errorMessage').hide();
         }, 3000);
     }
-
-    fetchSousCategories2();
 
     function displaySelectedSousCategories2Names(selectedValues) {
         $.ajax({
@@ -117,12 +115,10 @@
     });
 
     $('#searchInput').on('select2:opening', function(event) {
-            $('#errorMessage').hide();
-        });
-
-
-    fetchSousCategories2();
+        $('#errorMessage').hide();
     });
 
+    fetchSousCategories2();
+});
 
 </script>
