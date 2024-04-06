@@ -256,7 +256,7 @@ body {
     width: calc(100% - 60px) !important;
     border: none;
     border-radius: 25px;
-    font-size: 20px;
+    font-size: 20px !important;
     margin-right: 20px;
     width: 330px !important;
 }
@@ -271,7 +271,7 @@ body {
 .search-icon {
     position: absolute;
     top: 50%;
-    right: 50px;
+    right: 40px;
     transform: translateY(-50%);
     width: 45px;
     height: 45px;
@@ -298,13 +298,13 @@ body {
 
 .select2-container .select2-search--inline .select2-search__field{
     margin-top: 10px;
+    font-size: 0;
 }
 
 .select2-container--default .select2-selection--multiple{
     border: none !important;
     border-radius: 25px !important;
     font-size: 20px;
-    margin-right: 20px;
     padding: 10px 20px 10px 20px;
 }
 
@@ -347,6 +347,12 @@ body {
 .select2-container--default.select2-container--open.select2-container--below .select2-selection--single, .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple{
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
+}
+
+.select2-container--default.select2-container--open.select2-container--above .select2-selection--single, .select2-container--default.select2-container--open.select2-container--above .select2-selection--multiple
+{
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
 }
 
 /* END SELECT2 */
@@ -991,6 +997,7 @@ s.button {
 
     .titre-section{
         text-align: center;
+        margin-top: 100px;
     }
 
     .sous-titre{
@@ -1123,15 +1130,15 @@ s.button {
     }
 
     .carousel-container{
-        height: 400px;
+        /* height: 400px; */
     }
 
     .carousel-item{
-        height: 300px;
+        /* height: 300px; */
     }
 
     .carousel-item.active{
-        height: 300px;
+        /* height: 300px; */
     }
 
     .search-wrapper {
@@ -1139,8 +1146,6 @@ s.button {
     }
 
     .search-wrapper .search-icon {
-        position: absolute;
-        top: -40px;
         transform: translateY(-50%);
         right: 30px;
         z-index: 1;
@@ -1155,7 +1160,7 @@ s.button {
     }
 
     .paragraph-header{
-        margin: 30px 0 40px 0;
+        margin: 30px 0 20px 0;
         font-size: 10px;
     }
 
@@ -1167,11 +1172,12 @@ s.button {
  /* SELECT2 */
 
  .select2-container--default .select2-selection--multiple {
-    width: calc(100% - 40px);
-    margin: 10px auto;
-    position: relative;
-    border: 1px solid var(--primary) !important;
-    top: -90px;
+    /* width: calc(100% - 40px); */
+    border: 1px solid var(--secondary) !important;
+}
+
+.select2-container--default .select2-results>.select2-results__options{
+
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
@@ -1214,8 +1220,160 @@ s.button {
     font-weight: 400;
 }
 
-/* END SELECT2 */
 
 
 }
+/* END SELECT2 */
 
+/* tablette media queries */
+
+@media (max-width: 1180px) and (min-width: 768px) {
+
+    .titre-header{
+        font-size: 60px;
+        width: 700px;
+    }
+
+    .paragraph-header{
+        font-size: 16px;
+        margin: 40px 0 0px 0;
+    }
+
+    .image-no-border{
+        display: none;
+    }
+
+    .image-1{
+        display: block;
+        margin-top: 150px;
+    }
+
+    .select2-container .select2-search--inline .select2-search__field
+    {
+        font-size: 28px !important;
+    }
+
+    .searchbar-container input::placeholder{
+        color: var(--text);
+        font-size: 20px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+
+    @media (max-width: 1020px) and (min-width: 800px) {
+        .titre-header{
+            font-size: 70px;
+            width: 750px;
+            margin-left : 200px;
+        }
+
+        .paragraph-header{
+            font-size: 16px;
+            margin: 40px 0 60px 200px;
+        }
+
+        .image-1{
+            margin-top: 100px;
+        }
+
+
+        .searchbar-container {
+            width: 90%;
+            top: 60px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid var(--primary) !important;
+        }
+
+        button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled)
+        {
+            padding: 20px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+        }
+
+        .section-2{
+            padding: 70px 0 50px 0;
+        }
+
+        .navbar-nav {
+            flex-direction: column;
+            text-align: center;
+        }
+        .contact-button{
+            margin-top: 20px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+        .nav-item
+        {
+            padding-right: 0;
+        }
+    }
+
+    /* ipad pro */
+    @media (max-width: 1180px) and (min-width: 1024px) {
+        .titre-header{
+            font-size: 70px;
+            width: 750px;
+            margin-left : 200px;
+        }
+
+        .paragraph-header{
+            font-size: 16px;
+            margin: 40px 0 60px 200px;
+        }
+
+        .image-1{
+            margin-top: 0px;
+        }
+
+
+        .searchbar-container {
+            width: 90%;
+            top: 60px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid var(--secondary) !important;
+        }
+
+        button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled)
+        {
+            padding: 20px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+        }
+
+
+        .navbar-nav {
+            flex-direction: column;
+            text-align: center;
+        }
+        .contact-button{
+
+        }
+        .nav-item {
+            padding-right: 30px;
+        }
+        .searchbar-container input::placeholder{
+            color: var(--text);
+            font-size: 22px;
+            font-weight: 400;
+            vertical-align: middle;
+        }
+
+        .navbar-nav
+        {
+            margin: 0;
+        }
+    }
+
+}
