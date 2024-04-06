@@ -41,7 +41,6 @@ class MailController extends AbstractController
 
             $recepteur = 'vacanows@gmail.com';
 
-            // Envoi de l'e-mail
             $this->mailer->sendContact($name, $email, ['subject' => $subject, 'message' => $messageContent], $recepteur, $subject);
 
             return $this->json(['message' => 'Votre message a été envoyé avec succès']);

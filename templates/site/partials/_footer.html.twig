@@ -18,8 +18,9 @@
             <img src="{{ asset('uploads/images/' ~ content.getLogo()) }}" alt="logo" width="80" height="80" class="img-navbar">
         {% endif %}
     </a>
+<div class="footer_contact">
     <div class="newsletter">
-        <p>Rejoignez notre newsletter</p>
+        <p class="joinNews">Rejoignez notre newsletter</p>
         <p>pour recevoir nos nouvelles offres</p>
         <form id="newsletter-form" action="{{ path('alertemail') }}" method="post">
             <div class="input-container">
@@ -40,6 +41,7 @@
             <li><a href="#"><i class="fab fa-tiktok"></i></a></li>
         </ul>
     </div>
+</div>
 </footer>
 
 <script>
@@ -58,9 +60,8 @@
 
             const formData = new FormData(form);
 
-            // Afficher le texte de chargement et cacher le formulaire
             form.classList.add('hidden');
-            loadingText.classList.remove('hidden'); // Affichage du texte de chargement
+            loadingText.classList.remove('hidden');
 
             fetch(form.getAttribute('action'), {
                 method: 'POST',
@@ -76,12 +77,12 @@
                 showMessage(data.message, 'success');
                 form.reset();
                 form.classList.remove('hidden');
-                loadingText.classList.add('hidden'); // Cacher le texte de chargement après la requête réussie
+                loadingText.classList.add('hidden');
             })
             .catch(error => {
                 showMessage('Une erreur s\'est produite lors de l\'inscription à la newsletter.', 'error');
                 form.classList.remove('hidden');
-                loadingText.classList.add('hidden'); // Cacher le texte de chargement en cas d'erreur
+                loadingText.classList.add('hidden');
             });
         });
 

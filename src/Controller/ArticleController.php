@@ -72,16 +72,13 @@ class ArticleController extends AbstractController
                 $propertyName = 'NoteTabItem' . $i;
                 $notes[$i] = $ville->{'get' . ucfirst($propertyName)}();
             }
-            // Récupérer tous les liens d'affiliation pour cette ville
             $affiliateLinks = $this->entityManager->getRepository(Affiliate::class)->findBySousCategories2AndGuide($ville, $article->getGuides());
 
-            // Sélectionner un lien d'affiliation aléatoire parmi ceux disponibles
             $randomAffiliateLink = null;
             if (!empty($affiliateLinks)) {
                 $randomAffiliateLink = $affiliateLinks[array_rand($affiliateLinks)]->getLien();
             }
 
-            // Ajouter le lien d'affiliation (ou une chaîne vide si aucun lien disponible) à la liste des liens
             $affiliateLinksForCurrentVille[] = $randomAffiliateLink ?? '';
 
             $ville->notes = $notes;
