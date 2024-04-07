@@ -151,6 +151,9 @@ class ArticleController extends AbstractController
             'currentArticle' => $currentArticle,
             'affiliateLinks' => $affiliateLinksForCurrentVille,
             'showCookiePopup' => $data['showCookiePopup'],
+            'instagram_link' => $content->getInstagramLink(),
+            'tiktok_link' => $content->getTiktokLink(),
+            'facebook_link' => $content->getFacebookLink(),
         ]);
     }
 

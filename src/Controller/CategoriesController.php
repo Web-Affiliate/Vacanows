@@ -101,7 +101,10 @@ class CategoriesController extends AbstractController
             'placeholder_search' => $content->getPlaceholderSearch(),
             'tempsLecture' => $tempsLecture,
             'guides' => $guides,
-            'showCookiePopup' => $data['showCookiePopup']
+            'showCookiePopup' => $data['showCookiePopup'],
+            'instagram_link' => $content->getInstagramLink(),
+            'tiktok_link' => $content->getTiktokLink(),
+            'facebook_link' => $content->getFacebookLink(),
         ]);
     }
 
@@ -170,7 +173,10 @@ class CategoriesController extends AbstractController
             'placeholder_search' => $content->getPlaceholderSearch(),
             'tempsLecture' => $tempsLecture,
             'guides' => $guides,
-            'showCookiePopup' => $data['showCookiePopup']
+            'showCookiePopup' => $data['showCookiePopup'],
+            'instagram_link' => $content->getInstagramLink(),
+            'tiktok_link' => $content->getTiktokLink(),
+            'facebook_link' => $content->getFacebookLink(),
         ]);
     }
 
@@ -237,7 +243,10 @@ class CategoriesController extends AbstractController
             'sousCategories2Names' => $sousCategories2Names,
             'tempsLecture' => $tempsLecture,
             'guides' => $guides,
-            'showCookiePopup' => $data['showCookiePopup']
+            'showCookiePopup' => $data['showCookiePopup'],
+            'instagram_link' => $content->getInstagramLink(),
+            'tiktok_link' => $content->getTiktokLink(),
+            'facebook_link' => $content->getFacebookLink(),
         ]);
     }
 
@@ -279,7 +288,10 @@ public function showCategories(Request $request): Response
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
         'guides' => $guides,
-        'showCookiePopup' => $data['showCookiePopup']
+        'showCookiePopup' => $data['showCookiePopup'],
+        'instagram_link' => $content->getInstagramLink(),
+        'tiktok_link' => $content->getTiktokLink(),
+        'facebook_link' => $content->getFacebookLink(),
     ]);
 }
 
@@ -324,7 +336,10 @@ public function showSousCategories(Request $request): Response
         'placeholder_search' => $content->getPlaceholderSearch(),
         'guides' => $guides,
         'countSousCategories2' => $countSousCategories2,
-        'showCookiePopup' => $data['showCookiePopup']
+        'showCookiePopup' => $data['showCookiePopup'],
+        'instagram_link' => $content->getInstagramLink(),
+        'tiktok_link' => $content->getTiktokLink(),
+        'facebook_link' => $content->getFacebookLink(),
     ]);
 }
 
@@ -370,7 +385,10 @@ public function showSousCategories1(Request $request): Response
         'paragraph_header' => $content->getParagraphHeader(),
         'placeholder_search' => $content->getPlaceholderSearch(),
         'guides' => $guides,
-        'showCookiePopup' => $data['showCookiePopup']
+        'showCookiePopup' => $data['showCookiePopup'],
+        'instagram_link' => $content->getInstagramLink(),
+        'tiktok_link' => $content->getTiktokLink(),
+        'facebook_link' => $content->getFacebookLink(),
     ]);
 }
 
@@ -411,7 +429,10 @@ public function articles(Request $request): Response
         'guides' => $guides,
         'sousCategories2Names' => $sousCategories2Names,
         'displayedCategories' => $displayedCategories,
-        'showCookiePopup' => $data['showCookiePopup']
+        'showCookiePopup' => $data['showCookiePopup'],
+        'instagram_link' => $content->getInstagramLink(),
+        'tiktok_link' => $content->getTiktokLink(),
+        'facebook_link' => $content->getFacebookLink(),
     ]);
 }
 }

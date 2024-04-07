@@ -56,6 +56,9 @@ class AproposController extends AbstractController
             'text_final' => $about->getTextFinal(),
             'sites' => $about->getSites(),
             'showCookiePopup' => $data['showCookiePopup'],
+            'instagram_link' => $content->getInstagramLink(),
+            'tiktok_link' => $content->getTiktokLink(),
+            'facebook_link' => $content->getFacebookLink(),
         ]);
     }
 }

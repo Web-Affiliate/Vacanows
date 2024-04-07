@@ -193,6 +193,11 @@
     margin-top: 60px;
 }
 
+.section-1-articles a, .section-2-articles a, .section-3-articles a {
+    color: var(--secondary);
+    font-weight: 600;
+}
+
 .nb-glob-sc2{
     font-size: 44px !important;
     font-weight: 400 !important;

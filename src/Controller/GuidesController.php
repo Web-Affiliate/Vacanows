@@ -64,6 +64,9 @@ class GuidesController extends AbstractController
             'tempsLectureMax' => $tempsLectureMax,
             'souscategories2' => $souscategories2,
             'showCookiePopup' => $data['showCookiePopup'],
+            'instagram_link' => $content->getInstagramLink(),
+            'tiktok_link' => $content->getTiktokLink(),
+            'facebook_link' => $content->getFacebookLink(),
         ]);
     }
 
