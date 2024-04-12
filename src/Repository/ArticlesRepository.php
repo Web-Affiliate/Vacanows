@@ -90,6 +90,7 @@ public function findArticlesModifiedOneDayAgo(): array
 {
     $date = new \DateTime();
     $date->modify('-1 day');
+    $date->setTime(0, 0, 0);
 
     return $this->createQueryBuilder('a')
         ->andWhere('a.modif_date >= :date')

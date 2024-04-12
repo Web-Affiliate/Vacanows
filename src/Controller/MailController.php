@@ -49,33 +49,43 @@ class MailController extends AbstractController
         return $this->json(['error' => 'Veuillez remplir tous les champs du formulaire'], 400);
     }
 
-        #[Route('/alertemail', name: 'alertemail')]
-        public function sendAlertEmail(Request $request): Response
-        {
-            $email = $request->request->get('email');
-            $site = $this->entityManager->getRepository(Sites::class)->findOneBy(['id' => 1]);
-            $token = $this->generateToken(32);
+    #[Route('/alertemail', name: 'alertemail')]
+    public function sendAlertEmail(Request $request): Response
+    {
+        $email = $request->request->get('email');
+        $site = $this->entityManager->getRepository(Sites::class)->findOneBy(['id' => 1]);
+        $token = $this->generateToken(32);
 
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                return $this->json(['error' => 'Veuillez entrer une adresse e-mail valide.'], 400);
-            }
+        $existingTodo = $this->entityManager->getRepository(Todo::class)->findOneBy([
+            'mail' => $email,
+            'site' => $site,
+        ]);
 
-            $todo = new Todo();
-            $todo->setMail($email);
-            $todo->setSite($site);
-            $todo->setToken($token);
-
-            $this->entityManager->persist($todo);
-            $this->entityManager->flush();
-
-            $this->mailer->sendAlert($email, [
-                'token' => $token,
-                'site' => $site,
-                'email' => $email
-            ]);
-
-            return $this->json(['message' => 'Inscription à la newsletter réussie.']);
+        if ($existingTodo) {
+            return $this->json(['error' => 'Votre adresse e-mail existe déjà pour ce site.'], 400);
         }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return $this->json(['error' => 'Veuillez entrer une adresse e-mail valide.'], 400);
+        }
+
+        $todo = new Todo();
+        $todo->setMail($email);
+        $todo->setSite($site);
+        $todo->setToken($token);
+
+        $this->entityManager->persist($todo);
+        $this->entityManager->flush();
+
+        $this->mailer->sendAlert($email, [
+            'token' => $token,
+            'site' => $site,
+            'email' => $email
+        ]);
+
+        return $this->json(['message' => 'Inscription à la newsletter réussie.']);
+    }
+
 
         #[Route('/your-alert-mail/{token}', name: 'your_alert_mail')]
         public function yourAlertMail(Request $request, $token): Response

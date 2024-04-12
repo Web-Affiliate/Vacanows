@@ -80,7 +80,7 @@
                 loadingText.classList.add('hidden');
             })
             .catch(error => {
-                showMessage('Une erreur s\'est produite lors de l\'inscription à la newsletter.', 'error');
+                showMessage('Une erreur s\'est produite lors de l\'inscription à la newsletter, Assurez-vous que votre adresse e-mail n\'est pas déjà enregistré.', 'error');
                 form.classList.remove('hidden');
                 loadingText.classList.add('hidden');
             });
@@ -96,6 +96,8 @@
             } else if (type === 'error') {
                 message.style.fontSize = '14px';
                 message.style.color = 'red';
+                message.style.textAlign = 'center';
+                message.style.maxWidth = '500px';
             }
         }
     });
