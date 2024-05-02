@@ -111,7 +111,8 @@
     color: var(--secondary);
     font-weight: 600;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 16px;
+    text-transform: uppercase;
 }
 
 .filAriane a:hover{
@@ -130,7 +131,7 @@
 
 .breadcrumb-item + .breadcrumb-item::before{
     color: var(--secondary);
-    font-size: 22px;
+    font-size: 16px;
 }
 
 .Image-sujetlies{
