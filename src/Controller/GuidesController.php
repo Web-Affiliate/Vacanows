@@ -67,6 +67,15 @@ class GuidesController extends AbstractController
             'instagram_link' => $content->getInstagramLink(),
             'tiktok_link' => $content->getTiktokLink(),
             'facebook_link' => $content->getFacebookLink(),
+
+            // Header
+            'image_header' => $content->getImageHeader(),
+            'image_header2' => $content->getImageHeader2(),
+            'image_header3' => $content->getImageHeader3(),
+            'image_header4' => $content->getImageHeader4(),
+            'titre_header' => $content->getTitreHeader(),
+            'paragraph_header' => $content->getParagraphHeader(),
+            'placeholder_search' => $content->getPlaceholderSearch(),
         ]);
     }
 
