@@ -136,10 +136,6 @@ class Articles
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $meta_image = null;
 
-    public function __construct()
-    {
-        $this->libelles = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {

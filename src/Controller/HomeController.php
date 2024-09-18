@@ -58,6 +58,7 @@ class HomeController extends AbstractController
             }
         }
 
+
         $totalArticles = $this->entityManager->getRepository(Articles::class)->countTotalArticles();
 
         $sousCategories1Repository = $this->entityManager->getRepository(SousCategories1::class);

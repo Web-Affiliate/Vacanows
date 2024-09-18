@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="G:\projet\WebDigit\Vacanows\phpunit.xml.dist" tests="7" assertions="10" errors="0" failures="0" skipped="0" time="0.018113">
+    <testsuite name="Project Test Suite" tests="7" assertions="10" errors="0" failures="0" skipped="0" time="0.018113">
+      <testsuite name="App\Tests\Entity\SousCategories2Test" file="G:\projet\WebDigit\Vacanows\tests\Entity\SousCategories2Test.php" tests="7" assertions="10" errors="0" failures="0" skipped="0" time="0.018113">
+        <testcase name="testGetSetNom" file="G:\projet\WebDigit\Vacanows\tests\Entity\SousCategories2Test.php" line="13" class="App\Tests\Entity\SousCategories2Test" classname="App.Tests.Entity.SousCategories2Test" assertions="1" time="0.005586"/>
+        <testcase name="testGetSetSousCategorie1" file="G:\projet\WebDigit\Vacanows\tests\Entity\SousCategories2Test.php" line="22" class="App\Tests\Entity\SousCategories2Test" classname="App.Tests.Entity.SousCategories2Test" assertions="1" time="0.000343"/>
+        <testcase name="testGetSetImage" file="G:\projet\WebDigit\Vacanows\tests\Entity\SousCategories2Test.php" line="31" class="App\Tests\Entity\SousCategories2Test" classname="App.Tests.Entity.SousCategories2Test" assertions="1" time="0.000082"/>
+        <testcase name="testGetSetNotes" file="G:\projet\WebDigit\Vacanows\tests\Entity\SousCategories2Test.php" line="40" class="App\Tests\Entity\SousCategories2Test" classname="App.Tests.Entity.SousCategories2Test" assertions="2" time="0.000085"/>
+        <testcase name="testAddRemoveArticles" file="G:\projet\WebDigit\Vacanows\tests\Entity\SousCategories2Test.php" line="54" class="App\Tests\Entity\SousCategories2Test" classname="App.Tests.Entity.SousCategories2Test" assertions="2" time="0.011640"/>
+        <testcase name="testAddRemoveAffiliates" file="G:\projet\WebDigit\Vacanows\tests\Entity\SousCategories2Test.php" line="66" class="App\Tests\Entity\SousCategories2Test" classname="App.Tests.Entity.SousCategories2Test" assertions="2" time="0.000302"/>
+        <testcase name="testToString" file="G:\projet\WebDigit\Vacanows\tests\Entity\SousCategories2Test.php" line="78" class="App\Tests\Entity\SousCategories2Test" classname="App.Tests.Entity.SousCategories2Test" assertions="1" time="0.000076"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

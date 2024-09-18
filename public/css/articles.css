@@ -1,6 +1,9 @@
 @import "./vars.css";
 @import "./mixin.css";
 
+strong{
+    color: var(--secondary);
+}
 
 .section-1-articles
 {
@@ -30,6 +33,12 @@
     max-height: 700px;
     object-fit: cover;
     border-radius: 25px;
+
+}
+
+.paragraph-section a{
+    font-weight: 600;
+    color: var(--secondary);
 
 }
 
