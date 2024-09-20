@@ -241,38 +241,42 @@ public function postComment(Articles $article, Request $request): JsonResponse
     return new JsonResponse(['success' => false, 'message' => 'Comment cannot be empty.']);
 }
 
-
 /**
  * @Route("/article/{slug}/comments/{page}", name="get_comments", methods={"GET"}, defaults={"page": 1})
  */
 #[Route('/article/{slug}/comments/{page}', name: 'get_comments', methods: ['GET'], defaults: ['page' => 1])]
 public function getComments(Articles $article, int $page): JsonResponse
 {
-    $limit = 4;
+    $limit = 4; // Nombre de commentaires par page
     $offset = ($page - 1) * $limit;
 
+    // Récupérer les commentaires avec pagination
     $comments = $this->entityManager->getRepository(Comment::class)
         ->findBy(['article' => $article], ['date_creation' => 'DESC'], $limit, $offset);
 
+    // Compter le total de commentaires
     $totalComments = $this->entityManager->getRepository(Comment::class)
         ->count(['article' => $article]);
 
     $totalPages = ceil($totalComments / $limit);
-    $commentsArray = [];
     $userTimezone = 'Europe/Paris';
 
-    foreach ($comments as $comment) {
-        $commentsArray[] = [
-            'username' => $comment->getUser()->getUsername(),
-            'comment' => $comment->getComment(),
-            'elapsedTime' => $comment->getElapsedTime($userTimezone),
-        ];
-    }
+    // Rendu des commentaires en HTML
+    $commentsHtml = $this->renderView('site/article/comments_list.html.twig', [
+        'comments' => $comments,
+        'user_timezone' => $userTimezone,
+    ]);
+
+    // Rendu de la pagination en HTML
+    $paginationHtml = $this->renderView('site/article/pagination.html.twig', [
+        'currentPage' => $page,
+        'totalPages' => $totalPages,
+        'slug' => $article->getSlug(),
+    ]);
 
     return new JsonResponse([
-        'comments' => $commentsArray,
-        'totalPages' => $totalPages,
-        'currentPage' => $page,
+        'commentsHtml' => $commentsHtml,
+        'paginationHtml' => $paginationHtml,
     ]);
 }
 

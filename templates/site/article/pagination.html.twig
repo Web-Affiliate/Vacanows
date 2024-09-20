@@ -1,0 +1,65 @@
+<div class="pagination">
+    {% if currentPage > 1 %}
+<a href="{{ path('get_comments', {'slug': slug, 'page': currentPage - 1}) }}" class="prev">Précédent</a>
+{% endif %}
+
+{% if totalPages > 5 %}
+{% for i in 1..totalPages %}
+    {% if i <= 3 or i >= totalPages - 2 or (i >= currentPage - 1 and i <= currentPage + 1) %}
+        <a href="{{ path('get_comments', {'slug': slug, 'page': i}) }}"
+           class="{{ i == currentPage ? 'active' : '' }}">{{ i }}</a>
+    {% elseif (i == 4 and currentPage > 5) or (i == totalPages - 3 and currentPage < totalPages - 4) %}
+        <span>...</span>
+    {% endif %}
+{% endfor %}
+{% else %}
+{% for i in 1..totalPages %}
+    <a href="{{ path('get_comments', {'slug': slug, 'page': i}) }}"
+       class="{{ i == currentPage ? 'active' : '' }}">{{ i }}</a>
+{% endfor %}
+{% endif %}
+
+{% if currentPage < totalPages %}
+<a href="{{ path('get_comments', {'slug': slug, 'page': currentPage + 1}) }}" class="next">Suivant</a>
+{% endif %}
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function loadComments(url) {
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const commentsList = document.querySelector('.comments-list');
+                const paginationContainer = document.querySelector('.pagination');
+    
+                // Remplacer les commentaires et la pagination par les nouveaux contenus
+                commentsList.innerHTML = data.commentsHtml;
+                paginationContainer.innerHTML = data.paginationHtml;
+    
+                // Réattacher l'événement de pagination après chaque mise à jour
+                attachPaginationEvents();
+            });
+        }
+    
+        function attachPaginationEvents() {
+            document.querySelectorAll('.pagination a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+                    loadComments(url);
+                });
+            });
+        }
+    
+        // Attache l'événement de pagination au chargement initial
+        attachPaginationEvents();
+    });
+    
+    </script>

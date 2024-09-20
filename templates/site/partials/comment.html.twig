@@ -11,50 +11,29 @@
         {% if comments|length == 0 %}
             <p class="no-comments-message">Pas encore de commentaires. Soyez le premier à commenter !</p>
         {% else %}
-            {% for comment in comments %}
-                <div class="comment" data-id="{{ comment.id }}">
-                    <div class="comment-content">
-                        <div class="comment-author">
-                            <span class="author-name">{{ comment.user.username }}</span>
-                            <span class="comment-date">{{ comment.getElapsedTime(user_timezone) }}</span>
-                        </div>
-                        <div class="comment-body">
-                            <p class="comment-text">{{ comment.comment }}</p>
-                            {% if app.user and app.user.id == comment.user.id %}
-                                <i class="fas fa-trash delete-icon delete-icon-comment"></i>
-                            {% endif %}
-                        </div>
-                    </div>
+        {% for comment in comments %}
+        <div class="comment" data-id="{{ comment.id }}">
+            <div class="comment-content">
+                <div class="comment-author">
+                    <span class="author-name">{{ comment.user.username }}</span>
+                    <span class="comment-date">{{ comment.getElapsedTime(user_timezone) }}</span>
                 </div>
-            {% endfor %}
+                <div class="comment-body">
+                    <p class="comment-text">{{ comment.comment }}</p>
+                    {% if app.user and app.user.id == comment.user.id %}
+                        <i class="fas fa-trash delete-icon delete-icon-comment"></i>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
         {% endif %}
     </div>
 
-    <div class="pagination">
-        {% if currentPage > 1 %}
-            <a href="{{ path('get_comments', {'slug': article.slug, 'page': currentPage - 1}) }}" class="prev">Précédent</a>
-        {% endif %}
+        {{ include('site/article/pagination.html.twig') }}
 
-        {% if totalPages > 5 %}
-            {% for i in 1..totalPages %}
-                {% if i <= 3 or i >= totalPages - 2 or (i >= currentPage - 1 and i <= currentPage + 1) %}
-                    <a href="{{ path('get_comments', {'slug': article.slug, 'page': i}) }}"
-                       class="{{ i == currentPage ? 'active' : '' }}">{{ i }}</a>
-                {% elseif (i == 4 and currentPage > 5) or (i == totalPages - 3 and currentPage < totalPages - 4) %}
-                    <span>...</span>
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            {% for i in 1..totalPages %}
-                <a href="{{ path('get_comments', {'slug': article.slug, 'page': i}) }}"
-                   class="{{ i == currentPage ? 'active' : '' }}">{{ i }}</a>
-            {% endfor %}
-        {% endif %}
 
-        {% if currentPage < totalPages %}
-            <a href="{{ path('get_comments', {'slug': article.slug, 'page': currentPage + 1}) }}" class="next">Suivant</a>
-        {% endif %}
-    </div>
 </div>
 
 <script>
@@ -149,5 +128,54 @@ function attachDeleteEvent(icon) {
 document.querySelectorAll('.delete-icon').forEach(icon => {
     attachDeleteEvent(icon);
 });
+
+document.querySelectorAll('.pagination a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const url = this.getAttribute('href');
+        
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const commentsList = document.querySelector('.comments-list');
+            commentsList.innerHTML = ''; // Vide la liste actuelle des commentaires
+
+            // Ajoute les nouveaux commentaires
+            data.comments.forEach(comment => {
+                const newComment = `
+                    <div class="comment" data-id="${comment.id}">
+                        <div class="comment-content">
+                            <div class="comment-author">
+                                <span class="author-name">${comment.username}</span>
+                                <span class="comment-date">${comment.elapsedTime}</span>
+                            </div>
+                            <div class="comment-body">
+                                <p class="comment-text">${comment.comment}</p>
+                                ${comment.canDelete ? '<i class="fas fa-trash delete-icon delete-icon-comment"></i>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                commentsList.insertAdjacentHTML('beforeend', newComment);
+            });
+
+            // Mets à jour la pagination
+            const paginationContainer = document.querySelector('.pagination');
+            paginationContainer.innerHTML = data.paginationHtml;
+
+            // Attache l'événement de suppression aux nouveaux commentaires
+            document.querySelectorAll('.delete-icon').forEach(icon => {
+                attachDeleteEvent(icon);
+            });
+        });
+    });
+});
+
 
 </script>
