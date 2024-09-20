@@ -1,2 +1,165 @@
 @import "./vars.css";
 @import "./mixin.css";
+
+/* Comment Section Styles */
+.comments-section {
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.comment {
+    position: relative;
+}
+
+.delete-icon {
+    margin-left: 10px;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.delete-icon:hover {
+    color: var(--secondary);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+    margin: 0 5px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    color: var(--text);
+    transition: background-color 0.1s ease;
+}
+
+.pagination a:hover {
+    background-color: var(--secondary);
+    transition: background-color 0.1s ease;
+    color: white;
+}
+
+.pagination .active {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.pagination .prev, .pagination .next {
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+
+.comment:hover .options,
+.comment:hover .delete-comment-btn {
+    display: inline; /* Affiche les options et le bouton lors du survol */
+}
+
+.delete-icon-comment{
+    color: var(--text);
+    cursor: pointer;
+    margin-left: auto;
+    align-self: flex-end;
+}
+
+.error-comment-message{
+    color: red;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.comments-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.comment-form {
+    margin-bottom: 40px;
+}
+
+.comment-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    resize: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: var(--black);
+}
+
+.comment-textarea::placeholder {
+    color: var(--text);
+}
+
+.submit-comment-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-comment-btn:hover {
+    background-color: var(--primaryHover);
+}
+
+.comments-list {
+    margin-top: 20px;
+}
+
+.comment {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comment-author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.author-name {
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.comment-date {
+    font-size: 12px;
+    color: var(--text);
+}
+
+.comment-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.comment-text {
+    font-size: 14px;
+    color: var(--black);
+    flex-grow: 1;
+}

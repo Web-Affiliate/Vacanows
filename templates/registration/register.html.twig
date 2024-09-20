@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<div class="centered-form">
+    <div class="register-form">
+        <h1>Inscription</h1>
+        <form method="post">
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword.first) }}
+                {{ form_row(registrationForm.plainPassword.second) }}
+                <button type="submit">S'inscrire</button>
+            {{ form_end(registrationForm) }}
+        </form>
+
+        <div class="toggle-form">
+            <a href="{{ path('app_login') }}">Vous avez déjà un compte ?</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

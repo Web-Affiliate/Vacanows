@@ -1,0 +1,191 @@
+@import "./vars.css";
+@import "./mixin.css";
+
+
+/* Formulaire de connexion */
+.login-form {
+    margin-top: 20px;
+}
+
+/* Styles pour les boutons de basculement entre login/register */
+.toggle-form {
+    text-align: center;
+    margin-top: 20px; /* Espace entre le formulaire et le bouton */
+}
+
+.toggle-form a {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text);
+    margin-bottom: 10px;
+    transition: color 0.1s ease;
+    cursor: pointer;
+}
+
+.toggle-form a:hover{
+    color: var(--primary);
+    transition: color 0.1s ease;
+    text-decoration: underline;
+}
+
+.form-switch-button {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-switch-button:hover {
+    background-color: var(--primaryHover);
+}
+
+.form-switch-button:active {
+    background-color: var(--primaryActive);
+}
+
+
+.login-form .form-group {
+    margin-bottom: 15px;
+}
+
+.login-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--black);
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--text);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 4px rgba(231, 111, 81, 0.5);
+}
+
+.login-form button[type="submit"] {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Espace au-dessus du bouton */
+    align-self: center; /* Centre le bouton */
+}
+
+.login-form button[type="submit"]:hover {
+    background-color: var(--primaryHover);
+}
+
+.login-form button[type="submit"]:active {
+    background-color: var(--primaryActive);
+}
+
+.login-form .error-message {
+    color: var(--secondary);
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Formulaire d'inscription */
+.register-form {
+    margin-top: 20px;
+}
+
+.register-form .form-group {
+    margin-bottom: 15px;
+}
+
+.register-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--black);
+}
+
+.register-form input[type="email"],
+.register-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--text);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+.register-form input[type="email"]:focus,
+.register-form input[type="password"]:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 4px rgba(231, 111, 81, 0.5);
+}
+
+.register-form button[type="submit"] {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Espace au-dessus du bouton */
+    align-self: center; /* Centre le bouton */
+}
+
+.register-form button[type="submit"]:hover {
+    background-color: var(--primaryHover);
+}
+
+.register-form button[type="submit"]:active {
+    background-color: var(--primaryActive);
+}
+
+.register-form .error-message {
+    color: var(--secondary);
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.centered-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Assure que le formulaire est centré verticalement */
+    background-color: var(--background-articles); /* Fond clair pour les formulaires */
+    background: linear-gradient(45deg, var(--primary-t), var(--primary-d));
+    background-size: 400% 400%;
+    animation: gradientBackground 10s ease infinite;
+}

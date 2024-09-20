@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<div class="centered-form">
+    <div class="login-form">
+        <h1>Connexion</h1>
+        <form action="{{ path('app_login') }}" method="post">
+            <div class="form-group">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            </div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="_username" value="{{ last_username }}" required>
+
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="_password" required>
+
+            {% if error %}
+                <div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <button type="submit">Se connecter</button>
+        </form>
+
+        <div class="toggle-form">
+            <a href="{{ path('app_register') }}">Vous n'avez pas encore de compte ?</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
