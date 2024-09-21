@@ -207,7 +207,9 @@
     </div>
 </section>
 
-{% include 'site/partials/comment.html.twig' %}
+{% include 'site/article/comment.html.twig' %}
+{{ include('site/article/pagination.html.twig') }}
+
 
 <section class="container section-7-articles">
     <div class="row" id="nouveaux-articles-container">

@@ -258,22 +258,27 @@ public function getComments(Articles $article, int $page): JsonResponse
     $totalComments = $this->entityManager->getRepository(Comment::class)
         ->count(['article' => $article]);
 
+        $slug = $article->getSlug();
+
+        $article = $this->entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
+
     $totalPages = ceil($totalComments / $limit);
     $userTimezone = 'Europe/Paris';
 
     // Rendu des commentaires en HTML
-    $commentsHtml = $this->renderView('site/article/comments_list.html.twig', [
+    $commentsHtml = $this->renderView('site/article/comment.html.twig', [
+        
         'comments' => $comments,
         'user_timezone' => $userTimezone,
+        'article' => $article,
     ]);
 
-    // Rendu de la pagination en HTML
     $paginationHtml = $this->renderView('site/article/pagination.html.twig', [
         'currentPage' => $page,
         'totalPages' => $totalPages,
         'slug' => $article->getSlug(),
     ]);
-
+    
     return new JsonResponse([
         'commentsHtml' => $commentsHtml,
         'paginationHtml' => $paginationHtml,

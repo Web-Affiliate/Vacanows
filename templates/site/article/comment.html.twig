@@ -31,9 +31,6 @@
         {% endif %}
     </div>
 
-        {{ include('site/article/pagination.html.twig') }}
-
-
 </div>
 
 <script>
@@ -129,53 +126,7 @@ document.querySelectorAll('.delete-icon').forEach(icon => {
     attachDeleteEvent(icon);
 });
 
-document.querySelectorAll('.pagination a').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
 
-        const url = this.getAttribute('href');
-        
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const commentsList = document.querySelector('.comments-list');
-            commentsList.innerHTML = ''; // Vide la liste actuelle des commentaires
-
-            // Ajoute les nouveaux commentaires
-            data.comments.forEach(comment => {
-                const newComment = `
-                    <div class="comment" data-id="${comment.id}">
-                        <div class="comment-content">
-                            <div class="comment-author">
-                                <span class="author-name">${comment.username}</span>
-                                <span class="comment-date">${comment.elapsedTime}</span>
-                            </div>
-                            <div class="comment-body">
-                                <p class="comment-text">${comment.comment}</p>
-                                ${comment.canDelete ? '<i class="fas fa-trash delete-icon delete-icon-comment"></i>' : ''}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                commentsList.insertAdjacentHTML('beforeend', newComment);
-            });
-
-            // Mets à jour la pagination
-            const paginationContainer = document.querySelector('.pagination');
-            paginationContainer.innerHTML = data.paginationHtml;
-
-            // Attache l'événement de suppression aux nouveaux commentaires
-            document.querySelectorAll('.delete-icon').forEach(icon => {
-                attachDeleteEvent(icon);
-            });
-        });
-    });
-});
 
 
 </script>
