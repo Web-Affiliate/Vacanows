@@ -73,35 +73,7 @@ document.getElementById('submit-comment-btn').addEventListener('click', function
     }
 });
 
-// Fonction pour attacher l'événement de suppression
-function attachDeleteEvent(icon) {
-    icon.addEventListener('click', function() {
-        const commentElement = this.closest('.comment');
-        const commentId = commentElement.dataset.id;
 
-        // Vérifie si commentId est bien défini
-        if (commentId) {
-            fetch(`/comment/${commentId}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    commentElement.remove();
-                } else {
-                    alert('Error: Could not delete the comment.');
-                }
-            });
-        } else {
-            alert('Error: Comment ID is undefined.');
-        }
-    });
-}
-
-// Attache l'événement de suppression pour les commentaires existants
 document.querySelectorAll('.delete-icon').forEach(icon => {
     attachDeleteEvent(icon);
 });
