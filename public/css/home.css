@@ -51,12 +51,47 @@ body {
     width: 100%;
 
 }
+
+.profile-circle {
+    display: inline-block;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
+    text-align: center;
+    line-height: 35px;
+}
+
+
+.profile-popup a:hover {
+    background-color: #f2f2f2;
+}
+
+@media screen and (max-width: 1030px) {
+
+    .profile-circle {
+        line-height: 15px;
+    }
+
+}
+
+.circle-link {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    font-weight: bold;
+    align-items: center;
+    background: none !important;
+}
+
+
 .navbar-nav {
     display: flex;
     list-style: none;
     margin: 0 80px;
     padding: 0;
     flex-direction: row;
+    align-items: center;
 }
 
 .nav-item {
@@ -76,6 +111,15 @@ body {
     transition: background-size .3s;
     padding-bottom: 3px;
     padding-top: 3px;
+}
+
+.navbar-nav .profile-circle a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.navbar-nav .profile-circle a:hover {
+    color: var(--white);
 }
 
 .navbar-nav a:hover {

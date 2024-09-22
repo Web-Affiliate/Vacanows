@@ -7,31 +7,11 @@
         <button id="submit-comment-btn" class="submit-comment-btn">Poster le commentaire</button>
     </div>
 
-    <div class="comments-list">
-        {% if comments|length == 0 %}
-            <p class="no-comments-message">Pas encore de commentaires. Soyez le premier à commenter !</p>
-        {% else %}
-        {% for comment in comments %}
-        <div class="comment" data-id="{{ comment.id }}">
-            <div class="comment-content">
-                <div class="comment-author">
-                    <span class="author-name">{{ comment.user.username }}</span>
-                    <span class="comment-date">{{ comment.getElapsedTime(user_timezone) }}</span>
-                </div>
-                <div class="comment-body">
-                    <p class="comment-text">{{ comment.comment }}</p>
-                    {% if app.user and app.user.id == comment.user.id %}
-                        <i class="fas fa-trash delete-icon delete-icon-comment"></i>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-    
-        {% endif %}
+    <div id="comments-container">
+        {% include 'site/article/comments-list.html.twig' %}
     </div>
-
 </div>
+
 
 <script>
 document.getElementById('submit-comment-btn').addEventListener('click', function() {

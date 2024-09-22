@@ -1,14 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} Inscription - Vacanows{% endblock %}
+
+
 {% block main %}
 <div class="centered-form">
-    <div class="register-form">
+    <div class="form-container">
         <h1>Inscription</h1>
         <form method="post">
             {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.plainPassword.first) }}
-                {{ form_row(registrationForm.plainPassword.second) }}
+                <div class="form-group">
+                    {{ form_row(registrationForm.email) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(registrationForm.plainPassword.first) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(registrationForm.plainPassword.second) }}
+                </div>
                 <button type="submit">S'inscrire</button>
             {{ form_end(registrationForm) }}
         </form>
@@ -18,4 +27,9 @@
         </div>
     </div>
 </div>
+
+<!-- Vagues en arrière-plan -->
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
 {% endblock %}

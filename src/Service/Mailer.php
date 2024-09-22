@@ -18,7 +18,7 @@ class Mailer
     public function sendContact($emetteur, $email, array $data, $recepteur, $subject)
     {
         $userEmail = (new TemplatedEmail())
-            ->from('vacanows@gmail.com')
+            ->from('no-reply@vacanows.com')
             ->to($email)
             ->subject('Confirmation de réception de votre message')
             ->htmlTemplate('site/mail/contact.html.twig')
@@ -27,7 +27,7 @@ class Mailer
             ]);
 
         $vacanowsEmail = (new TemplatedEmail())
-            ->from($email)
+            ->from('no-reply@vacanows.com')
             ->to($recepteur)
             ->subject($subject . ' - ' . $email . ' - ' . $emetteur)
             ->text($data['message']);
@@ -40,7 +40,7 @@ class Mailer
     public function sendAlert($email, $data)
     {
         $alertEmail = (new TemplatedEmail())
-            ->from('vacanows@gmail.com')
+            ->from('no-reply@vacanows.com')
             ->to($email)
             ->subject('Inscription à la newsletter')
             ->htmlTemplate('site/mail/confirmationInscription.html.twig')
@@ -54,7 +54,7 @@ class Mailer
     public function sendCurrentAlert($email, $data)
     {
         $alertEmail = (new TemplatedEmail())
-            ->from('vacanows@gmail.com')
+            ->from('no-reply@vacanows.com')
             ->to($email)
             ->subject('Articles récents de notre plateforme')
             ->htmlTemplate('site/mail/articlesAlert.html.twig')
@@ -63,6 +63,21 @@ class Mailer
             ]);
 
         $this->mailer->send($alertEmail);
+    }
+
+    public function sendPasswordResetEmail($email, $token)
+    {
+        $resetEmail = (new TemplatedEmail())
+            ->from('no-reply@vacanows.com')
+            ->to($email)
+            ->subject('Réinitialisation de votre mot de passe')
+            ->htmlTemplate('site/mail/reset_password.html.twig')
+            ->context([
+                'resetToken' => $token,
+                'userEmail' => $email,
+            ]);
+
+        $this->mailer->send($resetEmail);
     }
 
 

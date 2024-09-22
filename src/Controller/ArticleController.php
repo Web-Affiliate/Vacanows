@@ -247,42 +247,39 @@ public function postComment(Articles $article, Request $request): JsonResponse
 #[Route('/article/{slug}/comments/{page}', name: 'get_comments', methods: ['GET'], defaults: ['page' => 1])]
 public function getComments(Articles $article, int $page): JsonResponse
 {
-    $limit = 4; // Nombre de commentaires par page
+    $limit = 4;
     $offset = ($page - 1) * $limit;
 
-    // Récupérer les commentaires avec pagination
     $comments = $this->entityManager->getRepository(Comment::class)
         ->findBy(['article' => $article], ['date_creation' => 'DESC'], $limit, $offset);
 
-    // Compter le total de commentaires
     $totalComments = $this->entityManager->getRepository(Comment::class)
         ->count(['article' => $article]);
 
-        $slug = $article->getSlug();
-
-        $article = $this->entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
-
     $totalPages = ceil($totalComments / $limit);
+
     $userTimezone = 'Europe/Paris';
 
-    // Rendu des commentaires en HTML
-    $commentsHtml = $this->renderView('site/article/comment.html.twig', [
-        
+    $commentsHtml = $this->renderView('site/article/comments-list.html.twig', [
         'comments' => $comments,
-        'user_timezone' => $userTimezone,
         'article' => $article,
+        'currentPage' => $page,
+        'totalPages' => $totalPages,
+        'user_timezone' => $userTimezone,
+        'slug' => $article->getSlug(),
     ]);
 
     $paginationHtml = $this->renderView('site/article/pagination.html.twig', [
         'currentPage' => $page,
         'totalPages' => $totalPages,
-        'slug' => $article->getSlug(),
+        'slug' => $article->getSlug(),  // Envoi du slug
     ]);
-    
+
     return new JsonResponse([
         'commentsHtml' => $commentsHtml,
         'paginationHtml' => $paginationHtml,
     ]);
 }
+
 
 }

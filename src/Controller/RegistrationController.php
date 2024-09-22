@@ -37,6 +37,7 @@ class RegistrationController extends AbstractController
 
             // Attribution du rôle ROLE_USER
             $user->setRoles(['ROLE_USER']);
+            $user->setToken($this->generateToken());
             $user->setUsername($this->generateUsername($user->getUsername()));
 
             // Sauvegarde de l'utilisateur en base de données
@@ -60,6 +61,11 @@ class RegistrationController extends AbstractController
         } while ($existingUser !== null);
 
         return $username;
+    }
+
+    public function generateToken(): string
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 }
 

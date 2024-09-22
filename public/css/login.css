@@ -7,24 +7,18 @@
     margin-top: 20px;
 }
 
-/* Styles pour les boutons de basculement entre login/register */
 .toggle-form {
-    text-align: center;
-    margin-top: 20px; /* Espace entre le formulaire et le bouton */
+    margin-top: 15px;
 }
 
 .toggle-form a {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--text);
-    margin-bottom: 10px;
-    transition: color 0.1s ease;
-    cursor: pointer;
+    color: #FF6F00;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.toggle-form a:hover{
-    color: var(--primary);
-    transition: color 0.1s ease;
-    text-decoration: underline;
+.toggle-form a:hover {
+    color: #FF4500;
 }
 
 .form-switch-button {
@@ -105,6 +99,65 @@
     font-size: 14px;
 }
 
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.form-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.form-container label {
+    margin-bottom: 5px;
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--secondary);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-container input:focus {
+    border-color: #FF4500;
+    outline: none;
+    box-shadow: 0 0 4px rgba(255, 111, 0, 0.5);
+}
+
+.form-container button {
+    background-color: var(--secondary);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: var(--secondaryHover);
+}
+
 /* Formulaire d'inscription */
 .register-form {
     margin-top: 20px;
@@ -167,25 +220,70 @@
     font-size: 14px;
 }
 
-@keyframes gradientBackground {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
 .centered-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Assure que le formulaire est centré verticalement */
-    background-color: var(--background-articles); /* Fond clair pour les formulaires */
-    background: linear-gradient(45deg, var(--primary-t), var(--primary-d));
+    min-height: 100vh;
+    background: linear-gradient(315deg, var(--primary) 3%, var(--primaryActive) 68%, var(--primary) 98%);
+    animation: gradient 15s ease infinite;
     background-size: 400% 400%;
-    animation: gradientBackground 10s ease infinite;
+    background-attachment: fixed;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+/* Vagues d'animation en fond */
+.wave {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+    25% {
+        transform: translateX(-25%);
+    }
+    50% {
+        transform: translateX(-50%);
+    }
+    75% {
+        transform: translateX(-25%);
+    }
+    100% {
+        transform: translateX(1);
+    }
 }

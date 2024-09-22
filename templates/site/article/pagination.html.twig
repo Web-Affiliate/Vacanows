@@ -1,65 +1,103 @@
 <div class="pagination">
     {% if currentPage > 1 %}
-<a href="{{ path('get_comments', {'slug': slug, 'page': currentPage - 1}) }}" class="prev">Précédent</a>
-{% endif %}
-
-{% if totalPages > 5 %}
-{% for i in 1..totalPages %}
-    {% if i <= 3 or i >= totalPages - 2 or (i >= currentPage - 1 and i <= currentPage + 1) %}
-        <a href="{{ path('get_comments', {'slug': slug, 'page': i}) }}"
-           class="{{ i == currentPage ? 'active' : '' }}">{{ i }}</a>
-    {% elseif (i == 4 and currentPage > 5) or (i == totalPages - 3 and currentPage < totalPages - 4) %}
-        <span>...</span>
+        <a href="{{ path('get_comments', {'slug': slug, 'page': currentPage - 1}) }}" class="prev">Précédent</a>
     {% endif %}
-{% endfor %}
-{% else %}
-{% for i in 1..totalPages %}
-    <a href="{{ path('get_comments', {'slug': slug, 'page': i}) }}"
-       class="{{ i == currentPage ? 'active' : '' }}">{{ i }}</a>
-{% endfor %}
-{% endif %}
 
-{% if currentPage < totalPages %}
-<a href="{{ path('get_comments', {'slug': slug, 'page': currentPage + 1}) }}" class="next">Suivant</a>
-{% endif %}
+    {% if totalPages > 1 %}
+        <a href="{{ path('get_comments', {'slug': slug, 'page': 1}) }}" class="{{ currentPage == 1 ? 'active' : '' }}">1</a>
 
+        {% if totalPages == 2 %}
+            <a href="{{ path('get_comments', {'slug': slug, 'page': 2}) }}" class="{{ currentPage == 2 ? 'active' : '' }}">2</a>
+
+        {% elseif totalPages > 2 %}
+            {% set startPage = max(2, currentPage - 2) %}
+            {% set endPage = min(totalPages - 1, currentPage + 2) %}
+
+            {% if startPage > 2 %}
+                <span>...</span>
+            {% endif %}
+
+            {% for i in startPage..endPage %}
+                <a href="{{ path('get_comments', {'slug': slug, 'page': i}) }}" class="{{ currentPage == i ? 'active' : '' }}">{{ i }}</a>
+            {% endfor %}
+
+            {% if endPage < totalPages - 1 %}
+                <span>...</span>
+            {% endif %}
+
+            <a href="{{ path('get_comments', {'slug': slug, 'page': totalPages}) }}" class="{{ currentPage == totalPages ? 'active' : '' }}">{{ totalPages }}</a>
+        {% endif %}
+    {% endif %}
+
+    {% if currentPage < totalPages %}
+        <a href="{{ path('get_comments', {'slug': slug, 'page': currentPage + 1}) }}" class="next">Suivant</a>
+    {% endif %}
 </div>
 
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        function loadComments(url) {
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
+   document.addEventListener('DOMContentLoaded', function() {
+    function loadComments(url) {
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const commentsContainer = document.getElementById('comments-container');
+
+            // Remplace la liste des commentaires et la pagination
+            commentsContainer.innerHTML = data.commentsHtml;
+
+            // Réattacher les événements de suppression et pagination après mise à jour
+            attachDeleteEvents();
+            attachPaginationEvents();
+        });
+    }
+
+    function attachPaginationEvents() {
+        document.querySelectorAll('.pagination a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.getAttribute('href');
+                loadComments(url);
+            });
+        });
+    }
+
+    function attachDeleteEvents() {
+        document.querySelectorAll('.delete-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const commentElement = this.closest('.comment');
+                const commentId = commentElement.dataset.id;
+
+                if (commentId) {
+                    fetch(`/comment/${commentId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            commentElement.remove();
+                        } else {
+                            alert('Erreur : Impossible de supprimer le commentaire.');
+                        }
+                    });
+                } else {
+                    alert('Erreur : ID du commentaire non défini.');
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const commentsList = document.querySelector('.comments-list');
-                const paginationContainer = document.querySelector('.pagination');
-    
-                // Remplacer les commentaires et la pagination par les nouveaux contenus
-                commentsList.innerHTML = data.commentsHtml;
-                paginationContainer.innerHTML = data.paginationHtml;
-    
-                // Réattacher l'événement de pagination après chaque mise à jour
-                attachPaginationEvents();
             });
-        }
-    
-        function attachPaginationEvents() {
-            document.querySelectorAll('.pagination a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const url = this.getAttribute('href');
-                    loadComments(url);
-                });
-            });
-        }
-    
-        // Attache l'événement de pagination au chargement initial
-        attachPaginationEvents();
-    });
-    
+        });
+    }
+
+    // Attache les événements initiaux de pagination et suppression
+    attachPaginationEvents();
+    attachDeleteEvents();
+});
+
     </script>

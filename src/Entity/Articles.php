@@ -142,6 +142,10 @@ class Articles
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'article')]
     private Collection $comments;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $affiliate_link = null;
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -635,6 +639,18 @@ class Articles
                 $comment->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAffiliateLink(): ?string
+    {
+        return $this->affiliate_link;
+    }
+
+    public function setAffiliateLink(?string $affiliate_link): static
+    {
+        $this->affiliate_link = $affiliate_link;
 
         return $this;
     }
