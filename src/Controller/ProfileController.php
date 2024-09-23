@@ -36,14 +36,13 @@ class ProfileController extends AbstractController
     {
         $user = $this->getUser();
         if (!$user) {
-            return $this->redirectToRoute('app_login'); // Assurez-vous que l'utilisateur est connecté
+            return $this->redirectToRoute('app_login');
         }
 
         $form = $this->createForm(ProfileFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Vérification si le mot de passe est fourni
             $plainPassword = $form->get('plainPassword')->getData();
             if (!empty($plainPassword)) {
                 $user->setPassword($this->passwordHasher->hashPassword($user, $plainPassword));
