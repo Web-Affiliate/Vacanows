@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\ProfileFormType;
 use App\Entity\Content;
 use App\Entity\Comment;
 use App\Entity\Guides;
@@ -34,25 +35,41 @@ class ProfileController extends AbstractController
     public function index(Request $request): Response
     {
         $user = $this->getUser();
-        $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+        if (!$user) {
+            return $this->redirectToRoute('app_login'); // Assurez-vous que l'utilisateur est connecté
+        }
+
+        $form = $this->createForm(ProfileFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Vérification si le mot de passe est fourni
+            $plainPassword = $form->get('plainPassword')->getData();
+            if (!empty($plainPassword)) {
+                $user->setPassword($this->passwordHasher->hashPassword($user, $plainPassword));
+            }
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour avec succès.');
+            return $this->redirectToRoute('profile_index');
+        }
+
+
         $cookieConsent = $request->cookies->get('cookieConsent');
         if ($cookieConsent) {
             $data['showCookiePopup'] = false;
         } else {
             $data['showCookiePopup'] = true;
         }
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
-
-
-        // Récupérer le contenu (s'il y en a)
-        $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
-
         // Récupérer l'historique des commentaires
         $comments = $this->entityManager->getRepository(Comment::class)->findBy(['user' => $user], ['date_creation' => 'DESC']);
+        $guides = $this->entityManager->getRepository(Guides::class)->findAll();
+        $content = $this->entityManager->getRepository(Content::class)->findOneBy([]);
 
         return $this->render('site/profile/index.html.twig', [
+            'form' => $form->createView(),
             'user' => $user,
             'content' => $content,
             'comments' => $comments,
@@ -62,38 +79,6 @@ class ProfileController extends AbstractController
             'tiktok_link' => $content->getTiktokLink(),
             'facebook_link' => $content->getFacebookLink(),
         ]);
-    }
-
-    /**
-     * @Route("/profile/update", name="profile_update", methods={"POST"})
-     */
-    #[Route('/profile/update', name: 'profile_update', methods: ['POST'])]
-    public function update(Request $request): Response
-    {
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
-
-        $newUsername = $request->request->get('username');
-        $newEmail = $request->request->get('email');
-        $newPassword = $request->request->get('password');
-
-        // Mettre à jour les informations de l'utilisateur
-        $user->setUsername($newUsername);
-        $user->setEmail($newEmail);
-
-        if (!empty($newPassword)) {
-            $encodedPassword = $this->passwordHasher->hashPassword($user, $newPassword);
-            $user->setPassword($encodedPassword);
-        }
-
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-
-        $this->addFlash('success', 'Profil mis à jour avec succès.');
-
-        return $this->redirectToRoute('profile_index');
     }
 
     /**

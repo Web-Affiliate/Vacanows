@@ -9,6 +9,7 @@ use App\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use App\Form\ResetPasswordFormType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
@@ -67,19 +68,14 @@ class ForgotPasswordController extends AbstractController
             throw $this->createNotFoundException('Token invalide.');
         }
 
-        $form = $this->createFormBuilder()
-            ->add('password', PasswordType::class, [
-                'label' => 'Nouveau mot de passe',
-                'attr' => ['placeholder' => 'Entrez votre nouveau mot de passe'],
-            ])
-            ->getForm();
-
+        $form = $this->createForm(ResetPasswordFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT)); // Assure-toi que le mot de passe est haché
-            $user->setToken('');
+            $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT); // Hacher le mot de passe
+            $user->setPassword($hashedPassword);
+            $user->setToken(''); // Effacer le token après réinitialisation
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 

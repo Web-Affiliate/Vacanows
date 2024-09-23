@@ -3,7 +3,6 @@
 {% block main %}
 <div class="profile-container container-fluid">
 
-    <!-- Section pour les messages flash de succès -->
     {% for message in app.flashes('success') %}
         <div class="flash-message success">
             {{ message }}
@@ -11,28 +10,34 @@
     {% endfor %}
 
     <div class="profile-content-wrapper">
-        <!-- Formulaire et historique des commentaires -->
         <div class="profile-content">
             <h2 class="profile-comments-title">Mon Profil</h2>
-            <form class="profile-form" method="POST" action="{{ path('profile_update') }}">
+            {{ form_start(form) }}
                 <div class="profile-form-group">
-                    <label for="username" class="profile-label">Nom d'utilisateur</label>
-                    <input type="text" id="username" name="username" class="profile-input" value="{{ user.username }}" required>
+                    {{ form_label(form.username) }}
+                    {{ form_widget(form.username, { 'attr': {'class': 'profile-input'} }) }}
+                    {{ form_errors(form.username) }}
                 </div>
 
                 <div class="profile-form-group">
-                    <label for="email" class="profile-label">Email</label>
-                    <input type="email" id="email" name="email" class="profile-input" value="{{ user.email }}" required>
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email, { 'attr': {'class': 'profile-input'} }) }}
+                    {{ form_errors(form.email) }}
                 </div>
 
                 <div class="profile-form-group">
-                    <label for="password" class="profile-label">Mot de passe</label>
-                    <input type="password" id="password" name="password" class="profile-input">
+                    {{ form_label(form.plainPassword) }}
+                    {{ form_widget(form.plainPassword, { 'attr': {'class': 'profile-input'} }) }}
+                    {% if form.plainPassword.vars.errors|length > 0 %}
+                        <div class="text-danger">
+                            {{ form.plainPassword.vars.errors.0.message }}
+                        </div>
+                    {% endif %}
                     <small class="profile-password-help">Laissez vide si vous ne souhaitez pas changer le mot de passe.</small>
                 </div>
 
                 <button type="submit" class="profile-btn profile-btn-primary">Mettre à jour</button>
-            </form>
+            {{ form_end(form) }}
 
             <div class="profile-comments-history">
                 <h2 class="profile-comments-title">Historique des Commentaires</h2>
@@ -50,10 +55,10 @@
                 {% endif %}
             </div>
 
-<div class="d-flex flex-button-profile ">
-    <a href="{{ path('profile_delete') }}" class="profile-btn profile-btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">Supprimer le compte</a>
-    <a href="{{ path('app_logout') }}" class="profile-btn profile-btn-danger profile-se-deco">Se déconnecter</a>
-</div>
+            <div class="d-flex flex-button-profile">
+                <a href="{{ path('profile_delete') }}" class="profile-btn profile-btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">Supprimer le compte</a>
+                <a href="{{ path('app_logout') }}" class="profile-btn profile-btn-danger profile-se-deco">Se déconnecter</a>
+            </div>
         </div>
 
         <div class="profile-image-container">

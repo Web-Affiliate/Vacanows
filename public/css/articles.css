@@ -341,3 +341,20 @@ cursor:default;
 
 
 }
+/* tablette */
+@media (max-width: 1030px) {
+    .titre-section-articleSearch{
+        margin-top: 100px !important;
+    }
+    .marginTop-Categories{
+        margin-top: 100px !important;
+    }
+}
+
+/* entre mobile et tablette */
+@media (min-width: 768px) and (max-width: 1030px) {
+    .titre-section-articleGuide{
+        margin-top: 100px !important;
+    }
+}
+

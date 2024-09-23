@@ -2,7 +2,6 @@
 .profile-container {
     margin: 50px 0;
     padding: 0 20px;
-    color: #fff;
   }
 
   /* Titre de la page de profil */
@@ -123,6 +122,10 @@
     text-decoration: none;
   }
 
+  .profile_form_plainPassword{
+    color: red !important;
+  }
+
   .profile-se-deco{
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
@@ -174,8 +177,7 @@
 
 
   .profile-btn-danger:hover {
-    background-color: #e60000;
-    transform: scale(1.05);
+    background-color: var(--secondaryHover);
   }
 
   /* Historique des commentaires */
