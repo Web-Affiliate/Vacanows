@@ -76,7 +76,7 @@
 .comments-title {
     font-size: 24px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--secondary);
     margin-bottom: 20px;
 }
 
@@ -88,7 +88,7 @@
     width: 100%;
     height: 100px;
     padding: 10px;
-    border: 2px solid var(--primary);
+    border: 2px solid var(--secondary);
     border-radius: 8px;
     resize: none;
     font-family: 'Montserrat', sans-serif;
@@ -104,7 +104,7 @@
     display: inline-block;
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: var(--primary);
+    background-color: var(--secondary);
     color: var(--white);
     border: none;
     border-radius: 8px;
