@@ -241,7 +241,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const timerElement = document.getElementById('timer');
-            const countdownDate = new Date("October 30, 2024 23:59:59").getTime();
+            const countdownDate = new Date("December 30, 2024 23:59:59").getTime();
 
             const updateCountdown = () => {
                 const now = new Date().getTime();
